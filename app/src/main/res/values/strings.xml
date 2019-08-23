@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PoolAndroid</string>
+    <string name="splash_logo">splash logo</string>
+    <string name="pool_splash">pool splash</string>
+</resources>
