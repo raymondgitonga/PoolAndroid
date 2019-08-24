@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,57 +18,48 @@
         android:layout_marginTop="104dp"
         android:contentDescription="@string/screen1_img"
         android:src="@drawable/grocery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:id="@+id/title_intro"
         android:layout_width="96dp"
         android:layout_height="34dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/abril_fatface"
         android:gravity="center"
         android:text="@string/title1"
         android:textColor="#000"
         android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/screen1_img" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/desc1_intro"
-        android:layout_width="275dp"
-        android:layout_height="97dp"
+        android:layout_width="287dp"
+        android:layout_height="101dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/abril_fatface"
         android:gravity="center"
         android:text="@string/description1"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_intro" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/intro_next1"
         android:layout_width="73dp"
-        android:layout_height="35dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
+        android:layout_marginTop="110dp"
+        android:fontFamily="@font/abril_fatface"
         android:text="@string/next"
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc1_intro" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"/>
+</LinearLayout>

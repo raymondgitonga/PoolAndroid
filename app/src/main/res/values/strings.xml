@@ -7,8 +7,8 @@
     <string name="title2">Quick</string>
     <string name="title3">Easy</string>
 
-    <string name="description1">Shop from different stores at the same time</string>
-    <string name="description2">Fast and efficient delivery at your doorstep</string>
+    <string name="description1">Combine orders from multiple stores into one order</string>
+    <string name="description2">Fast and same day delivery at your doorstep</string>
     <string name="description3">Easy and safe payment methods</string>
 
     <string name="next">Next</string>
@@ -20,5 +20,28 @@
     <string name="intro_one">intro one</string>
     <string name="bottom_one">bottom one</string>
     <string name="screen1_img">screen1 img</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="logo_login">Logo login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">REGISTER</string>
+    <string name="register_btn">Register</string>
+    <string name="login3">Login</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login2">Login</string>
+    <string name="login1">LOGIN</string>
+    <string name="don_t_have_an_account">Register</string>
 
 </resources>
