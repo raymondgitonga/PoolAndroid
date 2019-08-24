@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ProgressBar;
 
+import com.tosh.poolandroid.AppIntro.AppIntroActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
@@ -34,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                     startApp();
                     finish();
                 }else{
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, AppIntroActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -55,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startApp(){
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, AppIntroActivity.class);
         startActivity(intent);
     }
 }

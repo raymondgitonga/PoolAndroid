@@ -1,5 +1,24 @@
 <resources>
-    <string name="app_name">PoolAndroid</string>
+    <string name="app_name">Pool</string>
     <string name="splash_logo">splash logo</string>
     <string name="pool_splash">pool splash</string>
+
+    <string name="title1">Shop</string>
+    <string name="title2">Quick</string>
+    <string name="title3">Easy</string>
+
+    <string name="description1">Shop from different stores at the same time</string>
+    <string name="description2">Fast and efficient delivery at your doorstep</string>
+    <string name="description3">Easy and safe payment methods</string>
+
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="get_started">Get Started</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro_one">intro one</string>
+    <string name="bottom_one">bottom one</string>
+    <string name="screen1_img">screen1 img</string>
+
 </resources>
