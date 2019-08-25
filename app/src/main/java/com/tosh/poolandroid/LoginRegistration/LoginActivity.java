@@ -22,6 +22,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+import static android.util.Patterns.EMAIL_ADDRESS;
+
 public class LoginActivity extends AppCompatActivity {
 
     MaterialButton registerBtn;
@@ -83,6 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(email)){
             inputEmail.setError("Enter email");
+            return;
+        }
+        if(!EMAIL_ADDRESS.matcher(email).matches()){
+            inputEmail.setError("Enter valid email");
             return;
         }
         if(TextUtils.isEmpty(password)){

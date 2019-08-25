@@ -15,6 +15,8 @@ import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuth;
 
+import java.util.regex.Pattern;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -87,6 +89,11 @@ public class RegisterActivity extends AppCompatActivity {
             inputEmail.setError("Enter email");
             return;
         }
+
+        if(!EMAIL_ADDRESS.matcher(email).matches()){
+            inputEmail.setError("Enter valid email");
+            return;
+        }
         if(TextUtils.isEmpty(password)){
             inputPassword.setError("Enter password");
             return;
@@ -121,4 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }));
     }
+
+    public static final Pattern EMAIL_ADDRESS =
+      Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
 }
