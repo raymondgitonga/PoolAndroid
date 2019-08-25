@@ -22,7 +22,6 @@
         android:paddingBottom="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -30,6 +29,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/name"
@@ -39,13 +39,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
@@ -54,7 +54,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/password_register"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:errorEnabled="true"
@@ -62,6 +61,7 @@
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_register"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/password"
@@ -70,7 +70,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/confirm_password_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="password_toggle"
@@ -78,6 +77,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirm_password_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/confirm_password"

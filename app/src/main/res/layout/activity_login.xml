@@ -18,10 +18,10 @@
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold"
-        android:paddingBottom="20dp"/>
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -29,6 +29,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
@@ -38,7 +39,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -46,6 +46,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/password"

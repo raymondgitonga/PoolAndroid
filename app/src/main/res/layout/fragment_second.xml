@@ -36,13 +36,13 @@
 
     <TextView
         android:id="@+id/desc1_intro"
-        android:layout_width="277dp"
-        android:layout_height="104dp"
+        android:layout_width="336dp"
+        android:layout_height="101dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/abril_fatface"
+        android:fontFamily="@font/arbutus"
         android:gravity="center"
         android:text="@string/description2"
         android:textColor="#000"
@@ -54,14 +54,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="110dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/abril_fatface"
         android:text="@string/next"
         android:textColor="#000"
-        android:textSize="19sp"
+        android:textSize="23sp"
         android:textStyle="bold"
+        android:layout_weight="1"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />
+        android:gravity="center_horizontal"/>
 
 
 
