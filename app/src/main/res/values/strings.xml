@@ -43,5 +43,8 @@
     <string name="login2">Login</string>
     <string name="login1">LOGIN</string>
     <string name="don_t_have_an_account">Register</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="_722222222">7000000</string>
+    <string name="proceed">Proceed</string>
 
 </resources>

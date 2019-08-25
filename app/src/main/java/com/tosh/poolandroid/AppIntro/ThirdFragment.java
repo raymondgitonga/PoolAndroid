@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
+import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
 import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
 import com.tosh.poolandroid.MainActivity;
 import com.tosh.poolandroid.R;
@@ -36,7 +37,7 @@ public class ThirdFragment extends Fragment {
         btnStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(getActivity(), PhoneActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

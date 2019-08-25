@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface NodeAuth {
     @POST("users/register")
@@ -17,6 +18,10 @@ public interface NodeAuth {
     @FormUrlEncoded
     Observable<String> loginUser(@Field("email") String email,
                                     @Field("password") String password);
+
+    @PUT("users/login")
+    @FormUrlEncoded
+    Observable<String>sendSma(@Field("phone") String phone, @Field("email") String email );
 
 
 }
