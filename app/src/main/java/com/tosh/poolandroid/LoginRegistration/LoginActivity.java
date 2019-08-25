@@ -3,7 +3,9 @@ package com.tosh.poolandroid.LoginRegistration;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -26,14 +28,17 @@ import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class LoginActivity extends AppCompatActivity {
 
-    MaterialButton registerBtn;
-    MaterialButton loginBtn;
-    MaterialButton forgotBtn;
+    private MaterialButton registerBtn;
+    private MaterialButton loginBtn;
+    private MaterialButton forgotBtn;
 
-    TextInputEditText inputPassword, inputEmail;
+    private TextInputEditText inputPassword, inputEmail;
 
-    NodeAuth api;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
+    private NodeAuth api;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Override
@@ -81,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String email, String password) {
+    private void loginUser(final String email, String password) {
 
         if(TextUtils.isEmpty(email)){
             inputEmail.setError("Enter email");
@@ -103,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             public void accept(String res) throws Exception {
 
                 if (res .equals("successful")){
+                    addToSharedPreferences(email);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -112,6 +118,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         })
         );
+
+    }
+    public void addToSharedPreferences(String email){
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+        editor.putString("phone", email);
+        editor.commit();
 
     }
 

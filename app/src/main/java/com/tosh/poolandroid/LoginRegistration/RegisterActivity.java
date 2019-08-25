@@ -3,7 +3,9 @@ package com.tosh.poolandroid.LoginRegistration;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -31,6 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     NodeAuth api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -80,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String name, String email, String password, String confirmPassword) {
+    private void registerUser(final String name, final String email, String password, String confirmPassword) {
         if(TextUtils.isEmpty(name)){
             inputName.setError("Enter name");
             return;
@@ -119,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void accept(String res) throws Exception {
 
                         if(res.equals("successful")){
+                            addToSharedPreferences(name, email);
                             Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
                             startActivity(intent);
                             finish();
@@ -131,4 +137,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     public static final Pattern EMAIL_ADDRESS =
       Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+
+    public void addToSharedPreferences(String name, String email){
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+        editor.putString("name", name);
+        editor.putString("email", email);
+        editor.commit();
+
+    }
 }

@@ -46,5 +46,7 @@
     <string name="enter_phone_number">Enter phone number</string>
     <string name="_722222222">7000000</string>
     <string name="proceed">Proceed</string>
+    <string name="button">Button</string>
+    <string name="logout">Logout</string>
 
 </resources>

@@ -19,9 +19,9 @@ public interface NodeAuth {
     Observable<String> loginUser(@Field("email") String email,
                                     @Field("password") String password);
 
-    @PUT("users/login")
+    @PUT("users/phone")
     @FormUrlEncoded
-    Observable<String>sendSma(@Field("phone") String phone, @Field("email") String email );
+    Observable<String>sendSms( @Field("name") String name, @Field("phone") String phone,@Field("email") String email );
 
 
 }
