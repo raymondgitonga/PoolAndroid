@@ -9,6 +9,14 @@
     tools:context=".LoginRegistration.RegisterActivity">
 
 
+    <ImageView
+        android:id="@+id/logo_register"
+        android:layout_width="112dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center_horizontal|top"
+        android:contentDescription="@string/logo_register"
+        app:srcCompat="@drawable/poolblack" />
+
     <TextView
         android:id="@+id/register"
         android:layout_width="match_parent"

@@ -48,5 +48,6 @@
     <string name="proceed">Proceed</string>
     <string name="button">Button</string>
     <string name="logout">Logout</string>
+    <string name="logo_register">Logo register</string>
 
 </resources>

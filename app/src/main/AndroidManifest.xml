@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginRegistration.PhoneActivity"></activity>
-        <activity android:name=".LoginRegistration.LoginActivity" />
-        <activity android:name=".LoginRegistration.RegisterActivity" />
+        <activity android:name=".LoginRegistration.LoginActivity"
+            android:theme="@style/AppTheme1"/>
+        <activity android:name=".LoginRegistration.RegisterActivity"
+            android:theme="@style/AppTheme1"/>
         <activity
             android:name=".AppIntro.AppIntroActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
