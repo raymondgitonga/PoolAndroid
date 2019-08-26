@@ -12,10 +12,9 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.tosh.poolandroid.MainActivity;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.NodeAuth;
+import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
 import java.util.regex.Pattern;
 
@@ -31,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     MaterialButton buttonRegister;
     TextInputEditText inputName, inputEmail, inputPassword, inputConfirmPassword;
 
-    NodeAuth api;
+    NodeAuthService api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     SharedPreferences preferences;
@@ -57,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //init api
         Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuth.class);
+        api = retrofit.create(NodeAuthService.class);
 
         // views
         buttonLogin = findViewById(R.id.register_login_btn);

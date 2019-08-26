@@ -15,9 +15,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.tosh.poolandroid.MainActivity;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.NodeAuth;
+import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    private NodeAuth api;
+    private NodeAuthService api;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //init api
         Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuth.class);
+        api = retrofit.create(NodeAuthService.class);
 
         // views
         inputEmail =  findViewById(R.id.email_login);
@@ -123,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     public void addToSharedPreferences(String email){
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
-        editor.putString("phone", email);
+        editor.putString("email", email);
         editor.commit();
 
     }

@@ -49,5 +49,6 @@
     <string name="button">Button</string>
     <string name="logout">Logout</string>
     <string name="logo_register">Logo register</string>
+    <string name="textview">TextView</string>
 
 </resources>

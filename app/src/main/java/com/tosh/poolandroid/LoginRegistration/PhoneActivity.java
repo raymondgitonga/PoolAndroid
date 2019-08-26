@@ -12,11 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.hbb20.CountryCodePicker;
 import com.tosh.poolandroid.MainActivity;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.NodeAuth;
+import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,7 +35,7 @@ public class PhoneActivity extends AppCompatActivity {
 
 
 
-    private NodeAuth api;
+    private NodeAuthService api;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -69,7 +68,7 @@ public class PhoneActivity extends AppCompatActivity {
 
         //init api
         Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuth.class);
+        api = retrofit.create(NodeAuthService.class);
 
 
         //init views
