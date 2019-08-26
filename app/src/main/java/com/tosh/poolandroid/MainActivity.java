@@ -18,25 +18,25 @@ import com.tosh.poolandroid.LoginRegistration.LoginActivity;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-//import retrofit2.Retrofit;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLogout;
-    Context context;
-    SharedPreferences preferences;
-    TextView txtName;
+    private Button btnLogout;
+    private Context context;
     private NodeAuthService api;
-    String email = "gitongaraymondd@gmail.com";
+
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+
+    private String email;
 
 
 
@@ -48,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnLogout = findViewById(R.id.btn_logout);
-        txtName = (TextView) findViewById(R.id.txt_name);
+
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+
+        email = pref.getString("email", "default");
 
         Retrofit retrofit = AuthRetrofitClient.getUser();
         api = retrofit.create(NodeAuthService.class);
@@ -59,14 +63,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> users =  response.body();
-                if(users!=null && users.size()>0)
-                {
-                    txtName.setText(response.body().get(0).getUserPhone());
-                }
-                else
-                {
-                    txtName.setText("No User found");
-                }
+//                  String name = response.body().get(0).getUserName();
+//                  String phone = response.body().get(0).getUserPhone();
+//                  editor = pref.edit();
+//                  editor.putString("name", name);
+//                  editor.putString("phone", phone);
+//                  editor.commit();
             }
 
             @Override

@@ -25,13 +25,13 @@ import retrofit2.Retrofit;
 
 public class PhoneActivity extends AppCompatActivity {
 
-    MaterialButton proceedBtn;
-    EditText inputPhone;
+    private MaterialButton proceedBtn;
+    private EditText inputPhone;
 
-    String email;
-    String name;
+    private String email;
+    private String name;
 
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
 
 

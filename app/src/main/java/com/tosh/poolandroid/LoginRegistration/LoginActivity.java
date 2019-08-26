@@ -36,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    private NodeAuthService api;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    NodeAuthService api;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Override
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void accept(String res) throws Exception {
 
-                if (res .equals("successful")){
+                if (res.equals("successful")){
                     addToSharedPreferences(email);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
