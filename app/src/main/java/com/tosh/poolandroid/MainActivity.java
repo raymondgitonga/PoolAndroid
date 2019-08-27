@@ -1,7 +1,9 @@
 package com.tosh.poolandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
@@ -30,7 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Context context;
     private NodeAuthService api;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
@@ -116,6 +119,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.orders_navigation:
+                Toast.makeText(this, "Orders Clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.profile_navigation:
+                Toast.makeText(this, "Profile Navigation", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.settings_navigation:
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.info_navigation:
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.share_navigation:
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.help_navigation:
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.logout_navigation:
+                logout();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else {
+            super.onBackPressed();
+        }
     }
 
     private void logout(){
