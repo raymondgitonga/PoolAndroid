@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-//    TextView navName, navEmail;
 
 
 
@@ -84,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navName.setText(name);
         navEmail.setText(email);
-
-        System.out.println("HEREE>>>>>>>>>>>>"+email+name);
 
         Retrofit retrofit = AuthRetrofitClient.getUser();
         api = retrofit.create(NodeAuthService.class);
@@ -179,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.edit().remove("email").commit();
+        settings.edit().remove("name").commit();
 
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);

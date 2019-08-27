@@ -123,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void accept(String res) throws Exception {
 
                         if(res.equals("successful")){
-                            addToSharedPreferences(email);
+                            addToSharedPreferences(email, name);
                             Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
                             startActivity(intent);
                             finish();
@@ -137,10 +137,11 @@ public class RegisterActivity extends AppCompatActivity {
     public static final Pattern EMAIL_ADDRESS =
       Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
 
-    public void addToSharedPreferences(String email){
+    public void addToSharedPreferences(String email, String name){
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
         editor.putString("email", email);
+        editor.putString("name", name);
         editor.commit();
 
     }
