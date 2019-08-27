@@ -14,6 +14,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -40,12 +42,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
-    private String email;
+    private String email, name;
 
     MaterialToolbar toolbar;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+//    TextView navName, navEmail;
 
 
 
@@ -71,6 +74,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         email = pref.getString("email", "default");
+        name = pref.getString("name","default");
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
+
+
+        navName.setText(name);
+        navEmail.setText(email);
+
+        System.out.println("HEREE>>>>>>>>>>>>"+email+name);
 
         Retrofit retrofit = AuthRetrofitClient.getUser();
         api = retrofit.create(NodeAuthService.class);
