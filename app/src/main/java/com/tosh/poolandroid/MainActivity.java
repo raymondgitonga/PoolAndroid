@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout_appbar:
                 logout();
                 break;
+            case R.id.cart_appbar:
+                Toast.makeText(this, "Cart selected", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
