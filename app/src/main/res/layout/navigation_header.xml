@@ -6,12 +6,31 @@
     android:padding="16dp"
     android:gravity="bottom"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
-    android:background="#000">
+    android:background="@drawable/nrb">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/dp"
-        android:scaleType="centerCrop"/>
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+        <!--android:layout_width="56dp"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:background="@drawable/dp"-->
+        <!--android:scaleType="centerCrop"/>-->
+
+    <TextView
+        android:id="@+id/navigation_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peter_dinklage"
+        android:paddingTop="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="#fff"/>
+    <TextView
+        android:id="@+id/navigation_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peterd_got_com"
+        android:paddingTop="5dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="#fff"/>
+
+
 
 </LinearLayout>

@@ -1,6 +1,8 @@
 package com.tosh.poolandroid;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +12,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.Model.User;
@@ -41,16 +42,29 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialToolbar toolbar;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.navigation_drawer);
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.open_drawer, R.string.close_drawer);
+        drawerLayout.addDrawerListener(toggle);
+
+        toggle.syncState();
 
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         email = pref.getString("email", "default");
@@ -82,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
