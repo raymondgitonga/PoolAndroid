@@ -1,23 +1,17 @@
 package com.tosh.poolandroid.Retrofit;
 
-import com.google.gson.JsonArray;
-import com.tosh.poolandroid.User;
+import com.tosh.poolandroid.Retrofit.Model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
-import retrofit2.http.QueryName;
 
 public interface NodeAuthService {
     @POST("users/register")

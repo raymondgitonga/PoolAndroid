@@ -8,14 +8,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.gson.JsonObject;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
+import com.tosh.poolandroid.Retrofit.Model.User;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
 import java.util.List;
@@ -29,7 +31,6 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnLogout;
     private Context context;
     private NodeAuthService api;
 
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
 
     private String email;
+
+    MaterialToolbar toolbar;
 
 
 
@@ -46,12 +49,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        btnLogout = findViewById(R.id.btn_logout);
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
-
         email = pref.getString("email", "default");
 
         Retrofit retrofit = AuthRetrofitClient.getUser();
@@ -63,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> users =  response.body();
-//                  String name = response.body().get(0).getUserName();
-//                  String phone = response.body().get(0).getUserPhone();
-//                  editor = pref.edit();
-//                  editor.putString("name", name);
-//                  editor.putString("phone", phone);
-//                  editor.commit();
+                  String name = response.body().get(0).getUserName();
+                  String phone = response.body().get(0).getUserPhone();
+                  editor = pref.edit();
+                  editor.putString("name", name);
+                  editor.putString("phone", phone);
+                  editor.commit();
             }
 
             @Override
@@ -77,19 +78,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
-
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.settings_appbar:
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.logout_appbar:
+                logout();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
