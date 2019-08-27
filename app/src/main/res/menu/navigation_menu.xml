@@ -4,23 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/orders_navigation"
-            android:title="@string/orders"></item>
+            android:title="@string/orders"
+            android:icon="@drawable/orders"/>
 
         <item
             android:id="@+id/profile_navigation"
-            android:title="@string/profile">
+            android:title="@string/profile"
+            android:icon="@drawable/profile">
 
         </item>
 
         <item
             android:id="@+id/settings_navigation"
-            android:title="@string/settings">
+            android:title="@string/settings"
+            android:icon="@drawable/settings">
 
         </item>
 
         <item
             android:id="@+id/info_navigation"
-            android:title="@string/info">
+            android:title="@string/info"
+            android:icon="@drawable/info">
 
         </item>
 
@@ -31,19 +35,22 @@
 
             <item
                 android:id="@+id/share_navigation"
-                android:title="@string/share">
+                android:title="@string/share"
+                android:icon="@drawable/share">
 
             </item>
 
             <item
                 android:id="@+id/help_navigation"
-                android:title="@string/help">
+                android:title="@string/help"
+                android:icon="@drawable/help">
 
             </item>
 
             <item
                 android:id="@+id/logout_navigation"
-                android:title="@string/logout3">
+                android:title="@string/logout3"
+                android:icon="@drawable/logout">
 
             </item>
         </menu>
