@@ -12,8 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolBar"
         android:background="#00796B"
-        app:titleTextColor="@color/black"
-        android:theme="@style/AppBar">
+        app:titleTextColor="@color/black">
 
     </com.google.android.material.appbar.MaterialToolbar>
 </RelativeLayout>
