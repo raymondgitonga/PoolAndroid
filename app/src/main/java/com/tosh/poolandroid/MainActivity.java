@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,9 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
 
+        //tool bar
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
+        //navigation drawer
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -72,31 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toggle.syncState();
 
-
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        View headerView = navigationView.getHeaderView(0);
-        final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
-        final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
-
-        Retrofit retrofit = AuthRetrofitClient.getUser();
-        api = retrofit.create(NodeAuthService.class);
-
-        Call<List<User>> users = api.getUser(email);
-
-        users.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> users =  response.body();
-                  navName.setText(response.body().get(0).getUserName());
-                  navEmail.setText(response.body().get(0).getUserEmail());
-
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("USER",t.getMessage());
-            }
-        });
+        loadUserDetails();
 
     }
 
@@ -130,22 +112,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.orders_navigation:
-                Toast.makeText(this, "Orders Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Orders clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.profile_navigation:
-                Toast.makeText(this, "Profile Navigation", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.settings_navigation:
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Address clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.info_navigation:
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Info clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.share_navigation:
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.help_navigation:
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Help clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout_navigation:
                 logout();
@@ -163,6 +145,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+    private void loadUserDetails(){
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
+        final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
+        Retrofit retrofit = AuthRetrofitClient.getUser();
+        api = retrofit.create(NodeAuthService.class);
+
+        Call<List<User>> users = api.getUser(email);
+
+        users.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> users =  response.body();
+                navName.setText(response.body().get(0).getUserName());
+                navEmail.setText(response.body().get(0).getUserEmail());
+
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d("USER",t.getMessage());
+            }
+        });
+
+    };
 
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);

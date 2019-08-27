@@ -16,8 +16,8 @@
 
         <item
             android:id="@+id/settings_navigation"
-            android:title="@string/settings"
-            android:icon="@drawable/settings">
+            android:title="@string/address"
+            android:icon="@drawable/location">
 
         </item>
 
