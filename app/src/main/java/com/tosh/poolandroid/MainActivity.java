@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NodeAuthService api;
 
     private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
-
-    private String email, name;
+    private String email;
 
     MaterialToolbar toolbar;
 
@@ -65,24 +63,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        email = pref.getString("email", "default");
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
 
         toggle.syncState();
 
-        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        email = pref.getString("email", "default");
-        name = pref.getString("name","default");
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
-        TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
-        TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
-
-
-        navName.setText(name);
-        navEmail.setText(email);
+        final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
+        final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
 
         Retrofit retrofit = AuthRetrofitClient.getUser();
         api = retrofit.create(NodeAuthService.class);
@@ -93,12 +87,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> users =  response.body();
-                  String name = response.body().get(0).getUserName();
-                  String phone = response.body().get(0).getUserPhone();
-                  editor = pref.edit();
-                  editor.putString("name", name);
-                  editor.putString("phone", phone);
-                  editor.commit();
+                  navName.setText(response.body().get(0).getUserName());
+                  navEmail.setText(response.body().get(0).getUserEmail());
+
             }
 
             @Override
