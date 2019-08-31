@@ -24,6 +24,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
+import static androidx.core.util.PatternsCompat.EMAIL_ADDRESS;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private MaterialButton buttonLogin;
@@ -133,9 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }));
     }
-
-    public static final Pattern EMAIL_ADDRESS =
-      Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
 
     public void addToSharedPreferences(String email, String name){
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
