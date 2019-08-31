@@ -3,12 +3,16 @@ package com.tosh.poolandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -20,6 +24,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
@@ -51,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int REQUEST_CODE = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
 
         toggle.syncState();
 
@@ -139,6 +155,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(GravityCompat.START);
         }else {
             super.onBackPressed();
+        }
+    }
+
+    private void fetchLastLocation() {
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}
+                    , REQUEST_CODE);
+
+            return;
+        }
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location!=null){
+                    currentLocation = location;
+                    Toast.makeText(MainActivity.this, currentLocation.getLatitude()
+                            +","+currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CODE:
+                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    fetchLastLocation();
+                }
+                break;
         }
     }
 

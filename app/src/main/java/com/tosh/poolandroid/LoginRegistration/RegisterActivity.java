@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -37,6 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+
+
+
 
 
     @Override
