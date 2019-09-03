@@ -192,13 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     currentLocation = location;
                     latitude = String.valueOf(currentLocation.getLatitude());
                     longitude = String.valueOf(currentLocation.getLongitude());
-
-
                     addToSharedPreferences(latitude, longitude);
-
-                    Toast.makeText(MainActivity.this, currentLocation.getLatitude()
-                            +","+currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
