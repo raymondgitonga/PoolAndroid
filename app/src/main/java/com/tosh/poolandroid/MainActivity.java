@@ -32,6 +32,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
+import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
+import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.Model.User;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
@@ -39,6 +41,11 @@ import com.tosh.poolandroid.Retrofit.NodeAuthService;
 import java.util.List;
 
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,15 +60,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NodeAuthService api;
 
     private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
     private String email;
+    private String latitude;
+    private String longitude;
+    private String user_email;
 
-    MaterialToolbar toolbar;
+    private MaterialToolbar toolbar;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
-    Location currentLocation;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private Location currentLocation;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
     @Override
@@ -81,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         email = pref.getString("email", "default");
 
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
@@ -92,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         loadUserDetails();
 
+        postLocation();
     }
 
     @Override
@@ -175,12 +190,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSuccess(Location location) {
                 if(location!=null){
                     currentLocation = location;
+                    latitude = String.valueOf(currentLocation.getLatitude());
+                    longitude = String.valueOf(currentLocation.getLongitude());
+
+
+                    addToSharedPreferences(latitude, longitude);
+
                     Toast.makeText(MainActivity.this, currentLocation.getLatitude()
                             +","+currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
+
+    }
+
+    public void addToSharedPreferences(String latitude, String longitude){
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = pref.edit();
+        editor.putString("latitude", latitude);
+        editor.putString("longitude", longitude);
+        editor.apply();
 
     }
 
@@ -221,7 +251,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-    };
+    }
+
+
+    public void postLocation(){
+        latitude = pref.getString("latitude", "default");
+        longitude = pref.getString("longitude", "default");
+        user_email = pref.getString("email", "default");
+
+        api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
+        Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call =
+                api.postLocation(latitude, longitude, user_email);
+
+        call.enqueue(new Callback<List<com.tosh.poolandroid.Retrofit.Model.Location>>() {
+            @Override
+            public void onResponse(Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call, Response<List<com.tosh.poolandroid.Retrofit.Model.Location>> response) {
+                if (response.isSuccessful() && response.body() != null){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);

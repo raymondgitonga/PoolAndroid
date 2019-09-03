@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.Retrofit;
 
+import com.tosh.poolandroid.Retrofit.Model.Location;
 import com.tosh.poolandroid.Retrofit.Model.User;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -33,6 +35,12 @@ public interface NodeAuthService {
 
     @GET("users/{email}")
     Call<List<User>> getUser(@Path("email") String email);
+
+
+    @POST("location/location-details")
+    @FormUrlEncoded
+    Call<List<Location>>postLocation(@Field("latitude") String latitude, @Field("longitude") String longitude,
+                                     @Field("user_email") String user_email);
 
 
 

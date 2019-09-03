@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
         editor = preferences.edit();
         editor.putString("email", email);
         editor.putString("name", name);
-        editor.commit();
+        editor.apply();
 
     }
 }
