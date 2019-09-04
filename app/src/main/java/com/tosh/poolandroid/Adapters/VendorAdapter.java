@@ -44,7 +44,7 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView
 
         Picasso.get()
                 .load(vendorModel.get(position).getImgUrl())
-                .resize(50, 50)
+                .fit()
                 .centerCrop()
                 .into(holder.vendorImage);
     }
@@ -56,12 +56,12 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView
 
     public class VendorView extends RecyclerView.ViewHolder{
 
-        CircleImageView vendorImage;
+        ImageView vendorImage;
         TextView vendorName;
         public VendorView(@NonNull View itemView) {
             super(itemView);
 
-            vendorImage = (CircleImageView) itemView.findViewById(R.id.vendor_image);
+            vendorImage = (ImageView) itemView.findViewById(R.id.vendor_image);
             vendorName = itemView.findViewById(R.id.vendor_name);
         }
     }

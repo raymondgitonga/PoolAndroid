@@ -68,5 +68,8 @@
     <string name="close_drawer">Close Drawer</string>
     <string name="address">Address</string>
     <string name="big_square">Big Square</string>
+    <string name="choose_shop">Choose Shop</string>
+    <string name="choose_vendor">Choose Vendor</string>
+    <string name="vendor_image">vendor image</string>
 
 </resources>

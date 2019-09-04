@@ -6,32 +6,28 @@
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
     android:layout_gravity="center_horizontal">
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_color="@color/black"
+        <ImageView
+
             android:id="@+id/vendor_image"
-            android:layout_marginTop="10dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/bigsquare"
             android:layout_gravity="center_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/vendor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#000000"
             android:layout_marginTop="10dp"
-            android:textSize="14dp"
-            android:text="@string/big_square"/>
-    </LinearLayout>
+            android:contentDescription="@string/vendor_image"
+            android:src="@drawable/bigsquare" />
+
+    <TextView
+        android:id="@+id/vendor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/big_square"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
 
 </LinearLayout>

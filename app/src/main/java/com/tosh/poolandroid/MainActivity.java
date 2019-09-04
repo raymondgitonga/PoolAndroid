@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //tool bar
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
 
         //navigation drawer
@@ -153,30 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.settings_appbar:
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.logout_appbar:
-                logout();
-                break;
-            case R.id.cart_appbar:
-                Toast.makeText(this, "Cart selected", Toast.LENGTH_SHORT).show();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
