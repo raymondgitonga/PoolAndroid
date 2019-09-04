@@ -2,6 +2,7 @@ package com.tosh.poolandroid.Retrofit;
 
 import com.tosh.poolandroid.Retrofit.Model.Location;
 import com.tosh.poolandroid.Retrofit.Model.User;
+import com.tosh.poolandroid.Retrofit.Model.Vendor;
 
 import java.util.List;
 
@@ -35,6 +36,9 @@ public interface NodeAuthService {
 
     @GET("users/{email}")
     Call<List<User>> getUser(@Path("email") String email);
+
+    @GET("vendors/vendor-list")
+    Call<List<Vendor>> getVendor();
 
 
     @POST("location/location-details")
