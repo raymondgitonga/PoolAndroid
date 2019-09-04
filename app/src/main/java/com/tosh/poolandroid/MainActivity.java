@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,6 +33,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.tosh.poolandroid.Adapters.VendorAdapter;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
 import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
 import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
@@ -38,6 +41,7 @@ import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.Model.User;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String user_email;
 
     private MaterialToolbar toolbar;
+    private RecyclerView vendorsRv;
+
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -77,36 +83,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
+    List<Integer> vendorImgList = new ArrayList<>();
+    List<String> vendorTitleList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        email = pref.getString("email", "default");
+
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        initialize();
+
+        fetchLastLocation();
+
+        loadUserDetails();
+
+        postLocation();
+    }
+
+    private void initialize() {
+
         //tool bar
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+
 
         //navigation drawer
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        email = pref.getString("email", "default");
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toggle);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
-
         toggle.syncState();
 
-        loadUserDetails();
 
-        postLocation();
+        //recyclerView
+        vendorsRv = findViewById(R.id.vendorsRv);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        vendorsRv.setLayoutManager(gridLayoutManager);
+
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+        vendorImgList.add(R.drawable.bigsquare);
+
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+        vendorTitleList.add("Big Square");
+
+        vendorsRv.setAdapter(new VendorAdapter(vendorImgList, vendorTitleList));
+
+
+
     }
 
     @Override

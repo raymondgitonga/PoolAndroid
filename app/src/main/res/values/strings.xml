@@ -67,5 +67,6 @@
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
     <string name="address">Address</string>
+    <string name="big_square">Big Square</string>
 
 </resources>
