@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -39,6 +40,7 @@ import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
 import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.Model.User;
+import com.tosh.poolandroid.Retrofit.Model.Vendor;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
 import java.util.ArrayList;
@@ -83,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
-    List<Integer> vendorImgList = new ArrayList<>();
-    List<String> vendorTitleList = new ArrayList<>();
+    ArrayList<Vendor> vendorModel = new ArrayList<>();
+    private VendorAdapter vendorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,32 +133,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         vendorsRv.setLayoutManager(gridLayoutManager);
 
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
-        vendorImgList.add(R.drawable.bigsquare);
+        Retrofit retrofit = AuthRetrofitClient.getVendor();
+        api = retrofit.create(NodeAuthService.class);
+        Call<List<Vendor>> vendors = api.getVendor();
 
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-        vendorTitleList.add("Big Square");
-
-        vendorsRv.setAdapter(new VendorAdapter(vendorImgList, vendorTitleList));
+        vendors.enqueue(new Callback<List<Vendor>>() {
+            @Override
+            public void onResponse(Call<List<Vendor>> call, Response<List<Vendor>> response) {
+                vendorModel = new ArrayList<>(response.body());
+                vendorAdapter = new VendorAdapter(MainActivity.this, vendorModel);
+                vendorsRv.setAdapter(vendorAdapter);
 
 
 
+            }
+
+            @Override
+            public void onFailure(Call<List<Vendor>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

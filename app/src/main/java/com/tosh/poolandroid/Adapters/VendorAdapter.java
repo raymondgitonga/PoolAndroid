@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.Model.Vendor;
 
@@ -19,12 +21,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView> {
 
-    List<Integer> vendorImgList = new ArrayList<>();
-    List<String> vendorTitleList = new ArrayList<>();
+ private ArrayList<Vendor> vendorModel = new ArrayList<>();
+    private Context context;
 
-    public VendorAdapter(List<Integer> vendorImgList, List<String> vendorTitleList) {
-        this.vendorImgList = vendorImgList;
-        this.vendorTitleList = vendorTitleList;
+    public VendorAdapter(Context context, ArrayList<Vendor> vendorModel){
+        this.vendorModel = vendorModel;
+        this.context = context;
+
     }
 
     @NonNull
@@ -37,15 +40,18 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView
 
     @Override
     public void onBindViewHolder(@NonNull VendorView holder, int position) {
+        holder.vendorName.setText(vendorModel.get(position).getName());
 
-        holder.vendorImage.setImageResource(vendorImgList.get(position));
-        holder.vendorName.setText(vendorTitleList.get(position));
-
+        Picasso.get()
+                .load(vendorModel.get(position).getImgUrl())
+                .resize(50, 50)
+                .centerCrop()
+                .into(holder.vendorImage);
     }
 
     @Override
     public int getItemCount() {
-        return vendorImgList.size();
+        return vendorModel.size();
     }
 
     public class VendorView extends RecyclerView.ViewHolder{
