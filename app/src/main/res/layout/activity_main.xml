@@ -30,7 +30,16 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
+    <TextView
+        android:id="@+id/poolname"
+        android:text="@string/junction_pool"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"/>
+
     <FrameLayout
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

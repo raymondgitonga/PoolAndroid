@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:layout_margin="15dp"
-    android:layout_gravity="center_horizontal">
+    android:orientation="vertical">
 
 
-        <ImageView
+    <ImageView
 
-            android:id="@+id/vendor_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/vendor_image"
-            android:src="@drawable/bigsquare" />
+        android:id="@+id/vendor_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/vendor_image"
+        android:src="@drawable/bigsquare" />
 
     <TextView
         android:id="@+id/vendor_name"
@@ -28,8 +28,6 @@
         android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold" />
-
-
 
 
 </LinearLayout>

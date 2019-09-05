@@ -71,5 +71,6 @@
     <string name="choose_shop">Choose Shop</string>
     <string name="choose_vendor">Choose Vendor</string>
     <string name="vendor_image">vendor image</string>
+    <string name="junction_pool">Junction pool</string>
 
 </resources>

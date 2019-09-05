@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -44,6 +46,7 @@ import com.tosh.poolandroid.Retrofit.Model.User;
 import com.tosh.poolandroid.Retrofit.Model.Vendor;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,29 +72,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private Context context;
     private NodeAuthService api;
-
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private String email;
     private String latitude;
     private String longitude;
     private String user_email;
-
     private MaterialToolbar toolbar;
     private RecyclerView vendorsRv;
-
-
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
-
     ArrayList<Vendor> vendorModel = new ArrayList<>();
     private VendorAdapter vendorAdapter;
+    int cachSize = 10*1024*1024;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadUserDetails();
 
         postLocation();
+    }
+    private boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private void cartFab() {

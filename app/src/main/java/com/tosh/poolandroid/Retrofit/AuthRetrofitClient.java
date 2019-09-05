@@ -1,6 +1,10 @@
 package com.tosh.poolandroid.Retrofit;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,9 +13,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class AuthRetrofitClient {
     private static Retrofit instance;
     private static final String  BASE_URL = "http://10.0.2.2:7000/";
+
 
 
     private static Gson gson = new GsonBuilder()
