@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapters.VendorAdapter;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
@@ -101,11 +102,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initialize();
 
+        cartFab();
+
         fetchLastLocation();
 
         loadUserDetails();
 
         postLocation();
+    }
+
+    private void cartFab() {
+
+        FloatingActionButton cartFab = (FloatingActionButton) findViewById(R.id.cart_fab);
+        cartFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Cart clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void initialize() {
@@ -127,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
 
         toggle.syncState();
+        
 
 
         //recyclerView
