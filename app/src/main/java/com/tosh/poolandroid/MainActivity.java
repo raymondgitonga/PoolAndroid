@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int REQUEST_CODE = 101;
     ArrayList<Vendor> vendorModel = new ArrayList<>();
     private VendorAdapter vendorAdapter;
-    int cachSize = 10*1024*1024;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +164,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         vendors.enqueue(new Callback<List<Vendor>>() {
             @Override
             public void onResponse(Call<List<Vendor>> call, Response<List<Vendor>> response) {
-                vendorModel = new ArrayList<>(response.body());
+                if (response.body() != null) {
+                    vendorModel = new ArrayList<>(response.body());
+                }
                 vendorAdapter = new VendorAdapter(MainActivity.this, vendorModel);
                 vendorsRv.setAdapter(vendorAdapter);
 
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void addToSharedPreferences(String latitude, String longitude){
+    private void addToSharedPreferences(String latitude, String longitude){
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
         editor.putString("latitude", latitude);
@@ -295,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void postLocation(){
+    private void postLocation(){
         latitude = pref.getString("latitude", "default");
         longitude = pref.getString("longitude", "default");
         user_email = pref.getString("email", "default");
