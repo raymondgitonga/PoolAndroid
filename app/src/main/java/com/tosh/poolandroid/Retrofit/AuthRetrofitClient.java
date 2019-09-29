@@ -47,16 +47,4 @@ public class AuthRetrofitClient {
                     .build();
         return instance;
     }
-
-    public static Retrofit getVendor(){
-
-
-        if (instance == null)
-            instance = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-        return instance;
-    }
 }

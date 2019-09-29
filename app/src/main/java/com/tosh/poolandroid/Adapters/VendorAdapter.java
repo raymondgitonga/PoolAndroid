@@ -12,19 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Retrofit.Model.Vendor;
+import com.tosh.poolandroid.Model.Vendor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView> {
 
- private ArrayList<Vendor> vendorModel = new ArrayList<>();
+ private List<Vendor> vendorModel = new ArrayList<>();
     private Context context;
 
-    public VendorAdapter(Context context, ArrayList<Vendor> vendorModel){
+    public VendorAdapter(Context context, List<Vendor> vendorModel){
         this.vendorModel = vendorModel;
         this.context = context;
 

@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.AppIntro;
+package com.tosh.poolandroid.View.AppIntro;
 
 
 import android.os.Bundle;
@@ -14,13 +14,13 @@ import android.widget.TextView;
 import com.tosh.poolandroid.R;
 
 
-public class SecondFragment extends Fragment {
+public class FirstFragment extends Fragment {
 
     TextView next;
     ViewPager viewPager;
 
 
-    public SecondFragment() {
+    public FirstFragment() {
         // Required empty public constructor
     }
 
@@ -29,19 +29,21 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_first, container, false);
         viewPager = getActivity().findViewById(R.id.viewPager);
-        next = view.findViewById(R.id.intro_next2);
+        next = view.findViewById(R.id.intro_next1);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(1);
             }
         });
 
         return view;
+
+
+
 
     }
 

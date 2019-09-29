@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Retrofit.Model;
+package com.tosh.poolandroid.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

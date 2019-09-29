@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.AppIntro;
+package com.tosh.poolandroid.View.AppIntro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;

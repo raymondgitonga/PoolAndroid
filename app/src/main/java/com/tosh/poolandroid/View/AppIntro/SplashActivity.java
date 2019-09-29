@@ -1,4 +1,4 @@
-package com.tosh.poolandroid;
+package com.tosh.poolandroid.View.AppIntro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ProgressBar;
 
-import com.tosh.poolandroid.AppIntro.AppIntroActivity;
+import com.tosh.poolandroid.R;
+import com.tosh.poolandroid.View.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

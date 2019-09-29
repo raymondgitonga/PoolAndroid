@@ -12,10 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.tosh.poolandroid.MainActivity;
+
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.View.MainActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.AppIntro;
+package com.tosh.poolandroid.View.AppIntro;
 
 
 import android.content.Intent;
@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
-import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
-import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
-import com.tosh.poolandroid.MainActivity;
+
+
 import com.tosh.poolandroid.R;
 
 

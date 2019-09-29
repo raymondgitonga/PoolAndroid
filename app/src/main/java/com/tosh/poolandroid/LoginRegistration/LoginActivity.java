@@ -12,10 +12,11 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.tosh.poolandroid.MainActivity;
+
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.View.MainActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,14 +26,13 @@ import retrofit2.Retrofit;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     private MaterialButton registerBtn;
     private MaterialButton loginBtn;
     private MaterialButton forgotBtn;
 
     private TextInputEditText inputPassword, inputEmail;
-
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //init api
+//        init api
         Retrofit retrofit = AuthRetrofitClient.getInstance();
         api = retrofit.create(NodeAuthService.class);
 
@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             inputPassword.setError("Enter password");
             return;
         }
+
         compositeDisposable.add(api.loginUser(email, password)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -128,5 +129,4 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
 
     }
-
 }

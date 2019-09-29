@@ -1,11 +1,14 @@
-package com.tosh.poolandroid;
+package com.tosh.poolandroid.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,18 +23,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -39,33 +37,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapters.VendorAdapter;
 import com.tosh.poolandroid.LoginRegistration.LoginActivity;
-import com.tosh.poolandroid.LoginRegistration.PhoneActivity;
-import com.tosh.poolandroid.LoginRegistration.RegisterActivity;
+import com.tosh.poolandroid.Model.User;
+import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.Model.User;
-import com.tosh.poolandroid.Retrofit.Model.Vendor;
+import com.tosh.poolandroid.Model.Vendor;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.ViewModel.VendorViewModel;
+import com.tosh.poolandroid.databinding.NavigationDrawerBinding;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.Cache;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -89,11 +77,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ArrayList<Vendor> vendorModel = new ArrayList<>();
     private VendorAdapter vendorAdapter;
 
+    NavigationDrawerBinding navBinding;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_drawer);
-
+        navBinding = DataBindingUtil.setContentView(this, R.layout.navigation_drawer);
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         email = pref.getString("email", "default");
 
@@ -110,13 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         postLocation();
     }
-    private boolean isNetworkAvailable(){
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
     private void cartFab() {
 
         FloatingActionButton cartFab = (FloatingActionButton) findViewById(R.id.cart_fab);
@@ -157,25 +140,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         vendorsRv.setLayoutManager(gridLayoutManager);
 
-        Retrofit retrofit = AuthRetrofitClient.getVendor();
-        api = retrofit.create(NodeAuthService.class);
-        Call<List<Vendor>> vendors = api.getVendor();
+        VendorViewModel vendorViewModel = ViewModelProviders.of(this).get(VendorViewModel.class);
 
-        vendors.enqueue(new Callback<List<Vendor>>() {
+        vendorViewModel.getVendor().observe(this, new Observer<List<Vendor>>() {
             @Override
-            public void onResponse(Call<List<Vendor>> call, Response<List<Vendor>> response) {
-                if (response.body() != null) {
-                    vendorModel = new ArrayList<>(response.body());
-                }
-                vendorAdapter = new VendorAdapter(MainActivity.this, vendorModel);
+            public void onChanged(List<Vendor> vendors) {
+                vendorAdapter = new VendorAdapter(MainActivity.this, vendors);
                 vendorsRv.setAdapter(vendorAdapter);
-
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Vendor>> call, Throwable t) {
 
             }
         });
@@ -273,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
         final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
+
         Retrofit retrofit = AuthRetrofitClient.getUser();
         api = retrofit.create(NodeAuthService.class);
 
@@ -302,19 +274,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user_email = pref.getString("email", "default");
 
         api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
-        Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call =
+        Call<List<com.tosh.poolandroid.Model.Location>> call =
                 api.postLocation(latitude, longitude, user_email);
 
-        call.enqueue(new Callback<List<com.tosh.poolandroid.Retrofit.Model.Location>>() {
+        call.enqueue(new Callback<List<com.tosh.poolandroid.Model.Location>>() {
             @Override
-            public void onResponse(Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call, Response<List<com.tosh.poolandroid.Retrofit.Model.Location>> response) {
+            public void onResponse(Call<List<com.tosh.poolandroid.Model.Location>> call, Response<List<com.tosh.poolandroid.Model.Location>> response) {
                 if (response.isSuccessful() && response.body() != null){
 
                 }
             }
 
             @Override
-            public void onFailure(Call<List<com.tosh.poolandroid.Retrofit.Model.Location>> call, Throwable t) {
+            public void onFailure(Call<List<com.tosh.poolandroid.Model.Location>> call, Throwable t) {
 
             }
         });
