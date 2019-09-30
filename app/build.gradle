@@ -92,5 +92,9 @@ dependencies {
     //toasty
     implementation "com.github.GrenderG:Toasty:$toasty_version"
 
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+
+
+
 
 }

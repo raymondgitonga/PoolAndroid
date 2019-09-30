@@ -5,7 +5,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,8 +17,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -43,17 +40,20 @@ import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Model.Vendor;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 import com.tosh.poolandroid.ViewModel.VendorViewModel;
-import com.tosh.poolandroid.databinding.NavigationDrawerBinding;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 import io.reactivex.disposables.CompositeDisposable;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,15 +77,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ArrayList<Vendor> vendorModel = new ArrayList<>();
     private VendorAdapter vendorAdapter;
 
-    NavigationDrawerBinding navBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        navBinding = DataBindingUtil.setContentView(this, R.layout.navigation_drawer);
+        setContentView(R.layout.navigation_drawer);
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        email = pref.getString("email", "default");
+        email = pref.getString("email", "");
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -241,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadUserDetails(){
         NavigationView navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
-
         final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
         final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
 
@@ -271,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void postLocation(){
         latitude = pref.getString("latitude", "default");
         longitude = pref.getString("longitude", "default");
-        user_email = pref.getString("email", "default");
+        user_email = pref.getString("email", "");
 
         api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
         Call<List<com.tosh.poolandroid.Model.Location>> call =

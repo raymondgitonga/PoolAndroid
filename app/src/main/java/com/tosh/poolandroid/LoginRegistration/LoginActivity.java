@@ -1,6 +1,8 @@
 package com.tosh.poolandroid.LoginRegistration;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +19,9 @@ import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 import com.tosh.poolandroid.View.MainActivity;
+import com.tosh.poolandroid.ViewModel.LoginViewModel;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
@@ -35,9 +35,12 @@ public class LoginActivity extends AppCompatActivity{
     private TextInputEditText inputPassword, inputEmail;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private String email;
+    private String password;
 
     NodeAuthService api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private LoginViewModel loginViewModel;
 
 
     @Override
@@ -80,7 +83,29 @@ public class LoginActivity extends AppCompatActivity{
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(inputEmail.getText().toString(), inputPassword.getText().toString());
+                email = inputEmail.getText().toString();
+                password = inputPassword.getText().toString();
+                loginUser(email, password);
+            }
+        });
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        insatantiateLoginViewModel();
+    }
+
+    private void insatantiateLoginViewModel(){
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+
+        loginViewModel.getLoginResult().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s.equals("success")){
+                    addToSharedPreferences(email);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(LoginActivity.this, "wrong email or password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -100,33 +125,14 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
 
-        compositeDisposable.add(api.loginUser(email, password)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String res) throws Exception {
-
-                if (res.equals("successful")){
-                    addToSharedPreferences(email);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Toast.makeText(LoginActivity.this, ""+res, Toast.LENGTH_SHORT).show();
-                }
-            }
-        })
-
-
-        );
+        loginViewModel.loginUser(email,password);
 
     }
     public void addToSharedPreferences(String email){
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
         editor.putString("email", email);
-        editor.commit();
+        editor.apply();
 
     }
 }

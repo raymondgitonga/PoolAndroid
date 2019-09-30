@@ -8,6 +8,8 @@ import android.net.NetworkInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +19,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class AuthRetrofitClient {
     private static Retrofit instance;
-    private static final String  BASE_URL = "http://10.0.2.2:7000/";
+    private static final String  BASE_URL = "http://10.0.2.2:1000/";
 
 
 
@@ -31,20 +33,29 @@ public class AuthRetrofitClient {
                                     .baseUrl(BASE_URL)
                                     .addConverterFactory(ScalarsConverterFactory.create())
                                     .addConverterFactory(GsonConverterFactory.create(gson))
+                                    .client(httpInterceptor())
                                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                                     .build();
         return instance;
     }
 
     public static Retrofit getUser(){
-
-
         if (instance == null)
             instance = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(httpInterceptor())
                     .build();
         return instance;
     }
+
+    public static OkHttpClient  httpInterceptor(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient.Builder().addInterceptor(interceptor).build();
+    }
+
+
+
 }
