@@ -35,9 +35,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapters.VendorAdapter;
 import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
+import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Model.Vendor;
-import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.Remote.NodeAuthService;
+import com.tosh.poolandroid.ViewModel.LoginViewModel;
+import com.tosh.poolandroid.ViewModel.UserViewModel;
 import com.tosh.poolandroid.ViewModel.VendorViewModel;
 
 
@@ -54,25 +56,20 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context;
     private NodeAuthService api;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private String email;
     private String latitude;
     private String longitude;
-    private String user_email;
     private MaterialToolbar toolbar;
     private RecyclerView vendorsRv;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
-    ArrayList<Vendor> vendorModel = new ArrayList<>();
-    private VendorAdapter vendorAdapter;;
-
+    private VendorAdapter vendorAdapter;
 
 
     @Override
@@ -258,8 +255,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
-
-
 
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);

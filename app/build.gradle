@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    dataBinding{
+    dataBinding {
         enabled = true
     }
     defaultConfig {
@@ -26,15 +26,15 @@ dependencies {
     def lifecycle_version = "2.1.0"
     def toasty_version = "1.4.2"
     def picasso_version = "2.71828"
-    def play_services_version ="17.0.0"
+    def play_services_version = "17.0.0"
     def google_maps_services = "0.2.11"
     def circle_imageview = "3.0.1"
     def phone_picker = "2.3.1"
     def rxjava_version = "2.2.12"
     def rxAndroid_version = "2.1.1"
     def appIntro = "5.1.0"
-    def recyclerview_version ="1.1.0-beta04"
-    
+    def recyclerview_version = "1.1.0-beta04"
+
     api 'com.google.android.material:material:1.1.0-alpha10'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -48,7 +48,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
 
     //recyclerview
-     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
     //app intro
     implementation "com.github.AppIntro:AppIntro:$appIntro"
@@ -93,8 +93,6 @@ dependencies {
     implementation "com.github.GrenderG:Toasty:$toasty_version"
 
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
-
-
 
 
 }

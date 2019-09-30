@@ -1,7 +1,8 @@
-package com.tosh.poolandroid.Retrofit;
+package com.tosh.poolandroid.Remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tosh.poolandroid.Model.User;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -35,7 +36,5 @@ public class AuthRetrofitClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
-
-
 
 }

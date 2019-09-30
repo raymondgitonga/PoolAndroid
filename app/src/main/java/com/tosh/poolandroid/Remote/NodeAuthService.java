@@ -1,6 +1,5 @@
-package com.tosh.poolandroid.Retrofit;
+package com.tosh.poolandroid.Remote;
 
-import com.tosh.poolandroid.Model.Location;
 import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.Model.Vendor;
 

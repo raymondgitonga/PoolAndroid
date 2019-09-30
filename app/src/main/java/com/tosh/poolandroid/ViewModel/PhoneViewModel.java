@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.Remote.AuthRetrofitClient;
+import com.tosh.poolandroid.Remote.NodeAuthService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

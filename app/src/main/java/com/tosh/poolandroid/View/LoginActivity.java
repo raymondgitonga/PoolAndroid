@@ -16,8 +16,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
-import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.Remote.AuthRetrofitClient;
+import com.tosh.poolandroid.Remote.NodeAuthService;
 import com.tosh.poolandroid.ViewModel.LoginViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
