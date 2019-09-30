@@ -33,7 +33,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapters.VendorAdapter;
-import com.tosh.poolandroid.LoginRegistration.LoginActivity;
 import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
@@ -47,13 +46,10 @@ import java.util.List;
 
 
 import io.reactivex.disposables.CompositeDisposable;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fetchLastLocation();
 
         loadUserDetails();
-
-        postLocation();
     }
     private void cartFab() {
 
@@ -252,8 +246,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> users =  response.body();
-                navName.setText(response.body().get(0).getUserName());
-                navEmail.setText(response.body().get(0).getUserEmail());
+                navName.setText(users.get(0).getUserName());
+                navEmail.setText(users.get(0).getUserEmail());
 
             }
 
@@ -266,38 +260,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void postLocation(){
-        latitude = pref.getString("latitude", "default");
-        longitude = pref.getString("longitude", "default");
-        user_email = pref.getString("email", "");
-
-        api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
-        Call<List<com.tosh.poolandroid.Model.Location>> call =
-                api.postLocation(latitude, longitude, user_email);
-
-        call.enqueue(new Callback<List<com.tosh.poolandroid.Model.Location>>() {
-            @Override
-            public void onResponse(Call<List<com.tosh.poolandroid.Model.Location>> call, Response<List<com.tosh.poolandroid.Model.Location>> response) {
-                if (response.isSuccessful() && response.body() != null){
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<com.tosh.poolandroid.Model.Location>> call, Throwable t) {
-
-            }
-        });
-    }
-
-
 
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        settings.edit().remove("email").commit();
-        settings.edit().remove("name").commit();
+        settings.edit().remove("email").apply();
+        settings.edit().remove("name").apply();
 
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

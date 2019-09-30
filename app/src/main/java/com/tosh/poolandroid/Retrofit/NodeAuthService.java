@@ -40,10 +40,10 @@ public interface NodeAuthService {
     Call<List<Vendor>> getVendor();
 
 
-    @POST("location/location-details")
-    @FormUrlEncoded
-    Call<List<Location>>postLocation(@Field("latitude") String latitude, @Field("longitude") String longitude,
-                                     @Field("user_email") String user_email);
+//    @POST("location/location-details")
+//    @FormUrlEncoded
+//    Call<List<Location>>postLocation(@Field("latitude") String latitude, @Field("longitude") String longitude,
+//                                     @Field("user_email") String user_email);
 
 
 

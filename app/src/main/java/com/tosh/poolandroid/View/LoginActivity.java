@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.LoginRegistration;
+package com.tosh.poolandroid.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -18,7 +18,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
-import com.tosh.poolandroid.View.MainActivity;
 import com.tosh.poolandroid.ViewModel.LoginViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -88,7 +87,7 @@ public class LoginActivity extends AppCompatActivity{
                 loginUser(email, password);
             }
         });
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+//        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         insatantiateLoginViewModel();
     }
 

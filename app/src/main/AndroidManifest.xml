@@ -35,10 +35,10 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".LoginRegistration.PhoneActivity"></activity>
-        <activity android:name=".LoginRegistration.LoginActivity"
+        <activity android:name=".PhoneActivity"></activity>
+        <activity android:name=".View.LoginActivity"
             android:theme="@style/AppTheme1"/>
-        <activity android:name=".LoginRegistration.RegisterActivity"
+        <activity android:name=".View.RegisterActivity"
             android:theme="@style/AppTheme1"/>
         <activity
             android:name=".View.AppIntro.AppIntroActivity"

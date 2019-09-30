@@ -19,7 +19,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class AuthRetrofitClient {
     private static Retrofit instance;
-    private static final String  BASE_URL = "http://10.0.2.2:1000/";
+    private static final String  BASE_URL = "http://10.0.2.2:7000/";
 
 
 

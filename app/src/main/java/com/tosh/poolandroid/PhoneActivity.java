@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.LoginRegistration;
+package com.tosh.poolandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
-import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 import com.tosh.poolandroid.View.MainActivity;
@@ -91,7 +90,7 @@ public class PhoneActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter phone", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(phone.length()<9){
+        if(phone.length()!= 9){
             Toast.makeText(this, "Enter valid phone number", Toast.LENGTH_SHORT).show();
             return;
         }

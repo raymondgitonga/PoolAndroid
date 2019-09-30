@@ -1,10 +1,11 @@
-package com.tosh.poolandroid.LoginRegistration;
+package com.tosh.poolandroid.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -13,16 +14,13 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.tosh.poolandroid.PhoneActivity;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
+import com.tosh.poolandroid.ViewModel.RegistrationViewModel;
 
-import java.util.regex.Pattern;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 import static androidx.core.util.PatternsCompat.EMAIL_ADDRESS;
@@ -38,6 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private RegistrationViewModel registrationViewModel;
+    private String email;
+    private String name;
+    private String password;
+    private String confirmpassword;
 
 
 
@@ -84,10 +87,18 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(inputName.getText().toString(),inputEmail.getText().toString(),
-                        inputPassword.getText().toString(), inputConfirmPassword.getText().toString());
+                email = inputEmail.getText().toString();
+                name = inputName.getText().toString();
+                password = inputPassword.getText().toString();
+                confirmpassword = inputConfirmPassword.getText().toString();
+
+                registerUser(name, email, password, confirmpassword);
             }
         });
+
+        instatiateRegisterViewModel();
+
+
     }
 
     private void registerUser(final String name, final String email, String password, String confirmPassword) {
@@ -121,23 +132,26 @@ public class RegisterActivity extends AppCompatActivity {
             inputPassword.setError("Password should be atleast 6 characters");
         }
 
-        compositeDisposable.add(api.registerUser(name,email,password,confirmPassword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String res) throws Exception {
+        registrationViewModel.registerUser(name, email, password, confirmPassword);
 
-                        if(res.equals("successful")){
-                            addToSharedPreferences(email, name);
-                            Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else{
-                            Toast.makeText(RegisterActivity.this, ""+res, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }));
+    }
+
+    private void instatiateRegisterViewModel(){
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+
+        registrationViewModel.getRegistrationResult().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s.equals("success")){
+                    addToSharedPreferences(email, name);
+                    Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(RegisterActivity.this, s, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void addToSharedPreferences(String email, String name){
