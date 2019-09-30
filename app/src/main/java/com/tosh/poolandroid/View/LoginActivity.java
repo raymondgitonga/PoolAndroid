@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity{
                 loginUser(email, password);
             }
         });
-//        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         insatantiateLoginViewModel();
     }
 

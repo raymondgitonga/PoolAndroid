@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     ArrayList<Vendor> vendorModel = new ArrayList<>();
-    private VendorAdapter vendorAdapter;
+    private VendorAdapter vendorAdapter;;
 
 
 
@@ -264,8 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.edit().remove("email").apply();
-        settings.edit().remove("name").apply();
-
+//        settings.edit().remove("name").apply();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
