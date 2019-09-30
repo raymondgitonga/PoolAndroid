@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.common.api.Api;
 import com.tosh.poolandroid.Model.Vendor;
+import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
 
 import java.util.List;
@@ -22,12 +23,17 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class VendorViewModel extends ViewModel {
+public class VendorViewModel extends AndroidViewModel {
 
-    private static Retrofit instance;
-    private static final String  BASE_URL = "http://10.0.2.2:7000/";
+
+    private NodeAuthService api;
 
     private MutableLiveData<List<Vendor>> vendorList;
+
+    public VendorViewModel(@NonNull Application application) {
+        super(application);
+        api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
+    }
 
     public LiveData<List<Vendor>> getVendor(){
         if (vendorList == null){
@@ -40,13 +46,6 @@ public class VendorViewModel extends ViewModel {
     }
 
     private void loadVendors() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        NodeAuthService api = retrofit.create(NodeAuthService.class);
-
         Call<List<Vendor>> call = api.getVendor();
 
         call.enqueue(new Callback<List<Vendor>>() {

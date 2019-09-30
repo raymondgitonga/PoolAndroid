@@ -35,7 +35,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".PhoneActivity"></activity>
+        <activity android:name=".View.PhoneActivity"></activity>
         <activity android:name=".View.LoginActivity"
             android:theme="@style/AppTheme1"/>
         <activity android:name=".View.RegisterActivity"
@@ -44,7 +44,7 @@
             android:name=".View.AppIntro.AppIntroActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".View.AppIntro.SplashActivity"
+            android:name=".View.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

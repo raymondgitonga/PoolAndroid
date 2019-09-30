@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
         final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
 
-        Retrofit retrofit = AuthRetrofitClient.getUser();
+        Retrofit retrofit = AuthRetrofitClient.getInstance();
         api = retrofit.create(NodeAuthService.class);
 
         Call<List<User>> users = api.getUser(email);

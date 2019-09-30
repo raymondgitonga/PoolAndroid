@@ -1,6 +1,8 @@
-package com.tosh.poolandroid;
+package com.tosh.poolandroid.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,14 +15,12 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
+import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Retrofit.AuthRetrofitClient;
 import com.tosh.poolandroid.Retrofit.NodeAuthService;
-import com.tosh.poolandroid.View.MainActivity;
+import com.tosh.poolandroid.ViewModel.PhoneViewModel;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class PhoneActivity extends AppCompatActivity {
@@ -37,6 +37,7 @@ public class PhoneActivity extends AppCompatActivity {
 
     private NodeAuthService api;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private PhoneViewModel phoneViewModel;
 
 
     @Override
@@ -61,11 +62,6 @@ public class PhoneActivity extends AppCompatActivity {
         email=pref.getString("email", "default");
         name = pref.getString("name", "default");
 
-
-
-
-
-
         //init api
         Retrofit retrofit = AuthRetrofitClient.getInstance();
         api = retrofit.create(NodeAuthService.class);
@@ -82,6 +78,8 @@ public class PhoneActivity extends AppCompatActivity {
             }
         });
 
+        instatiatePhoneViewModel();
+
 
     }
 
@@ -95,23 +93,43 @@ public class PhoneActivity extends AppCompatActivity {
             return;
         }
 
-        compositeDisposable.add(api.sendSms(name,phone, email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String res) throws Exception {
+        phoneViewModel.getPhone(name,phone,email);
 
-                        if (res .equals("phone")){
-                            Intent intent = new Intent(PhoneActivity.this, MainActivity.class);
+
+
+//        compositeDisposable.add(api.sendSms(name,phone, email)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<String>() {
+//                    @Override
+//                    public void accept(String res) throws Exception {
+//
+//                        if (res .equals("phone")){
+//                            Intent intent = new Intent(PhoneActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }else {
+//                            Toast.makeText(PhoneActivity.this, ""+res, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//        );
+
+    }
+    private void instatiatePhoneViewModel(){
+        phoneViewModel = ViewModelProviders.of(this).get(PhoneViewModel.class);
+
+        phoneViewModel.getPhoneStatus().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s.equals("success")){
+                    Intent intent = new Intent(PhoneActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }else {
-                            Toast.makeText(PhoneActivity.this, ""+res, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-        );
-
+                }else{
+                    Toast.makeText(PhoneActivity.this, s, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
