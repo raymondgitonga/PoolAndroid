@@ -1,6 +1,8 @@
 package com.tosh.poolandroid.ViewModel;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -45,7 +47,6 @@ public class LoginViewModel extends AndroidViewModel {
 
 
         );
-
     }
     public MutableLiveData<String> getLoginResult(){
         return loginResult;

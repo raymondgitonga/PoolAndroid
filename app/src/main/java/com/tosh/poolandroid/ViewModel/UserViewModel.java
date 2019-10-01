@@ -1,18 +1,21 @@
 package com.tosh.poolandroid.ViewModel;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tosh.poolandroid.Model.User;
+import com.tosh.poolandroid.Model.Vendor;
 import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Remote.NodeAuthService;
 
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,24 +26,23 @@ public class UserViewModel extends AndroidViewModel {
 
     private NodeAuthService api;
     private SharedPreferences pref;
+    private static MutableLiveData<String> userName = new MutableLiveData<>();
 
-    private static MutableLiveData<List<User>> userDetails = new MutableLiveData<>();
 
-
-    private Call<List<User>> call;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
         api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
+        pref = PreferenceManager.getDefaultSharedPreferences(application.getApplicationContext());
     }
-    private String email = pref.getString("email", "");
 
     public void loadUser(){
-        call = api.getUser(email);
+        Call<List<User>> call;
+        call = api.getUser(pref.getString("email", null));
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> users =  response.body();
+                userName.postValue(response.body().get(0).getUserName());
 
             }
 
@@ -52,7 +54,7 @@ public class UserViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<List<User>> getUserDetails(){
-        return userDetails;
-    }
+   public MutableLiveData<String>getUserName(){
+        return userName;
+   }
 }

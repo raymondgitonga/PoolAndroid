@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Adapters;
+package com.tosh.poolandroid.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

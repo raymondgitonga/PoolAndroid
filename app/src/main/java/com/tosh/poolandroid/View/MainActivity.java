@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -32,22 +31,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.tosh.poolandroid.Adapters.VendorAdapter;
+import com.tosh.poolandroid.Adapter.VendorAdapter;
 import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Model.Vendor;
 import com.tosh.poolandroid.Remote.NodeAuthService;
-import com.tosh.poolandroid.ViewModel.LoginViewModel;
+import com.tosh.poolandroid.ViewModel.MyViewModelFactory;
 import com.tosh.poolandroid.ViewModel.UserViewModel;
 import com.tosh.poolandroid.ViewModel.VendorViewModel;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private VendorAdapter vendorAdapter;
+    private UserViewModel userViewModel;
+    private String nameVm;
 
 
     @Override
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fetchLastLocation();
 
         loadUserDetails();
+
     }
     private void cartFab() {
 
@@ -256,10 +256,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     private void logout(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.edit().remove("email").apply();
-//        settings.edit().remove("name").apply();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

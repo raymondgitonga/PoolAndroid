@@ -32,25 +32,8 @@ public class PhoneActivity extends AppCompatActivity {
     private String name;
 
     private SharedPreferences pref;
-
-
-
-    private NodeAuthService api;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private PhoneViewModel phoneViewModel;
 
-
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        compositeDisposable.clear();
-        super.onDestroy();
-    }
 
 
     @Override
@@ -61,11 +44,6 @@ public class PhoneActivity extends AppCompatActivity {
         pref= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         email=pref.getString("email", "default");
         name = pref.getString("name", "default");
-
-        //init api
-        Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuthService.class);
-
 
         //init views
         proceedBtn = findViewById(R.id.proceed_btn);
@@ -94,27 +72,6 @@ public class PhoneActivity extends AppCompatActivity {
         }
 
         phoneViewModel.getPhone(name,phone,email);
-
-
-
-//        compositeDisposable.add(api.sendSms(name,phone, email)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String res) throws Exception {
-//
-//                        if (res .equals("phone")){
-//                            Intent intent = new Intent(PhoneActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }else {
-//                            Toast.makeText(PhoneActivity.this, ""+res, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                })
-//        );
-
     }
     private void instatiatePhoneViewModel(){
         phoneViewModel = ViewModelProviders.of(this).get(PhoneViewModel.class);

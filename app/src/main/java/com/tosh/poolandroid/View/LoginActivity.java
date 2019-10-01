@@ -16,12 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Remote.AuthRetrofitClient;
-import com.tosh.poolandroid.Remote.NodeAuthService;
 import com.tosh.poolandroid.ViewModel.LoginViewModel;
-
-import io.reactivex.disposables.CompositeDisposable;
-import retrofit2.Retrofit;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 
@@ -36,32 +31,12 @@ public class LoginActivity extends AppCompatActivity{
     private SharedPreferences.Editor editor;
     private String email;
     private String password;
-
-    NodeAuthService api;
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
     private LoginViewModel loginViewModel;
-
-
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        compositeDisposable.clear();
-        super.onDestroy();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-//        init api
-        Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuthService.class);
 
         // views
         inputEmail =  findViewById(R.id.email_login);
@@ -84,6 +59,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 email = inputEmail.getText().toString();
                 password = inputPassword.getText().toString();
+                addToSharedPreferences(email);
                 loginUser(email, password);
             }
         });
@@ -97,7 +73,7 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onChanged(String s) {
                 if (s.equals("success")){
-                    addToSharedPreferences(email);
+//                    addToSharedPreferences(email);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
