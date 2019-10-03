@@ -75,8 +75,6 @@ public class LoginActivity extends AppCompatActivity{
             public void onChanged(String s) {
                 if (s.equals("success")){
                     addToSharedPreferences(email);
-                    UserRoom user = new UserRoom(null, email);
-                    loginViewModel.insert(user);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

@@ -145,7 +145,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (s.equals("success")){
                     addToSharedPreferences(email, name);
                     UserRoom user = new UserRoom(name, email);
-                    registrationViewModel.insert(user);
                     Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
                     startActivity(intent);
                     finish();
