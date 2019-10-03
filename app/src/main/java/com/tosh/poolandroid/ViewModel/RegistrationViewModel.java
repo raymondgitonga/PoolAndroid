@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Remote.NodeAuthService;
+import com.tosh.poolandroid.Repository.UserRepository;
+import com.tosh.poolandroid.RoomDb.UserRoom;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,10 +21,20 @@ public class RegistrationViewModel  extends AndroidViewModel {
 
     private NodeAuthService api;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private UserRepository repository;
 
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
         api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
+        repository = new UserRepository(application);
+    }
+
+    public void insert(UserRoom user){
+        repository.insert(user);
+    }
+
+    public void delete(UserRoom user){
+        repository.delete(user);
     }
 
     public void registerUser(final String name, final String email, String password, String confirmPassword) {

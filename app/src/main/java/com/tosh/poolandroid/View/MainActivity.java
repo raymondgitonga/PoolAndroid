@@ -37,8 +37,6 @@ import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Model.Vendor;
 import com.tosh.poolandroid.Remote.NodeAuthService;
-import com.tosh.poolandroid.ViewModel.MyViewModelFactory;
-import com.tosh.poolandroid.ViewModel.UserViewModel;
 import com.tosh.poolandroid.ViewModel.VendorViewModel;
 
 
@@ -67,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private VendorAdapter vendorAdapter;
-    private UserViewModel userViewModel;
-    private String nameVm;
 
 
     @Override

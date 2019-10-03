@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Remote.NodeAuthService;
+import com.tosh.poolandroid.RoomDb.UserRoom;
 import com.tosh.poolandroid.ViewModel.RegistrationViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -143,6 +144,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 if (s.equals("success")){
                     addToSharedPreferences(email, name);
+                    UserRoom user = new UserRoom(name, email);
+                    registrationViewModel.insert(user);
                     Intent intent = new Intent(RegisterActivity.this, PhoneActivity.class);
                     startActivity(intent);
                     finish();

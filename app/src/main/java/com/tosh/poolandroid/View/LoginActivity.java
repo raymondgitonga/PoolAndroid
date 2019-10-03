@@ -16,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.tosh.poolandroid.R;
+import com.tosh.poolandroid.RoomDb.UserRoom;
 import com.tosh.poolandroid.ViewModel.LoginViewModel;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
@@ -73,7 +74,9 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onChanged(String s) {
                 if (s.equals("success")){
-//                    addToSharedPreferences(email);
+                    addToSharedPreferences(email);
+                    UserRoom user = new UserRoom(null, email);
+                    loginViewModel.insert(user);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -109,4 +112,6 @@ public class LoginActivity extends AppCompatActivity{
         editor.apply();
 
     }
+
+
 }
