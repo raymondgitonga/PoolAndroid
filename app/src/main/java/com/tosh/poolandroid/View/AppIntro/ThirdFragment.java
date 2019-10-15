@@ -11,10 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.tosh.poolandroid.View.LoginActivity;
-
 
 import com.tosh.poolandroid.R;
+import com.tosh.poolandroid.View.LoginActivity;
 
 
 public class ThirdFragment extends Fragment {

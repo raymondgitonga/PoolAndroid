@@ -34,10 +34,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapter.VendorAdapter;
 import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Remote.AuthRetrofitClient;
 import com.tosh.poolandroid.Model.Vendor;
-import com.tosh.poolandroid.Remote.NodeAuthService;
+import com.tosh.poolandroid.ViewModel.UserViewModel;
 import com.tosh.poolandroid.ViewModel.VendorViewModel;
+import com.tosh.poolloginrebuild.database.UserEntity;
+import com.tosh.poolloginrebuild.repository.UserRepository;
 
 
 import java.util.List;
@@ -51,7 +52,6 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private NodeAuthService api;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private String email;
@@ -65,14 +65,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private VendorAdapter vendorAdapter;
+    private UserRepository repository;
+    private UserViewModel userViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
-        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        email = pref.getString("email", "");
+//        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//        email = pref.getString("email", "");
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -230,23 +232,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
         final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
 
-        Retrofit retrofit = AuthRetrofitClient.getInstance();
-        api = retrofit.create(NodeAuthService.class);
-
-        Call<List<User>> users = api.getUser(email);
-
-        users.enqueue(new Callback<List<User>>() {
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel.getUserDetails().observe(this, new Observer<List<UserEntity>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> users =  response.body();
-                navName.setText(users.get(0).getUserName());
-                navEmail.setText(users.get(0).getUserEmail());
-
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("USER",t.getMessage());
+            public void onChanged(List<UserEntity> userEntities) {
+                for (int i = 0; i<userEntities.size(); i++){
+                    navName.setText(userEntities.get(i).getName());
+                    navEmail.setText(userEntities.get(i).getEmail());
+                }
             }
         });
 

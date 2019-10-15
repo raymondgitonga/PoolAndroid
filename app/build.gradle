@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -24,19 +27,15 @@ android {
 dependencies {
     def retrofit_version = "2.6.0"
     def lifecycle_version = "2.1.0"
-    def toasty_version = "1.4.2"
-    def picasso_version = "2.71828"
     def play_services_version = "17.0.0"
     def google_maps_services = "0.2.11"
-    def circle_imageview = "3.0.1"
-    def phone_picker = "2.3.1"
     def rxjava_version = "2.2.12"
     def rxAndroid_version = "2.1.1"
-    def appIntro = "5.1.0"
-    def recyclerview_version = "1.1.0-beta04"
-    def room_version = "2.1.0"
+    def room_version = "2.2.0"
 
-    api 'com.google.android.material:material:1.1.0-alpha10'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api 'com.google.android.material:material:1.1.0-beta01'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -49,10 +48,10 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
 
     //recyclerview
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview:1.1.0-beta05"
 
     //app intro
-    implementation "com.github.AppIntro:AppIntro:$appIntro"
+    implementation "com.github.AppIntro:AppIntro:5.1.0"
 
     //rxjava
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
@@ -64,10 +63,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     //phone picker
-    implementation "com.hbb20:ccp:$phone_picker"
+    implementation "com.hbb20:ccp:2.3.1"
 
     //circular image view
-    implementation "de.hdodenhof:circleimageview:$circle_imageview"
+    implementation "de.hdodenhof:circleimageview:3.0.1"
 
     // google maps
     implementation "com.google.android.gms:play-services-location:$play_services_version"
@@ -75,7 +74,7 @@ dependencies {
     implementation "com.google.maps:google-maps-services:$google_maps_services"
 
     //picasso
-    implementation "com.squareup.picasso:picasso:$picasso_version"
+    implementation "com.squareup.picasso:picasso:2.71828"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -91,14 +90,25 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 
     //toasty
-    implementation "com.github.GrenderG:Toasty:$toasty_version"
+    implementation "com.github.GrenderG:Toasty:1.4.2"
 
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     //Room
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // Room components
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    implementation 'com.facebook.stetho:stetho:1.3.1'
 
 
 }

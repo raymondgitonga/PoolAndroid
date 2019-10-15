@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tosh.poolandroid.Model.Vendor;
-import com.tosh.poolandroid.Remote.AuthRetrofitClient;
-import com.tosh.poolandroid.Remote.NodeAuthService;
+import com.tosh.poolandroid.Remote.RetrofitApi;
+import com.tosh.poolandroid.Remote.RetrofitClient;
 
 import java.util.List;
 
@@ -21,13 +21,15 @@ import retrofit2.Response;
 public class VendorViewModel extends AndroidViewModel {
 
 
-    private NodeAuthService api;
+    private RetrofitApi api;
 
     private MutableLiveData<List<Vendor>> vendorList;
 
     public VendorViewModel(@NonNull Application application) {
         super(application);
-        api = AuthRetrofitClient.getInstance().create(NodeAuthService.class);
+//        api = RetrofitClient.getInstance().create(NodeAuthService.class);
+
+        api = RetrofitClient.INSTANCE.makeRetrofitApi();
     }
 
     public LiveData<List<Vendor>> getVendor(){
