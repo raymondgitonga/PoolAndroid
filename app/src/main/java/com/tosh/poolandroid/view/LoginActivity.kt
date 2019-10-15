@@ -5,10 +5,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.hide
+import com.tosh.poolandroid.util.show
 import com.tosh.poolandroid.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -17,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         login_register_btn.setOnClickListener {
             val intent = Intent(applicationContext, RegisterActivity::class.java)
@@ -50,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
             if (it.equals("successful")){
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 addToSharedPreferences(email)
+                login_progress.show()
                 startActivity(intent)
                 finish()
             }else{
@@ -59,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun addToSharedPreferences(email: String) {
-        var preferences: SharedPreferences? = null
+        var preferences: SharedPreferences?
         var editor: SharedPreferences.Editor?
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)

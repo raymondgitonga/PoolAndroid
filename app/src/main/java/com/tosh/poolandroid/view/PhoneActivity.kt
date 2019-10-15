@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.hide
+import com.tosh.poolandroid.util.show
 import com.tosh.poolandroid.viewmodel.PhoneViewModel
 import kotlinx.android.synthetic.main.activity_phone.*
 
@@ -42,6 +44,7 @@ class PhoneActivity : AppCompatActivity() {
         val phoneViewModel: PhoneViewModel = ViewModelProviders.of(this)[PhoneViewModel::class.java]
         phoneViewModel.addUserPhone(name, email, phone).observe(this, Observer {
             if (it == "successful"){
+                phone_progress.show()
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
                 finish()

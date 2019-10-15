@@ -5,11 +5,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.show
 import com.tosh.poolandroid.viewmodel.RegistrationViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -18,6 +20,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         register_login_btn.setOnClickListener {
             val intent = Intent(applicationContext, LoginActivity::class.java)
@@ -70,6 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                 intent.putExtra("Name", name)
                 intent.putExtra("Email", email)
                 addToSharedPreferences(email)
+                register_progress.show()
                 startActivity(intent)
                 finish()
             }else{
@@ -79,7 +84,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun addToSharedPreferences(email: String) {
-        var preferences: SharedPreferences? = null
+        var preferences: SharedPreferences?
         var editor: SharedPreferences.Editor?
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)

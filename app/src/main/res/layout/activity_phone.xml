@@ -79,4 +79,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countryCode"/>
 
+    <ProgressBar
+        android:id="@+id/phone_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="7dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="731dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/phoneText"
+        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,8 +36,6 @@ import com.tosh.poolandroid.model.Vendor;
 import com.tosh.poolandroid.viewmodel.UserViewModel;
 import com.tosh.poolandroid.viewmodel.VendorViewModel;
 import com.tosh.poolloginrebuild.database.UserEntity;
-import com.tosh.poolloginrebuild.repository.UserRepository;
-
 
 import java.util.List;
 
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private String email;
     private String latitude;
     private String longitude;
     private MaterialToolbar toolbar;
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private VendorAdapter vendorAdapter;
-    private UserRepository repository;
     private UserViewModel userViewModel;
 
 
@@ -65,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
-//        pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        email = pref.getString("email", "");
-
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
