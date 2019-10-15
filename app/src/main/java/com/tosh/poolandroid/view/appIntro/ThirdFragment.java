@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View.AppIntro;
+package com.tosh.poolandroid.view.appIntro;
 
 
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.Button;
 
 
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.View.LoginActivity;
+import com.tosh.poolandroid.view.LoginActivity;
 
 
 public class ThirdFragment extends Fragment {

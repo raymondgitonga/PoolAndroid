@@ -1,9 +1,9 @@
-package com.tosh.poolandroid.ViewModel
+package com.tosh.poolandroid.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tosh.poolandroid.Model.RegisterResponse
+import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.Remote.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback

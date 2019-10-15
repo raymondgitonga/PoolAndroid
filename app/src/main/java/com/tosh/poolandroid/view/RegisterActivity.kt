@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View
+package com.tosh.poolandroid.view
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,7 +10,7 @@ import androidx.core.util.PatternsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.ViewModel.RegistrationViewModel
+import com.tosh.poolandroid.viewmodel.RegistrationViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {

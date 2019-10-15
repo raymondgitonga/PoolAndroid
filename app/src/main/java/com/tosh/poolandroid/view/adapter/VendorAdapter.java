@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Model.Vendor;
+import com.tosh.poolandroid.model.Vendor;
 
 import java.util.ArrayList;
 import java.util.List;

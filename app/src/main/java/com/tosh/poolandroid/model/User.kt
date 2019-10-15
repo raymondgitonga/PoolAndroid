@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Model
+package com.tosh.poolandroid.model
 
 data class User(
         val name: String,

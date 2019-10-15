@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View;
+package com.tosh.poolandroid.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,7 +18,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -32,22 +31,15 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapter.VendorAdapter;
-import com.tosh.poolandroid.Model.User;
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.Model.Vendor;
-import com.tosh.poolandroid.ViewModel.UserViewModel;
-import com.tosh.poolandroid.ViewModel.VendorViewModel;
+import com.tosh.poolandroid.model.Vendor;
+import com.tosh.poolandroid.viewmodel.UserViewModel;
+import com.tosh.poolandroid.viewmodel.VendorViewModel;
 import com.tosh.poolloginrebuild.database.UserEntity;
 import com.tosh.poolloginrebuild.repository.UserRepository;
 
 
 import java.util.List;
-
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

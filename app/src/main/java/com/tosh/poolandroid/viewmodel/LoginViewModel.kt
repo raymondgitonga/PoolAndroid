@@ -1,10 +1,10 @@
-package com.tosh.poolandroid.ViewModel
+package com.tosh.poolandroid.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tosh.poolandroid.Model.LoginResponse
+import com.tosh.poolandroid.model.LoginResponse
 import com.tosh.poolandroid.Remote.RetrofitClient
 import com.tosh.poolloginrebuild.database.UserEntity
 import com.tosh.poolloginrebuild.repository.UserRepository

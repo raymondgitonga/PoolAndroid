@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.AppIntro.FirstFragment"
+    tools:context=".view.appIntro.FirstFragment"
     android:orientation="vertical"
     android:background="@drawable/screen1"
     android:layout_gravity="center">

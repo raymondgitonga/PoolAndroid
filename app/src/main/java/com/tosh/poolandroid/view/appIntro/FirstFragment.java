@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View.AppIntro;
+package com.tosh.poolandroid.view.appIntro;
 
 
 import android.os.Bundle;

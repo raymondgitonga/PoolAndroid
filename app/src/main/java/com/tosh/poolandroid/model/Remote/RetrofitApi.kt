@@ -1,8 +1,8 @@
 package com.tosh.poolandroid.Remote
 
-import com.tosh.poolandroid.Model.LoginResponse
-import com.tosh.poolandroid.Model.RegisterResponse
-import com.tosh.poolandroid.Model.Vendor
+import com.tosh.poolandroid.model.LoginResponse
+import com.tosh.poolandroid.model.RegisterResponse
+import com.tosh.poolandroid.model.Vendor
 import retrofit2.Call
 import retrofit2.http.*
 

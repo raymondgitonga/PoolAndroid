@@ -28,9 +28,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.PhoneActivity"></activity>
-        <activity android:name=".View.RegisterActivity" />
-        <activity android:name=".View.LoginActivity" />
+        <activity android:name=".view.PhoneActivity"></activity>
+        <activity android:name=".view.RegisterActivity" />
+        <activity android:name=".view.LoginActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -41,10 +41,10 @@
             android:required="false" />
 
         <activity
-            android:name=".View.AppIntro.AppIntroActivity"
+            android:name=".view.appIntro.AppIntroActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".View.SplashActivity"
+            android:name=".view.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.MainActivity"
+            android:name=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

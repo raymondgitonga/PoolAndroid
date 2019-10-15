@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.ViewModel
+package com.tosh.poolandroid.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

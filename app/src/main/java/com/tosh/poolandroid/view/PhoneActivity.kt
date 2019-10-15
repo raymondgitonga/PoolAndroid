@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View
+package com.tosh.poolandroid.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.ViewModel.PhoneViewModel
+import com.tosh.poolandroid.viewmodel.PhoneViewModel
 import kotlinx.android.synthetic.main.activity_phone.*
 
 class PhoneActivity : AppCompatActivity() {

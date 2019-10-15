@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.View.AppIntro;
+package com.tosh.poolandroid.view.appIntro;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

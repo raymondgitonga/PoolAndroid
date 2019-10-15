@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Model;
+package com.tosh.poolandroid.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
