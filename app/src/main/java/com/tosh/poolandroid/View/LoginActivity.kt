@@ -61,15 +61,17 @@ class LoginActivity : AppCompatActivity() {
 
     fun addToSharedPreferences(email: String) {
         var preferences: SharedPreferences? = null
-        var editor: SharedPreferences.Editor? = null
+        var editor: SharedPreferences.Editor?
         var settings: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (preferences?.contains("email")!!){
-            settings.edit().remove("email").apply()
-            preferences = PreferenceManager.getDefaultSharedPreferences(this)
-            editor = preferences.edit()
-            editor.putString("email", email)
-            editor.apply()
+        if (preferences != null) {
+            if (preferences.contains("email")){
+                settings.edit().remove("email").apply()
+                preferences = PreferenceManager.getDefaultSharedPreferences(this)
+                editor = preferences.edit()
+                editor.putString("email", email)
+                editor.apply()
+            }
         }
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
