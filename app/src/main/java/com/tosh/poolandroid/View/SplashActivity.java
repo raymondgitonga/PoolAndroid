@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 runProgressBar();
 
-                if(value == "default"){
+                if(value.equals("default")){
                     startApp();
                     finish();
                 }else{
