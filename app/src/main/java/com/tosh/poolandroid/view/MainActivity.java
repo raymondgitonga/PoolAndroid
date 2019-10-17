@@ -33,7 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.tosh.poolandroid.Adapter.VendorAdapter;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.model.Vendor;
-import com.tosh.poolandroid.viewmodel.UserViewModel;
+import com.tosh.poolandroid.viewmodel.LoginViewModel;
 import com.tosh.poolandroid.viewmodel.VendorViewModel;
 import com.tosh.poolloginrebuild.database.UserEntity;
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     private VendorAdapter vendorAdapter;
-    private UserViewModel userViewModel;
+    private LoginViewModel userViewModel;
 
 
     @Override
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final TextView navName = (TextView) headerView.findViewById(R.id.navigation_name);
         final TextView navEmail = (TextView) headerView.findViewById(R.id.navigation_email);
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         userViewModel.getUserDetails().observe(this, new Observer<List<UserEntity>>() {
             @Override
             public void onChanged(List<UserEntity> userEntities) {

@@ -27,8 +27,6 @@ public class VendorViewModel extends AndroidViewModel {
 
     public VendorViewModel(@NonNull Application application) {
         super(application);
-//        api = RetrofitClient.getInstance().create(NodeAuthService.class);
-
         api = RetrofitClient.INSTANCE.makeRetrofitApi();
     }
 
