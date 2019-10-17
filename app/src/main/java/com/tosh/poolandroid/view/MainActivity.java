@@ -30,7 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.tosh.poolandroid.Adapter.VendorAdapter;
+import com.tosh.poolandroid.view.adapter.VendorAdapter;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.model.Vendor;
 import com.tosh.poolandroid.viewmodel.UserViewModel;
