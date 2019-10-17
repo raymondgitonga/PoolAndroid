@@ -10,9 +10,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.util.hide
 import com.tosh.poolandroid.util.show
-import com.tosh.poolandroid.viewmodel.LoginViewModel
+import com.tosh.poolandroid.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -50,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun instantiateLoginViewModel(email:String,  password:String) {
-        val loginViewModel: LoginViewModel = ViewModelProviders.of(this)[LoginViewModel::class.java]
-        loginViewModel.userLogin(email, password).observe(this, Observer {
+        val userViewModel: UserViewModel = ViewModelProviders.of(this)[UserViewModel::class.java]
+        userViewModel.userLogin(email, password).observe(this, Observer {
 
             if (it.equals("successful")){
                 val intent = Intent(applicationContext, MainActivity::class.java)

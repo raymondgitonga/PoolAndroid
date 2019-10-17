@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
      private val repository: UserRepository = UserRepository(application)
 
     fun userLogin(email: String, password: String): LiveData<String> {

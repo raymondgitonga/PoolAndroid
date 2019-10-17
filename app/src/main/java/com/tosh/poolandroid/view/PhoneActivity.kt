@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.show
-import com.tosh.poolandroid.viewmodel.LoginViewModel
+import com.tosh.poolandroid.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_phone.*
 
 class PhoneActivity : AppCompatActivity() {
@@ -40,7 +40,7 @@ class PhoneActivity : AppCompatActivity() {
     }
 
     private fun instantiatePhoneViewModel(name:String, email:String, phone:String) {
-        val phoneViewModel: LoginViewModel = ViewModelProviders.of(this)[LoginViewModel::class.java]
+        val phoneViewModel: UserViewModel = ViewModelProviders.of(this)[UserViewModel::class.java]
         phoneViewModel.addUserPhone(name, email, phone).observe(this, Observer {
             if (it == "successful"){
                 phone_progress.show()
