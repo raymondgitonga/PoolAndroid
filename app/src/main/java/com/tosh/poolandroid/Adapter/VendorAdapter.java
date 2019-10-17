@@ -41,7 +41,7 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView
         holder.vendorName.setText(vendorModel.get(position).getName());
 
         Picasso.get()
-                .load(vendorModel.get(position).getImgUrl())
+                .load(vendorModel.get(position).getImg_url())
                 .fit()
                 .centerCrop()
                 .into(holder.vendorImage);
