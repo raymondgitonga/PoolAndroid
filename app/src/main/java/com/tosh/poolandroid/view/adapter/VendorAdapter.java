@@ -6,20 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import com.tosh.poolandroid.R;
 import com.tosh.poolandroid.model.Vendor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.VendorView> {
 
- private List<Vendor> vendorModel = new ArrayList<>();
+ private List<Vendor> vendorModel;
     private Context context;
 
     public VendorAdapter(Context context, List<Vendor> vendorModel){

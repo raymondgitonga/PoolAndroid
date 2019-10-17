@@ -8,14 +8,14 @@ import retrofit2.http.*
 
 interface RetrofitApi {
     @FormUrlEncoded
-    @POST("users/login")
+    @POST("user/login")
     fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<LoginResponse>
 
     @FormUrlEncoded
-    @POST("users/register")
+    @POST("user/register")
     fun userRegister(
         @Field("name") name: String,
         @Field("email") email: String,
@@ -24,14 +24,14 @@ interface RetrofitApi {
     ): Call<RegisterResponse>
 
     @FormUrlEncoded
-    @POST("users/phone")
+    @POST("user/phone")
     fun addUserPhone(
         @Field("name") name: String,
         @Field("phone") phone:String,
         @Field("email") email: String
     ): Call<RegisterResponse>
 
-    @GET("vendors/vendor-list")
+    @GET("vendor/vendor-list")
     abstract fun getVendor(): Call<List<Vendor>>
 
 
