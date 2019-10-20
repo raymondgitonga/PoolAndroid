@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val vendorViewModel = ViewModelProviders.of(this).get(VendorViewModel::class.java)
 
         vendorViewModel.vendor.observe(this, Observer { vendors ->
-            vendorAdapter = VendorAdapter(this@MainActivity, vendors)
+            vendorAdapter = VendorAdapter(this, vendors)
             vendorsRv!!.adapter = vendorAdapter
         })
     }
