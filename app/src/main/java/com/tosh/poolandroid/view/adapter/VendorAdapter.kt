@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
@@ -20,13 +21,21 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
     }
 
     override fun onBindViewHolder(holder: VendorView, position: Int) {
-        holder.vendorName.text = vendorModel[position].name
+       holder.vendorName.text = vendorModel[position].name
 
         Picasso.get()
                 .load(vendorModel[position].img_url)
                 .fit()
                 .centerCrop()
                 .into(holder.vendorImage)
+
+        holder.vendorImage.setOnClickListener {
+            Toast.makeText(context, ""+vendorModel[position].name, Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -35,8 +44,9 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
 
     inner class VendorView(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        internal var vendorImage: ImageView = itemView.findViewById<View>(R.id.vendor_image) as ImageView
-        internal var vendorName: TextView = itemView.findViewById(R.id.vendor_name)
+        val vendorImage: ImageView = itemView.findViewById<View>(R.id.vendor_image) as ImageView
+        val vendorName: TextView = itemView.findViewById(R.id.vendor_name)
 
     }
 }
+
