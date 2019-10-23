@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.VendorProductActivity
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.MainActivity
 
@@ -41,7 +42,7 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
 
         init {
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, MainActivity::class.java)
+                val intent = Intent(itemView.context, VendorProductActivity::class.java)
 
                 itemView.context.startActivity(intent)
             }

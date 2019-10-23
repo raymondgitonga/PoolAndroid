@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        visibilityActivity()
+
         initialize()
 
         cartFab()
@@ -66,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initialize() {
 
-        //tool bar
+//        //tool bar
         setSupportActionBar(toolBar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -148,7 +150,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            REQUEST_CODE -> if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 fetchLastLocation()
             }
         }
@@ -181,6 +183,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         private val REQUEST_CODE = 101
+    }
+
+    private fun visibilityActivity() {
+        activityMain.visibility = View.VISIBLE
     }
 
 }

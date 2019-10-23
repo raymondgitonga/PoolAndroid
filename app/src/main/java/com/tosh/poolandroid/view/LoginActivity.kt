@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         login_register_btn.setOnClickListener {
             val intent = Intent(applicationContext, RegisterActivity::class.java)
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         val userViewModel: UserViewModel = ViewModelProviders.of(this)[UserViewModel::class.java]
         userViewModel.userLogin(email, password).observe(this, Observer {
 
-            if (it.equals("successful")){
+            if (it == "successful"){
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 addToSharedPreferences(email)
                 login_progress.show()
@@ -65,13 +65,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun addToSharedPreferences(email: String) {
-        var preferences: SharedPreferences?
+        var preferences: SharedPreferences? = PreferenceManager.getDefaultSharedPreferences(this)
         var editor: SharedPreferences.Editor?
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        editor = preferences.edit()
-        editor.putString("email", email)
-        editor.apply()
+        editor = preferences?.edit()
+        editor?.putString("email", email)
+        editor?.apply()
 
     }
 }
