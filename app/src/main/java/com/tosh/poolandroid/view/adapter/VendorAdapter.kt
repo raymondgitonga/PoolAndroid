@@ -2,6 +2,7 @@ package com.tosh.poolandroid.view.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.MainActivity
 
 class VendorAdapter(private val context: Context, private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
+
+    var str: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorView {
 
@@ -32,6 +35,7 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
                 .fit()
                 .centerCrop()
                 .into(holder.vendorImage)
+        
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +47,6 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
         init {
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, VendorProductActivity::class.java)
-
                 itemView.context.startActivity(intent)
             }
         }

@@ -10,6 +10,8 @@ object RetrofitClient {
 
     private const val BASE_URL = "http://10.0.2.2:7000/"
 
+    private const val BASE_URL2 = "http://10.0.2.2:8080/"
+
     private val gson = GsonBuilder()
         .setLenient()
         .create()
@@ -23,6 +25,19 @@ object RetrofitClient {
             .create(RetrofitApi::class.java)
 
         return retrofit
+    }
+
+
+    fun makeRetrofitApi2(): RetrofitApi {
+        val retrofit2 = Retrofit.Builder()
+                .baseUrl(BASE_URL2)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(httpInterceptor())
+                .build()
+                .create(RetrofitApi::class.java)
+
+        return retrofit2
+
     }
 
     fun httpInterceptor(): OkHttpClient {

@@ -31,8 +31,8 @@ interface RetrofitApi {
         @Field("email") email: String
     ): Call<RegisterResponse>
 
-    @GET("vendor/vendor-list")
-    abstract fun getVendor(): Call<List<Vendor>>
+    @GET("api/v1/vendor/all")
+    fun getVendor(): Call<List<Vendor>>
 
 
 }

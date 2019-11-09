@@ -26,7 +26,7 @@ class VendorViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun loadVendors() {
 
-        RetrofitClient.makeRetrofitApi().getVendor()
+        RetrofitClient.makeRetrofitApi2().getVendor()
                 .enqueue(object : Callback<List<Vendor>> {
             override fun onResponse(call: Call<List<Vendor>>, response: Response<List<Vendor>>) {
                 vendorList!!.value = response.body()

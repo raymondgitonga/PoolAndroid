@@ -35,9 +35,7 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         initialize()
         loadUserDetails()
     }
-    private fun cartFab() {
-        cart_fab.setOnClickListener { Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show() }
-    }
+
 
     private fun initialize() {
 
@@ -51,6 +49,9 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         drawer_layout!!.addDrawerListener(toggle)
 
         toggle.syncState()
+    }
+    private fun cartFab() {
+        cart_fab.setOnClickListener { Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show() }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
