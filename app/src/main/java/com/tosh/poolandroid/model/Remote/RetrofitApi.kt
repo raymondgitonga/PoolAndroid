@@ -33,6 +33,4 @@ interface RetrofitApi {
 
     @GET("api/v1/vendor/all")
     fun getVendor(): Call<List<Vendor>>
-
-
 }
