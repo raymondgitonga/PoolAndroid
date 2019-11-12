@@ -116,4 +116,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return repository.getUserDetails()
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.Remote
 
+import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.LoginResponse
 import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.model.Vendor
@@ -33,4 +34,7 @@ interface RetrofitApi {
 
     @GET("api/v1/vendor/all")
     fun getVendor(): Call<List<Vendor>>
+
+    @GET("/api/v1/category/vendor/{vendor_id}")
+    fun getCategoryProducts(): Call<List<Category>>
 }

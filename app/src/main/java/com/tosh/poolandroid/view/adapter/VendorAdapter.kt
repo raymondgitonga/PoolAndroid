@@ -18,7 +18,6 @@ import com.tosh.poolandroid.view.MainActivity
 
 class VendorAdapter(private val context: Context, private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
 
-    var str: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorView {
 
