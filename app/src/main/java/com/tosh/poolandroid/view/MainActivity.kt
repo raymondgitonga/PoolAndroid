@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -90,10 +91,13 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         val vendorViewModel = ViewModelProviders.of(this).get(VendorViewModel::class.java)
 
+
         vendorViewModel.vendor.observe(this, Observer { vendors ->
             vendorAdapter = VendorAdapter(this, vendors)
             vendorsRv!!.adapter = vendorAdapter
         })
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -169,6 +173,12 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
                 navEmail.text = userEntities[i].email
             }
         })
+
+//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
+//            for (i in categories.indices){
+//                println(categories[i].name)
+//            }
+//        })
 
     }
 

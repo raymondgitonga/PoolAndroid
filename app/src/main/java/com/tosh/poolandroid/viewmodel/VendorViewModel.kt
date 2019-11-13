@@ -11,6 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VendorViewModel(application: Application) : AndroidViewModel(application) {
+
     private var vendorList: MutableLiveData<List<Vendor>>? = null
 
     val vendor: LiveData<List<Vendor>>

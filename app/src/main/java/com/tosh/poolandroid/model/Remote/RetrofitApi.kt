@@ -36,5 +36,5 @@ interface RetrofitApi {
     fun getVendor(): Call<List<Vendor>>
 
     @GET("/api/v1/category/vendor/{vendor_id}")
-    fun getCategoryProducts(): Call<List<Category>>
+    fun getCategoryProducts(@Path("vendor_id") vendorId:Int): Call<List<Category>>
 }

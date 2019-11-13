@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.Remote.RetrofitApi
 import com.tosh.poolandroid.model.LoginResponse
 import com.tosh.poolandroid.Remote.RetrofitClient
+import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolloginrebuild.database.UserEntity
@@ -107,6 +108,23 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
                 })
         return registerResponse
+    }
+
+   fun loadCategories(id:Int): MutableLiveData<List<Category>>? {
+        var categoryList: MutableLiveData<List<Category>>? = null
+
+        RetrofitClient.makeRetrofitApi2().getCategoryProducts(id)
+                .enqueue(object : Callback<List<Category>> {
+                    override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
+                        categoryList!!.value = response.body()
+                    }
+
+                    override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+
+                    }
+                })
+
+        return categoryList
     }
 
     fun insert(userEntity: UserEntity) {
