@@ -39,7 +39,7 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     private fun initialize() {
 
-        toolbar_title.text = "KFC"
+        toolbar_title.text = intent.getStringExtra("VENDOR_NAME")
 
         //navigation drawer
         navigation_view!!.setNavigationItemSelectedListener(this)

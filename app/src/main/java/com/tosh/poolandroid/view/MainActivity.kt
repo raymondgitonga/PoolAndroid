@@ -174,12 +174,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             }
         })
 
-//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
-//            for (i in categories.indices){
-//                println(categories[i].name)
-//            }
-//        })
-
     }
 
 

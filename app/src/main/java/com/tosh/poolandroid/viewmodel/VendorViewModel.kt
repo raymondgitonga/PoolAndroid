@@ -29,14 +29,15 @@ class VendorViewModel(application: Application) : AndroidViewModel(application) 
 
         RetrofitClient.makeRetrofitApi2().getVendor()
                 .enqueue(object : Callback<List<Vendor>> {
-            override fun onResponse(call: Call<List<Vendor>>, response: Response<List<Vendor>>) {
-                vendorList!!.value = response.body()
-            }
+                    override fun onResponse(call: Call<List<Vendor>>, response: Response<List<Vendor>>) {
+                        vendorList!!.value = response.body()
+                    }
 
-            override fun onFailure(call: Call<List<Vendor>>, t: Throwable) {
+                    override fun onFailure(call: Call<List<Vendor>>, t: Throwable) {
 
-            }
-        })
+
+                    }
+                })
     }
 
 }

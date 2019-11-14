@@ -16,24 +16,31 @@ import com.tosh.poolandroid.VendorProductActivity
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.MainActivity
 
+
+
 class VendorAdapter(private val context: Context, private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorView {
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_vendor, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(com.tosh.poolandroid.R.layout.row_vendor, parent, false)
         return VendorView(view)
     }
 
     override fun onBindViewHolder(holder: VendorView, position: Int) {
 
-       holder.vendorName.text = vendorModel[position].name
+        val vendor = vendorModel[position]
+
+       holder.vendorName.text = vendor.name
+
 
         Picasso.get()
                 .load(vendorModel[position].img_url)
                 .fit()
                 .centerCrop()
                 .into(holder.vendorImage)
+
+        holder?.vendor = vendor
         
     }
 
@@ -41,11 +48,20 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
         return vendorModel.size
     }
 
-    class VendorView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class VendorView(itemView: View, var vendor: Vendor? = null) : RecyclerView.ViewHolder(itemView) {
+
+        companion object{
+            val VENDOR_NAME = "VENDOR_NAME"
+            val VENDOR_ID = "VENDOR_ID"
+        }
 
         init {
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, VendorProductActivity::class.java)
+
+                intent.putExtra(VENDOR_NAME, vendor?.name)
+                intent.putExtra(VENDOR_ID, vendor?.id)
+
                 itemView.context.startActivity(intent)
             }
         }
@@ -56,3 +72,8 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
     }
 }
 
+//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
+//            for (i in categories.indices){
+//                println(categories[i].name)
+//            }
+//        })
