@@ -48,12 +48,4 @@
         <include layout="@layout/fab_layout" />
     </FrameLayout>
 
-
-
-
-
-
-
-
-
 </LinearLayout>

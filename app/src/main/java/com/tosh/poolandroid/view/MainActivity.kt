@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 
+
 class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     private var pref: SharedPreferences? = null

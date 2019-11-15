@@ -2,19 +2,16 @@ package com.tosh.poolandroid.view.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.VendorProductActivity
 import com.tosh.poolandroid.model.Vendor
-import com.tosh.poolandroid.view.MainActivity
 
 
 
@@ -23,7 +20,7 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorView {
 
-        val view = LayoutInflater.from(parent.context).inflate(com.tosh.poolandroid.R.layout.row_vendor, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_vendor, parent, false)
         return VendorView(view)
     }
 
@@ -40,7 +37,7 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
                 .centerCrop()
                 .into(holder.vendorImage)
 
-        holder?.vendor = vendor
+        holder.vendor = vendor
         
     }
 
@@ -71,9 +68,3 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
 
     }
 }
-
-//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
-//            for (i in categories.indices){
-//                println(categories[i].name)
-//            }
-//        })

@@ -12,16 +12,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.view.LoginActivity
-import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.UserViewModel
-import com.tosh.poolandroid.viewmodel.VendorViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_vendor_product.*
 import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
+
 
 class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -34,6 +31,12 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         cartFab()
         initialize()
         loadUserDetails()
+
+//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
+//            for (i in categories.indices) {
+//                println(categories[i].name)
+//            }
+//        })
     }
 
 
@@ -50,6 +53,7 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         toggle.syncState()
     }
+
     private fun cartFab() {
         cart_fab.setOnClickListener { Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show() }
     }

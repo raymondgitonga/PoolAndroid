@@ -7,4 +7,5 @@
     android:id="@+id/activityVendorDetail"
     android:orientation="vertical">
 
+
 </LinearLayout>
