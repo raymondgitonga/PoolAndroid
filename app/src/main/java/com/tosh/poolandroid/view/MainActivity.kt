@@ -28,6 +28,7 @@ import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.UserViewModel
 import com.tosh.poolandroid.viewmodel.VendorViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.appbar_layout.*
 import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     private fun initialize() {
 
-//        //tool bar
+        //tool bar
         setSupportActionBar(toolBar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 

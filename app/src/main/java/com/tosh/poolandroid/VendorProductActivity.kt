@@ -16,6 +16,7 @@ import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.view.LoginActivity
 import com.tosh.poolandroid.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.appbar_layout.*
 import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 

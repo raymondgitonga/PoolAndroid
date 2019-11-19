@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/orders_navigation"
+            android:title="@string/orders"
+            android:icon="@drawable/orders"/>
+
+        <item
+            android:id="@+id/profile_navigation"
+            android:title="@string/profile"
+            android:icon="@drawable/profile">
+
+        </item>
+
+        <item
+            android:id="@+id/settings_navigation"
+            android:title="@string/address"
+            android:icon="@drawable/location">
+
+        </item>
+
+        <item
+            android:id="@+id/info_navigation"
+            android:title="@string/info"
+            android:icon="@drawable/info">
+
+        </item>
+
+    </group>
+
+    <item android:title="@string/more_options">
+        <menu>
+
+            <item
+                android:id="@+id/share_navigation"
+                android:title="@string/share"
+                android:icon="@drawable/share">
+
+            </item>
+
+            <item
+                android:id="@+id/help_navigation"
+                android:title="@string/help"
+                android:icon="@drawable/help">
+
+            </item>
+
+            <item
+                android:id="@+id/logout_navigation"
+                android:title="@string/logout3"
+                android:icon="@drawable/logout">
+
+            </item>
+        </menu>
+
+    </item>
+</menu>
