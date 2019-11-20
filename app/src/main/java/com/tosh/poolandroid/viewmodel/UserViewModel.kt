@@ -116,7 +116,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         RetrofitClient.makeRetrofitApi2().getCategoryProducts(id)
                 .enqueue(object : Callback<List<Category>> {
                     override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
-                        categoryList!!.value = response.body()
+                        categoryList?.value = response.body()
                     }
 
                     override fun onFailure(call: Call<List<Category>>, t: Throwable) {

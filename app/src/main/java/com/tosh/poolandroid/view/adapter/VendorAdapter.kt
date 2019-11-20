@@ -10,7 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.VendorProductActivity
+import com.tosh.poolandroid.VendorFoodActivity
+import com.tosh.poolandroid.VendorShoppingActivity
 import com.tosh.poolandroid.model.Vendor
 
 
@@ -54,12 +55,24 @@ class VendorAdapter(private val context: Context, private val vendorModel: List<
 
         init {
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, VendorProductActivity::class.java)
+                if(vendor?.category == "food"){
+                    val intent = Intent(itemView.context, VendorFoodActivity::class.java)
 
-                intent.putExtra(VENDOR_NAME, vendor?.name)
-                intent.putExtra(VENDOR_ID, vendor?.id)
+                    intent.putExtra(VENDOR_NAME, vendor?.name)
+                    intent.putExtra(VENDOR_ID, vendor?.id)
 
-                itemView.context.startActivity(intent)
+                    itemView.context.startActivity(intent)
+                } else {
+                    val intent = Intent(itemView.context, VendorShoppingActivity::class.java)
+
+                    intent.putExtra(VENDOR_NAME, vendor?.name)
+                    intent.putExtra(VENDOR_ID, vendor?.id)
+
+                    itemView.context.startActivity(intent)
+                }
+
+
+
             }
         }
 

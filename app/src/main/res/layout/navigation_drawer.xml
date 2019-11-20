@@ -10,7 +10,7 @@
         tools:openDrawer="start">
 
         <include layout="@layout/activity_main"/>
-        <include layout="@layout/activity_vendor_product"/>
+        <include layout="@layout/activity_vendor_food"/>
 
 
         <com.google.android.material.navigation.NavigationView

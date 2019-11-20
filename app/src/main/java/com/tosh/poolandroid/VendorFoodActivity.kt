@@ -6,22 +6,29 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.view.LoginActivity
 import com.tosh.poolandroid.viewmodel.UserViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_vendor_food.*
 import kotlinx.android.synthetic.main.appbar_layout.*
 import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 
-class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+
+
+
+
+class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private var userViewModel: UserViewModel? = null
 
@@ -33,11 +40,18 @@ class VendorProductActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         initialize()
         loadUserDetails()
 
-//        userViewModel!!.loadCategories(6)?.observe(this, Observer { categories ->
-//            for (i in categories.indices) {
-//                println(categories[i].name)
-//            }
-//        })
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
+
+        userViewModel!!.loadCategories(intent.getIntExtra("VENDOR_ID", 0))?.observe(this, Observer { categories ->
+
+            foodRv.apply {
+                layoutManager = LinearLayoutManager(this@VendorFoodActivity,
+                        RecyclerView.VERTICAL, false)
+                adapter = CategoryAdapter(categories)
+            }
+
+        })
     }
 
 

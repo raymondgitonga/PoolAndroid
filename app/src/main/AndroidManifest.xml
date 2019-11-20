@@ -28,8 +28,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".VendorShoppingActivity"></activity>
         <activity
-            android:name=".VendorProductActivity"
+            android:name=".VendorFoodActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.PhoneActivity" />
         <activity android:name=".view.RegisterActivity" />
