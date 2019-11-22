@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".VendorFoodActivity"
     android:id="@+id/activityVendorDetail"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="70dp">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:spanCount="2"/>
 
 
 </FrameLayout>

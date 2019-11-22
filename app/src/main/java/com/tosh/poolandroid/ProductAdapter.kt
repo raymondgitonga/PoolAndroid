@@ -12,7 +12,8 @@ import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.model.Product
 
 class ProductAdapter(private val productModel: List<Product>): RecyclerView.Adapter<ProductAdapter.ProductView>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.ProductView {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
         return ProductView(view)
     }
@@ -21,7 +22,7 @@ class ProductAdapter(private val productModel: List<Product>): RecyclerView.Adap
         return productModel.size
     }
 
-    override fun onBindViewHolder(holder: ProductAdapter.ProductView, position: Int) {
+    override fun onBindViewHolder(holder: ProductView, position: Int) {
         var product = productModel[position]
 
         holder.foodName.text = product.productName

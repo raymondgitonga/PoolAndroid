@@ -1,12 +1,10 @@
 package com.tosh.poolandroid.Remote
 
 import com.google.gson.GsonBuilder
-import com.tosh.poolandroid.model.Remote.UrlConstant
+import com.tosh.poolandroid.model.remote.UrlConstant
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.xml.datatype.DatatypeConstants.SECONDS
-import javax.xml.datatype.DatatypeConstants.SECONDS
 import okhttp3.OkHttpClient
 
 

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.view.LoginActivity
+import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_vendor_food.*
 import kotlinx.android.synthetic.main.appbar_layout.*
@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.navigation_drawer.*
 class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private var userViewModel: UserViewModel? = null
+    private var categoryAdapter: CategoryAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,13 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         cartFab()
         initialize()
         loadUserDetails()
+        productRecyclerView()
 
+
+    }
+
+
+    private fun productRecyclerView(){
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
 
 

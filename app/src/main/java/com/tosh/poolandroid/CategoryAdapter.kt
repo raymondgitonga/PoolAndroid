@@ -1,10 +1,10 @@
 package com.tosh.poolandroid
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +24,8 @@ class CategoryAdapter (private val categoryModel: List<Category>):RecyclerView.A
         return categoryModel.size
     }
 
-    override fun onBindViewHolder(holder: CategoryAdapter.CategoryView, position: Int) {
+
+    override fun onBindViewHolder(holder:CategoryView, position: Int) {
         val category = categoryModel[position]
 
         holder.categoryName.text = category.name
@@ -35,7 +36,7 @@ class CategoryAdapter (private val categoryModel: List<Category>):RecyclerView.A
                 false
         )
 
-        layoutManager.initialPrefetchItemCount = 4
+        layoutManager.initialPrefetchItemCount = 3
 
         var productAdapter = ProductAdapter(category.products)
 
