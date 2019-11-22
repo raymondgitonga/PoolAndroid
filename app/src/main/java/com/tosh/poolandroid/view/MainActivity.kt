@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.StrictMode
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MenuItem
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigation_drawer)
 
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         visibilityActivity()
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         fetchLastLocation()
 
         loadUserDetails()
+
 
     }
 

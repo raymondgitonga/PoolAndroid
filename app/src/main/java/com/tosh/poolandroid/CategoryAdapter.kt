@@ -36,7 +36,7 @@ class CategoryAdapter (private val categoryModel: List<Category>):RecyclerView.A
                 false
         )
 
-        layoutManager.initialPrefetchItemCount = 3
+        layoutManager.initialPrefetchItemCount = 4
 
         var productAdapter = ProductAdapter(category.products)
 

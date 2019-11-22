@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tosh.poolandroid.Remote.RetrofitClient
+import com.tosh.poolandroid.remote.RetrofitClient
 import com.tosh.poolandroid.model.Vendor
 import retrofit2.Call
 import retrofit2.Callback

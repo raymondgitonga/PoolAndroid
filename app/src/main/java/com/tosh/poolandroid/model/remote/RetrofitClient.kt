@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Remote
+package com.tosh.poolandroid.remote
 
 import com.google.gson.GsonBuilder
 import com.tosh.poolandroid.model.remote.UrlConstant
@@ -6,9 +6,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
-
-
-
 
 
 object RetrofitClient {

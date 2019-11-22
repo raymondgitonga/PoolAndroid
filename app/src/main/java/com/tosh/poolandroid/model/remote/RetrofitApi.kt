@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.Remote
+package com.tosh.poolandroid.remote
 
 import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.LoginResponse

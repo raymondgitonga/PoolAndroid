@@ -5,9 +5,9 @@ import android.provider.SyncStateContract.Helpers.insert
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tosh.poolandroid.Remote.RetrofitApi
+import com.tosh.poolandroid.remote.RetrofitApi
 import com.tosh.poolandroid.model.LoginResponse
-import com.tosh.poolandroid.Remote.RetrofitClient
+import com.tosh.poolandroid.remote.RetrofitClient
 import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.model.Vendor
