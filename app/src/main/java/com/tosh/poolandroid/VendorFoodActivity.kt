@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -33,10 +34,10 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigation_drawer)
 
-        cartFab()
         initialize()
         loadUserDetails()
         productRecyclerView()
+        cartFab()
 
 
     }
@@ -51,8 +52,11 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         userViewModel!!.loadCategories(intent.getIntExtra("VENDOR_ID", 0))?.observe(this, Observer { categories ->
-            categoryAdapter!!.setCategories(categories)
-            categoryAdapter!!.notifyDataSetChanged()
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(this@VendorFoodActivity, RecyclerView.VERTICAL, false)
+                categoryAdapter!!.setCategories(categories)
+                categoryAdapter!!.notifyDataSetChanged()
+            }
         })
     }
 
@@ -72,7 +76,10 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     private fun cartFab() {
-        cart_fab.setOnClickListener { Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show() }
+        cart_fab.setOnClickListener {
+            Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show()
+            Log.e("Clicked", "FAB")
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
