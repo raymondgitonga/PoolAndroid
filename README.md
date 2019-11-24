@@ -5,7 +5,6 @@
 An application that allows users to shop from different shops at the same time
 
 ### Technologies Used
-[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 
 ### Getting Started
