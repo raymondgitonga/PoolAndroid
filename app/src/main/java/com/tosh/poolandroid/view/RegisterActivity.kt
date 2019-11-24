@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.show
-import com.tosh.poolandroid.viewmodel.UserViewModel
+import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun instantiateRegisterViewModel(name:String, email:String,  password:String, confirmPassord:String) {
-        val registrationViewModel: UserViewModel = ViewModelProviders.of(this)[UserViewModel::class.java]
+        val registrationViewModel: MainViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
         registrationViewModel.userRegister(name,email, password, confirmPassord).observe(this, Observer {
 
             if (it == "successful"){

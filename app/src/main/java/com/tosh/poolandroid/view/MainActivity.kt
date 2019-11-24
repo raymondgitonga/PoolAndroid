@@ -6,9 +6,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.os.StrictMode
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -26,11 +24,9 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.adapter.VendorAdapter
-import com.tosh.poolandroid.viewmodel.UserViewModel
-import com.tosh.poolandroid.viewmodel.VendorViewModel
+import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar_layout.*
-import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 
@@ -45,7 +41,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var vendorAdapter: VendorAdapter? = null
-    private var userViewModel: UserViewModel? = null
+    private var mainViewModel: MainViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +55,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         initialize()
 
-        cartFab()
-
         fetchLastLocation()
 
         loadUserDetails()
@@ -68,9 +62,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     }
 
-    private fun cartFab() {
-        cart_fab.setOnClickListener { Toast.makeText(this@MainActivity, "Cart clicked", Toast.LENGTH_SHORT).show() }
-    }
 
     private fun initialize() {
 
@@ -94,10 +85,10 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val gridLayoutManager = GridLayoutManager(this, 2)
         vendorsRv!!.layoutManager = gridLayoutManager
 
-        val vendorViewModel = ViewModelProviders.of(this).get(VendorViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
 
-        vendorViewModel.vendor.observe(this, Observer { vendors ->
+        mainViewModel!!.loadVendors()?.observe(this, Observer { vendors ->
             vendorAdapter = VendorAdapter(this, vendors)
             vendorsRv!!.adapter = vendorAdapter
         })
@@ -171,8 +162,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
         val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        userViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
             for (i in userEntities.indices) {
                 navName.text = userEntities[i].name
                 navEmail.text = userEntities[i].email

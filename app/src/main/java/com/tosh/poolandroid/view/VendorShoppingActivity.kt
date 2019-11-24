@@ -1,7 +1,8 @@
-package com.tosh.poolandroid
+package com.tosh.poolandroid.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tosh.poolandroid.R
 
 class VendorShoppingActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.tosh.poolandroid
+package com.tosh.poolandroid.view.adapter
 
 
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
+import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Product
 
 class ProductAdapter(private val productModel: List<Product>): RecyclerView.Adapter<ProductAdapter.ProductView>(){

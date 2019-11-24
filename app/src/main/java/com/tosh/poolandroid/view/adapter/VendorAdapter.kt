@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.VendorFoodActivity
-import com.tosh.poolandroid.VendorShoppingActivity
+import com.tosh.poolandroid.view.VendorFoodActivity
+import com.tosh.poolandroid.view.VendorShoppingActivity
 import com.tosh.poolandroid.model.Vendor
 
 

@@ -4,23 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.tosh.poolandroid.CategoryAdapter
-import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.LoginResponse
 import com.tosh.poolandroid.remote.RetrofitClient
 import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
-import com.tosh.poolandroid.remote.RetrofitApi
+import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolloginrebuild.database.UserEntity
 import com.tosh.poolloginrebuild.repository.UserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import javax.inject.Inject
 
 
-class UserViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val repository: UserRepository = UserRepository(application)
@@ -113,7 +109,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         return registerResponse
     }
 
-   fun loadCategories(id:Int): MutableLiveData<List<Category>>? {
+    fun loadCategories(id:Int): MutableLiveData<List<Category>>? {
        var categoryList: MutableLiveData<List<Category>>? = MutableLiveData<List<Category>>()
 
         RetrofitClient.makeRetrofitApi2().getCategoryProducts(id)
@@ -128,6 +124,23 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 })
 
         return categoryList
+    }
+
+    fun loadVendors():MutableLiveData<List<Vendor>>?{
+        var vendorList: MutableLiveData<List<Vendor>>? = MutableLiveData()
+
+        RetrofitClient.makeRetrofitApi2().getVendor()
+                .enqueue(object : Callback<List<Vendor>> {
+                    override fun onResponse(call: Call<List<Vendor>>, response: Response<List<Vendor>>) {
+                        vendorList?.value = response.body()
+                    }
+
+                    override fun onFailure(call: Call<List<Vendor>>, t: Throwable) {
+
+                    }
+                })
+
+        return vendorList
     }
 
     fun insert(userEntity: UserEntity) {

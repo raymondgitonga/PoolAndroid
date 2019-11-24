@@ -1,10 +1,9 @@
-package com.tosh.poolandroid
+package com.tosh.poolandroid.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -16,17 +15,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
-import com.tosh.poolandroid.view.LoginActivity
-import com.tosh.poolandroid.viewmodel.UserViewModel
+import com.tosh.poolandroid.view.adapter.CategoryAdapter
+import com.tosh.poolandroid.R
+import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.appbar_layout.*
-import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 
 
 class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
-    private var userViewModel: UserViewModel? = null
+    private var mainViewModel: MainViewModel? = null
     private var categoryAdapter: CategoryAdapter? = null
     lateinit var recyclerView: RecyclerView
 
@@ -37,7 +36,6 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         initialize()
         loadUserDetails()
         productRecyclerView()
-        cartFab()
 
 
     }
@@ -50,8 +48,8 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = categoryAdapter
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        userViewModel!!.loadCategories(intent.getIntExtra("VENDOR_ID", 0))?.observe(this, Observer { categories ->
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel!!.loadCategories(intent.getIntExtra("VENDOR_ID", 0))?.observe(this, Observer { categories ->
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(this@VendorFoodActivity, RecyclerView.VERTICAL, false)
                 categoryAdapter!!.setCategories(categories)
@@ -73,13 +71,6 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         drawer_layout!!.addDrawerListener(toggle)
 
         toggle.syncState()
-    }
-
-    private fun cartFab() {
-        cart_fab.setOnClickListener {
-            Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show()
-            Log.e("Clicked", "FAB")
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -112,8 +103,8 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
         val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        userViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
             for (i in userEntities.indices) {
                 navName.text = userEntities[i].name
                 navEmail.text = userEntities[i].email

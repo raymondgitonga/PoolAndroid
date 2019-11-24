@@ -1,12 +1,11 @@
 package com.tosh.poolandroid.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.tosh.poolandroid.Remote.RetrofitApi
+import com.tosh.poolandroid.remote.RetrofitApi
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -14,7 +13,7 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
-class UserViewModelTest {
+class MainViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -22,7 +21,7 @@ class UserViewModelTest {
     @Mock
     lateinit var retrofitApi: RetrofitApi
 
-    lateinit var userViewModel: UserViewModel
+    lateinit var mainViewModel: MainViewModel
 
     @Before
     fun setUp() {

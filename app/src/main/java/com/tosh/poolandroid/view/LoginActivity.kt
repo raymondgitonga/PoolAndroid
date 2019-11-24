@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.show
-import com.tosh.poolandroid.viewmodel.UserViewModel
+import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -49,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun instantiateLoginViewModel(email:String,  password:String) {
-        val userViewModel: UserViewModel = ViewModelProviders.of(this)[UserViewModel::class.java]
-        userViewModel.userLogin(email, password).observe(this, Observer {
+        val mainViewModel: MainViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
+        mainViewModel.userLogin(email, password).observe(this, Observer {
 
             if (it == "successful"){
                 val intent = Intent(applicationContext, MainActivity::class.java)

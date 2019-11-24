@@ -25,8 +25,6 @@
             android:layout_marginTop="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <include layout="@layout/fab_layout" />
     </FrameLayout>
 
 </LinearLayout>

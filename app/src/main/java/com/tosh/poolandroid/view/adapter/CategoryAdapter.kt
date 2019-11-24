@@ -1,6 +1,5 @@
-package com.tosh.poolandroid
+package com.tosh.poolandroid.view.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Category
 
 
@@ -17,7 +17,7 @@ class CategoryAdapter (val context: Context):RecyclerView.Adapter<CategoryAdapte
     var category : List<Category> = listOf()
     private val viewPool = RecyclerView.RecycledViewPool()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.CategoryView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryView(view)
     }
@@ -27,7 +27,7 @@ class CategoryAdapter (val context: Context):RecyclerView.Adapter<CategoryAdapte
     }
 
 
-    override fun onBindViewHolder(holder:CategoryView, position: Int) {
+    override fun onBindViewHolder(holder: CategoryView, position: Int) {
         val category = category[position]
 
         holder.categoryName.text = category.name
