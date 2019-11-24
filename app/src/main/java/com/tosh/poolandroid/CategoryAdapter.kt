@@ -12,44 +12,34 @@ import com.tosh.poolandroid.model.Category
 
 
 
-class CategoryAdapter (private val categoryModel: List<Category>):RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
+class CategoryAdapter (val context: Context):RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
 
-    private val viewPool = RecyclerView.RecycledViewPool()
+    var category : List<Category> = listOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.CategoryView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryView(view)
     }
 
     override fun getItemCount(): Int {
-        return categoryModel.size
+        return category.size
     }
 
 
     override fun onBindViewHolder(holder:CategoryView, position: Int) {
-        val category = categoryModel[position]
+        val category = category[position]
 
         holder.categoryName.text = category.name
 
-        var layoutManager = LinearLayoutManager(
-                holder.productRv.context,
-                RecyclerView.VERTICAL,
-                false
-        )
+    }
 
-        layoutManager.initialPrefetchItemCount = 4
-
-        var productAdapter = ProductAdapter(category.products)
-
-        holder.productRv.layoutManager = layoutManager
-        holder.productRv.adapter = productAdapter
-        holder.productRv.setRecycledViewPool(viewPool)
-
+    fun setCategories(category: List<Category>){
+        this.category = category
     }
 
     class CategoryView(itemView: View, var category: Category? = null) : RecyclerView.ViewHolder(itemView){
         val categoryName: TextView = itemView.findViewById(R.id.category_title)
 
-        val productRv : RecyclerView = itemView.findViewById(R.id.productRv)
     }
 
 }

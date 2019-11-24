@@ -16,15 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.view.LoginActivity
-import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.UserViewModel
-import kotlinx.android.synthetic.main.activity_vendor_food.*
 import kotlinx.android.synthetic.main.appbar_layout.*
 import kotlinx.android.synthetic.main.fab_layout.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
-
-
-
 
 
 
@@ -32,6 +27,7 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
     private var userViewModel: UserViewModel? = null
     private var categoryAdapter: CategoryAdapter? = null
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,17 +43,16 @@ class VendorFoodActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
 
     private fun productRecyclerView(){
+
+        recyclerView = findViewById(R.id.foodRv)
+        categoryAdapter = CategoryAdapter(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = categoryAdapter
+
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-
-
         userViewModel!!.loadCategories(intent.getIntExtra("VENDOR_ID", 0))?.observe(this, Observer { categories ->
-
-            foodRv.apply {
-                layoutManager = LinearLayoutManager(this@VendorFoodActivity,
-                        RecyclerView.VERTICAL, false)
-                adapter = CategoryAdapter(categories)
-            }
-
+            categoryAdapter!!.setCategories(categories)
+            categoryAdapter!!.notifyDataSetChanged()
         })
     }
 

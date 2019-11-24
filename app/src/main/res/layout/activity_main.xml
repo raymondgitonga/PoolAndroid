@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activityMain"
     android:layout_width="match_parent"
@@ -11,26 +10,6 @@
     android:background="#F7FAF4">
 
     <include layout="@layout/appbar_layout"/>
-
-<!--    <com.google.android.material.appbar.MaterialToolbar-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:id="@+id/toolBar"-->
-<!--        android:background="@null"-->
-<!--        app:titleTextColor="@color/black">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/toolbar_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="@string/choose_vendor"-->
-<!--            android:textColor="#000000"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textStyle="bold" />-->
-
-
-<!--    </com.google.android.material.appbar.MaterialToolbar>-->
 
     <FrameLayout
         android:layout_gravity="center"

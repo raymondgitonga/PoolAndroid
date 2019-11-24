@@ -1,26 +1,29 @@
 package com.tosh.poolandroid.viewmodel
 
 import android.app.Application
-import android.provider.SyncStateContract.Helpers.insert
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tosh.poolandroid.remote.RetrofitApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tosh.poolandroid.CategoryAdapter
+import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.LoginResponse
 import com.tosh.poolandroid.remote.RetrofitClient
 import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
-import com.tosh.poolandroid.model.Vendor
+import com.tosh.poolandroid.remote.RetrofitApi
 import com.tosh.poolloginrebuild.database.UserEntity
 import com.tosh.poolloginrebuild.repository.UserRepository
-import kotlinx.coroutines.coroutineScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.coroutines.coroutineContext
+import javax.inject.Inject
+
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
-     private val repository: UserRepository = UserRepository(application)
+
+
+    private val repository: UserRepository = UserRepository(application)
 
 
     fun userLogin(email: String, password: String): LiveData<String> {
@@ -111,7 +114,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     }
 
    fun loadCategories(id:Int): MutableLiveData<List<Category>>? {
-        var categoryList: MutableLiveData<List<Category>>? = null
+       var categoryList: MutableLiveData<List<Category>>? = MutableLiveData<List<Category>>()
 
         RetrofitClient.makeRetrofitApi2().getCategoryProducts(id)
                 .enqueue(object : Callback<List<Category>> {

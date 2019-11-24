@@ -32,6 +32,7 @@ dependencies {
     def rxjava_version = "2.2.12"
     def rxAndroid_version = "2.1.1"
     def room_version = "2.2.1"
+    def dagger2_version = '2.16'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -108,9 +109,16 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    compileOnly "org.glassfish:javax.annotation:3.1.1"
+
     // Room components
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.mixpanel.android:mixpanel-android:5.6.6'
 
     //junit
     testImplementation 'junit:junit:4.12'

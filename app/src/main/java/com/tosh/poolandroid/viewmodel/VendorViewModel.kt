@@ -13,6 +13,7 @@ import retrofit2.Response
 class VendorViewModel(application: Application) : AndroidViewModel(application) {
 
     private var vendorList: MutableLiveData<List<Vendor>>? = null
+   private var id: Int = 0
 
     val vendor: LiveData<List<Vendor>>
         get() {
