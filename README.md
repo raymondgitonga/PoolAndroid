@@ -15,9 +15,10 @@ Have android studio installed. If you wish to clone this application to make cha
 click on this link https://github.com/raymondleta/PoolAndroid and fork the repository.
 
 ### Screenshots(still in development)
-![](screenshots/1.png)
-![](screenshots/2.png)
-![](screenshots/3.png)
+
+<div style="text-align:center"> ![](screenshots/1.gif) </div>
+
+
 
 
 ### Contact details
