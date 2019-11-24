@@ -1,4 +1,4 @@
-## POOL Mobile App
+## POOL Mobile App (In development)
 #### Created Raymond Gitonga
 
 ### Descriotion
@@ -14,9 +14,9 @@ Android phone/emulator must be at least at SDK level 22 in order to run the appl
 Have android studio installed. If you wish to clone this application to make changes then you can 
 click on this link https://github.com/raymondleta/PoolAndroid and fork the repository.
 
-### Screenshots(still in development)
+### Screenshots
 
-<div style="text-align:center"> ![](screenshots/1.gif) </div>
+![](screenshots/1.gif) 
 
 
 
