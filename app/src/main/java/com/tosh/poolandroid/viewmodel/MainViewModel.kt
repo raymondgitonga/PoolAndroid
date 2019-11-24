@@ -5,12 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.LoginResponse
-import com.tosh.poolandroid.remote.RetrofitClient
+import com.tosh.poolandroid.model.remote.RetrofitClient
 import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.model.Vendor
-import com.tosh.poolloginrebuild.database.UserEntity
-import com.tosh.poolloginrebuild.repository.UserRepository
+import com.tosh.poolandroid.model.database.UserEntity
+import com.tosh.poolandroid.repository.UserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.tosh.poolloginrebuild.database
+package com.tosh.poolandroid.model.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

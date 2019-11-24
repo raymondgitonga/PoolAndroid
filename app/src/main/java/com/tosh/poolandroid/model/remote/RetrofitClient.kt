@@ -1,7 +1,6 @@
-package com.tosh.poolandroid.remote
+package com.tosh.poolandroid.model.remote
 
 import com.google.gson.GsonBuilder
-import com.tosh.poolandroid.model.remote.UrlConstant
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +19,7 @@ object RetrofitClient {
             .readTimeout(3L, java.util.concurrent.TimeUnit.SECONDS)
             .writeTimeout(3L, java.util.concurrent.TimeUnit.SECONDS)
 
-    fun makeRetrofitApi(): RetrofitApi{
+    fun makeRetrofitApi(): RetrofitApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(UrlConstant.AUTH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

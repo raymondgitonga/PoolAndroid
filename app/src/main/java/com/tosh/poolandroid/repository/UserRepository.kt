@@ -1,13 +1,11 @@
-package com.tosh.poolloginrebuild.repository
+package com.tosh.poolandroid.repository
 
 import android.app.Application
 import android.os.AsyncTask
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import com.tosh.poolloginrebuild.database.UserDao
-import com.tosh.poolloginrebuild.database.UserDatabase
-import com.tosh.poolloginrebuild.database.UserEntity
+import com.tosh.poolandroid.model.database.UserDao
+import com.tosh.poolandroid.model.database.UserDatabase
+import com.tosh.poolandroid.model.database.UserEntity
 
 class UserRepository(application: Application) {
 

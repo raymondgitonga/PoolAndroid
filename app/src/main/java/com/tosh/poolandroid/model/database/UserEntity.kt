@@ -1,4 +1,4 @@
-package com.tosh.poolloginrebuild.database
+package com.tosh.poolandroid.model.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
