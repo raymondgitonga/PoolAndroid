@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.repository
+package com.tosh.poolandroid.model.repository
 
 import android.app.Application
 import android.os.AsyncTask

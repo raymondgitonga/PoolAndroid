@@ -10,7 +10,7 @@ import com.tosh.poolandroid.model.Category
 import com.tosh.poolandroid.model.RegisterResponse
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.model.database.UserEntity
-import com.tosh.poolandroid.repository.UserRepository
+import com.tosh.poolandroid.model.repository.UserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
