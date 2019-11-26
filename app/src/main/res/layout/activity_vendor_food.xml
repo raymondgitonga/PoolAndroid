@@ -8,10 +8,17 @@
     android:id="@+id/activityVendorDetail"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <FrameLayout
         android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:spanCount="2" />
+    </FrameLayout>
 </LinearLayout>
