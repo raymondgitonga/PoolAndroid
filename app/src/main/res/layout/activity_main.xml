@@ -12,19 +12,8 @@
     <include layout="@layout/appbar_layout"/>
 
     <FrameLayout
-        android:layout_gravity="center"
+        android:id="@+id/details_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vendorsRv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginTop="10dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
