@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.view.fragment.VendorFragment
 import kotlinx.android.synthetic.main.appbar_layout.*
 
 class MainActivity : AppCompatActivity(){

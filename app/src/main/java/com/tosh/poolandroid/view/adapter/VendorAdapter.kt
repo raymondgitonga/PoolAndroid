@@ -1,6 +1,5 @@
 package com.tosh.poolandroid.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,13 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Vendor
 
 
-
 class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
 
+    private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorView {
-
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_vendor, parent, false)
-        return VendorView(view)
+        return VendorView(view, vendorModel, listener)
     }
 
     override fun onBindViewHolder(holder: VendorView, position: Int) {
@@ -35,7 +33,8 @@ class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapte
                 .centerCrop()
                 .into(holder.vendorImage)
 
-        holder.vendor = vendor
+        holder.vendor = listOf(vendor)
+
         
     }
 
@@ -43,41 +42,27 @@ class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapte
         return vendorModel.size
     }
 
-    class VendorView(itemView: View, var vendor: Vendor? = null) : RecyclerView.ViewHolder(itemView) {
-
-        companion object{
-            val VENDOR_NAME = "VENDOR_NAME"
-            val VENDOR_ID = "VENDOR_ID"
-        }
-
-        init {
-            itemView.setOnClickListener {
-                if(vendor?.category == "food"){
-
-                    Log.e("FOOOD CLICKED", "KEKEKEKEKEKKE")
-//                    val intent = Intent(itemView.context, VendorFoodActivity::class.java)
-//
-//                    intent.putExtra(VENDOR_NAME, vendor?.name)
-//                    intent.putExtra(VENDOR_ID, vendor?.id)
-//
-//                    itemView.context.startActivity(intent)
-                } else {
-                    Log.e("SHOPPING CLICKED", "KEKEKEKEKEKKE")
-//                    val intent = Intent(itemView.context, VendorShoppingActivity::class.java)
-//
-//                    intent.putExtra(VENDOR_NAME, vendor?.name)
-//                    intent.putExtra(VENDOR_ID, vendor?.id)
-//
-//                    itemView.context.startActivity(intent)
-                }
+    class VendorView(itemView: View, var vendor: List<Vendor>, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
 
-
-            }
-        }
 
         val vendorImage: ImageView = itemView.findViewById<View>(R.id.vendor_image) as ImageView
         val vendorName: TextView = itemView.findViewById(R.id.vendor_name)
 
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(vendor[0])
+            }
+        }
     }
+
+    interface OnItemClickListener{
+        fun onItemClick(vendorModel:Vendor)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
+    }
+
 }

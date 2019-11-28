@@ -1,6 +1,5 @@
 package com.tosh.poolandroid.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.tosh.poolandroid.model.Category
 
 
 
-class CategoryAdapter (val context: Context):RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
+class CategoryAdapter ():RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
 
     var category : List<Category> = listOf()
     private val viewPool = RecyclerView.RecycledViewPool()
