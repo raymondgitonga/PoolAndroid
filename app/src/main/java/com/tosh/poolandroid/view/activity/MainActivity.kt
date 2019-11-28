@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        setToolBar()
         fetchLastLocation()
         createFormFragment()
 
@@ -46,12 +44,12 @@ class MainActivity : AppCompatActivity(){
         transaction.commit()
     }
 
+    fun setToolBar(title: String) {
+        toolbar_title.text = title
 
-    private fun setToolBar() {
-
-        //tool bar
-        setSupportActionBar(toolBar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+//        //tool bar
+//        setSupportActionBar(toolBar)
+//        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
     }
 

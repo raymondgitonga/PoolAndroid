@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
+
 
 
 class RestaurantFragment: Fragment() {
@@ -31,16 +33,21 @@ class RestaurantFragment: Fragment() {
 
     private fun productRecyclerView(){
 
+        val vendorName = arguments?.getString("VENDOR_NAME")
+        val vendorID = arguments?.getInt("VENDOR_ID")
+
+        //toolbar
+        (activity as MainActivity).setToolBar(vendorName.toString())
+
         recyclerView = view!!.findViewById(R.id.foodRv)
         categoryAdapter = CategoryAdapter()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = categoryAdapter
 
-        val vendorName = arguments?.getString("VENDOR_NAME")
-        val vendorID = arguments?.getInt("VENDOR_ID")
+
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        mainViewModel!!.loadCategories(vendorID!!)!!.observe(this, Observer { categories ->
+        mainViewModel!!.loadCategories(vendorID!!)!!.observe(viewLifecycleOwner, Observer { categories ->
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 categoryAdapter!!.setCategories(categories)

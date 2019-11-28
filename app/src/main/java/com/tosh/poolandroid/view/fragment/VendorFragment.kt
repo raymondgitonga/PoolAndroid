@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Vendor
+import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
-
 
 class VendorFragment: Fragment() {
 
@@ -35,6 +35,11 @@ class VendorFragment: Fragment() {
     }
 
     private fun setupVendors(){
+
+        //toolbar
+        (activity as MainActivity).setToolBar("Choose Vendor")
+
+
         //recyclerView
         vendorsRv = view?.findViewById(R.id.vendorsRv)
 
