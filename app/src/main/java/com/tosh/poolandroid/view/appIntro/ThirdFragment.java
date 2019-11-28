@@ -13,7 +13,7 @@ import android.widget.Button;
 
 
 import com.tosh.poolandroid.R;
-import com.tosh.poolandroid.view.LoginActivity;
+import com.tosh.poolandroid.view.activity.LoginActivity;
 
 
 public class ThirdFragment extends Fragment {

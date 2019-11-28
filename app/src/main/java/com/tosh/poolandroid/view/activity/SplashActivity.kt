@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.view
+package com.tosh.poolandroid.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,8 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 
 class SplashActivity : AppCompatActivity() {
-    private val TAG = "SplashActivity"
 
-     override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 

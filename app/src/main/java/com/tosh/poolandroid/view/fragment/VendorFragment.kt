@@ -15,7 +15,6 @@ import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.appbar_layout.*
 
 
 class VendorFragment: Fragment() {

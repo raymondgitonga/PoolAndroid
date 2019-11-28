@@ -11,7 +11,7 @@ import com.tosh.poolandroid.model.Category
 
 
 
-class CategoryAdapter ():RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
+class CategoryAdapter:RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
 
     var category : List<Category> = listOf()
     private val viewPool = RecyclerView.RecycledViewPool()

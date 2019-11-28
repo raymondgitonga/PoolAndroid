@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.view
+package com.tosh.poolandroid.view.activity
 
 import android.Manifest
 import android.content.Intent

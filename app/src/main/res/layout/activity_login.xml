@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".view.LoginActivity">
+        tools:context=".view.activity.LoginActivity">
 
         <ImageView
             android:id="@+id/logo_login"
