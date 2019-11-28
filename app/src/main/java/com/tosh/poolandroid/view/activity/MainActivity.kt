@@ -7,12 +7,18 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.fragment.VendorFragment
+import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.appbar_layout.*
 
 class MainActivity : AppCompatActivity(){
@@ -23,6 +29,7 @@ class MainActivity : AppCompatActivity(){
     private var longitude: String? = null
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
+    private var mainViewModel: MainViewModel? = null
 
 
 
@@ -46,11 +53,6 @@ class MainActivity : AppCompatActivity(){
 
     fun setToolBar(title: String) {
         toolbar_title.text = title
-
-//        //tool bar
-//        setSupportActionBar(toolBar)
-//        supportActionBar!!.setDisplayShowTitleEnabled(false)
-
     }
 
     private fun fetchLastLocation() {
@@ -89,8 +91,6 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-
-
     private fun logout() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
         settings.edit().remove("email").apply()
@@ -101,6 +101,22 @@ class MainActivity : AppCompatActivity(){
 
     companion object {
         private val REQUEST_CODE = 101
+    }
+
+    private fun loadUserDetails() {
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val headerView = navigationView.getHeaderView(0)
+        val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
+        val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
+
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
+            for (i in userEntities.indices) {
+                navName.text = userEntities[i].name
+                navEmail.text = userEntities[i].email
+            }
+        })
+
     }
 
 }
