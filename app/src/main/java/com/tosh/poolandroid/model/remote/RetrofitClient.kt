@@ -13,38 +13,36 @@ object RetrofitClient {
         .setLenient()
         .create()
 
-    var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
+    private var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
             .callTimeout(2L, java.util.concurrent.TimeUnit.MINUTES)
             .connectTimeout(2L, java.util.concurrent.TimeUnit.SECONDS)
             .readTimeout(3L, java.util.concurrent.TimeUnit.SECONDS)
             .writeTimeout(3L, java.util.concurrent.TimeUnit.SECONDS)
 
     fun makeRetrofitApi(): RetrofitApi {
-        val retrofit = Retrofit.Builder()
+
+        return Retrofit.Builder()
             .baseUrl(UrlConstant.AUTH_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpInterceptor())
                 .client(httpClient.build())
             .build()
             .create(RetrofitApi::class.java)
-
-        return retrofit
     }
 
 
     fun makeRetrofitApi2(): RetrofitApi {
-        val retrofit2 = Retrofit.Builder()
+
+        return Retrofit.Builder()
                 .baseUrl(UrlConstant.VENDOR_PRODUCT_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpInterceptor())
                 .build()
                 .create(RetrofitApi::class.java)
 
-        return retrofit2
-
     }
 
-    fun httpInterceptor(): OkHttpClient {
+    private fun httpInterceptor(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
         return OkHttpClient.Builder().addInterceptor(interceptor).build()

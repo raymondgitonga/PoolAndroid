@@ -25,10 +25,11 @@ class ProductAdapter(private val productModel: List<Product>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ProductView, position: Int) {
         var product = productModel[position]
+        var price = product.price.toString() + " KSH"
 
         holder.foodName.text = product.productName
         holder.foodDesc.text = product.productDetails
-        holder.foodPrice.text = product.price.toString()
+        holder.foodPrice.text = price
 
         Picasso.get()
                 .load(productModel[position].imgUrl)
