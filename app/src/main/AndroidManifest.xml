@@ -29,7 +29,9 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.VendorShoppingActivity"></activity>
+        <activity android:name=".view.VendorShoppingActivity">
+
+        </activity>
         <activity
             android:name=".view.VendorFoodActivity"
             android:theme="@style/AppTheme.NoActionBar" />
