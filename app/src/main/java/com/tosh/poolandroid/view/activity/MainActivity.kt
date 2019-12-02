@@ -20,6 +20,7 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.appbar_layout.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(){
 
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Timber.d("starting OnCreate activity ...")
+
         setContentView(R.layout.activity_main)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
