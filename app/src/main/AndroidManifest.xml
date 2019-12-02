@@ -29,21 +29,11 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".view.VendorShoppingActivity">
 
-        </activity>
-        <activity
-            android:name=".view.VendorFoodActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.PhoneActivity" />
-        <activity android:name=".view.RegisterActivity" />
-        <activity android:name=".view.LoginActivity" />
-=======
         <activity android:name=".view.activity.PhoneActivity" />
         <activity android:name=".view.activity.RegisterActivity" />
         <activity android:name=".view.activity.LoginActivity" />
->>>>>>> bf8fead3ea07a7c03000bb0fdef5941663cf84c0
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
