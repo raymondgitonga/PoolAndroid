@@ -29,6 +29,7 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".view.VendorShoppingActivity">
 
         </activity>
@@ -38,6 +39,11 @@
         <activity android:name=".view.PhoneActivity" />
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.LoginActivity" />
+=======
+        <activity android:name=".view.activity.PhoneActivity" />
+        <activity android:name=".view.activity.RegisterActivity" />
+        <activity android:name=".view.activity.LoginActivity" />
+>>>>>>> bf8fead3ea07a7c03000bb0fdef5941663cf84c0
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -51,7 +57,7 @@
             android:name=".view.appIntro.AppIntroActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,8 +66,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+            android:name=".view.activity.MainActivity"
+            android:theme="@style/AppTheme1" />
     </application>
 
 </manifest>
