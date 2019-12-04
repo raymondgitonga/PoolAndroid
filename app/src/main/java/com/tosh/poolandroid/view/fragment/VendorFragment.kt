@@ -48,7 +48,6 @@ class VendorFragment: Fragment() {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-
         mainViewModel!!.loadVendors()?.observe(viewLifecycleOwner, Observer { vendors ->
             vendorAdapter = VendorAdapter(vendors)
             vendorsRv!!.adapter = vendorAdapter
