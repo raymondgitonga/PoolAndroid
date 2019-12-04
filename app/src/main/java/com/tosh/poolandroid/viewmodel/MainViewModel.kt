@@ -4,11 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tosh.poolandroid.model.LoginResponse
+import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.model.remote.RetrofitClient
-import com.tosh.poolandroid.model.Category
-import com.tosh.poolandroid.model.RegisterResponse
-import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.UserRepository
 import retrofit2.Call
@@ -124,6 +121,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 })
 
         return categoryList
+    }
+
+    // viewmodel for product extras
+    fun loadProductExtras(id:Int): MutableLiveData<List<Extra>>? {
+        var productExtrasList: MutableLiveData<List<Extra>>? = MutableLiveData<List<Extra>>()
+
+        RetrofitClient.makeRetrofitApi2().getProductExtras(id)
+            .enqueue(object : Callback<List<Extra>> {
+                override fun onResponse(call: Call<List<Extra>>, response: Response<List<Extra>>) {
+                    productExtrasList?.value = response.body()
+                }
+
+                override fun onFailure(call: Call<List<Extra>>, t: Throwable) {
+
+                }
+            })
+
+        return productExtrasList
     }
 
     fun loadVendors():MutableLiveData<List<Vendor>>?{
