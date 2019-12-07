@@ -6,7 +6,6 @@ import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.appIntro.AppIntroActivity
-import kotlinx.android.synthetic.main.activity_splash.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -37,7 +36,6 @@ class SplashActivity : AppCompatActivity() {
         while (progress < 100) {
             try {
                 Thread.sleep(300)
-                splash_progress!!.progress = progress
             } catch (e: Exception) {
                 e.printStackTrace()
             }
