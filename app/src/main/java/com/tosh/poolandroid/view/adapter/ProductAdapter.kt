@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Product
@@ -43,6 +42,5 @@ class ProductAdapter(private val productModel: List<Product>): RecyclerView.Adap
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDesc: TextView = itemView.findViewById(R.id.foodDesc)
         val foodPrice: TextView = itemView.findViewById(R.id.foodPrice)
-        val foodCartBtn: MaterialButton = itemView.findViewById(R.id.foodCartBtn)
     }
 }

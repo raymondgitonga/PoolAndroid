@@ -3,6 +3,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="10dp"
+       android:layout_marginBottom="10dp"
+       android:layout_gravity="center_horizontal"
+       android:visibility="gone">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_primary"
+        android:layout_marginEnd="5dp"/>
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_location"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+<!--    <fragment-->
+<!--        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
+<!--        android:id="@+id/autoCompleteFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:visibility="gone"/>-->
+
+
     <FrameLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"

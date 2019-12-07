@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
@@ -22,6 +23,8 @@ class VendorFragment: Fragment() {
     private var vendorAdapter: VendorAdapter? = null
     private var mainViewModel: MainViewModel? = null
     private var vendorsRv: RecyclerView? = null
+    lateinit var placesClient:PlacesClient
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_vendor, container, false)
@@ -30,7 +33,6 @@ class VendorFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVendors()
-
 
     }
 
@@ -82,4 +84,28 @@ class VendorFragment: Fragment() {
 
         })
     }
+
+//    private fun setupPlacesAutoComplete(){
+//
+//        var placeFields = mutableListOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS)
+//        Places.initialize(view!!.context, getString(R.string.google_api_key))
+//        placesClient = Places.createClient(view!!.context)
+//
+//        val autoCompleteFragment =
+//            activity?.supportFragmentManager?.findFragmentById(R.id.autoCompleteFragment) as? AutocompleteSupportFragment
+//
+//        autoCompleteFragment?.setPlaceFields(placeFields)
+//
+//        autoCompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener{
+//            override fun onPlaceSelected(place: Place) {
+//                Toast.makeText(view!!.context, ""+place.address, Toast.LENGTH_SHORT).show()
+//
+//            }
+//
+//            override fun onError(status: Status) {
+//                Toast.makeText(view!!.context, ""+status.statusMessage, Toast.LENGTH_SHORT).show()
+//            }
+//
+//        })
+//    }
 }

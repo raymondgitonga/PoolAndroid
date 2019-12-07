@@ -60,22 +60,16 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/foodCartBtn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="251dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="19dp"
+        android:layout_marginStart="282dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="-12dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/add_to_cart"
-        android:textSize="12sp"
-        app:cornerRadius="15dp"
-        app:strokeColor="@color/colorPrimary" />
-
+        android:src="@drawable/ic_add_shopping" />
 
 </RelativeLayout>
