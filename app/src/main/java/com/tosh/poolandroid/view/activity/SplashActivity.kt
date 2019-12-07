@@ -39,7 +39,6 @@ class SplashActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             progress += 10
         }
     }
