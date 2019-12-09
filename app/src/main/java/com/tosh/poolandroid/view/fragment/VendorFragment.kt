@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,12 +18,15 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.appbar_layout.*
 
 class VendorFragment: Fragment() {
 
     private var vendorAdapter: VendorAdapter? = null
     private var mainViewModel: MainViewModel? = null
     private var vendorsRv: RecyclerView? = null
+    private var textLocation: TextView? = null
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,6 +35,10 @@ class VendorFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setup()
+    }
+
+    private fun setup(){
         setupVendors()
     }
 
@@ -37,6 +46,7 @@ class VendorFragment: Fragment() {
 
         //toolbar
         (activity as MainActivity).setToolBar("Choose Vendor")
+        (activity as MainActivity).setLocationVisibility(VISIBLE)
 
 
         //recyclerView
@@ -81,4 +91,5 @@ class VendorFragment: Fragment() {
 
         })
     }
+
 }

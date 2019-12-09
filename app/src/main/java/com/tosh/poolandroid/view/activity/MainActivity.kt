@@ -7,20 +7,31 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.appbar_layout.*
 import timber.log.Timber
+import java.util.*
+
 
 class MainActivity : AppCompatActivity(){
 
@@ -31,6 +42,9 @@ class MainActivity : AppCompatActivity(){
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mainViewModel: MainViewModel? = null
+    lateinit var placesClient: PlacesClient
+
+    private var placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
 
 
@@ -44,8 +58,9 @@ class MainActivity : AppCompatActivity(){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         fetchLastLocation()
         createFormFragment()
-
-
+        initialisePlaces()
+        setUpPlaces()
+        locationOnClick()
     }
 
     private fun createFormFragment() {
@@ -59,6 +74,10 @@ class MainActivity : AppCompatActivity(){
         toolbar_title.text = title
     }
 
+    fun setLocationVisibility(visibility: Int){
+        textLocation.visibility = visibility
+    }
+    
     private fun fetchLastLocation() {
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
@@ -92,6 +111,40 @@ class MainActivity : AppCompatActivity(){
             REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 fetchLastLocation()
             }
+        }
+    }
+
+    private fun initialisePlaces(){
+        Places.initialize(applicationContext, getString(R.string.google_api_key))
+        placesClient = Places.createClient(this)
+    }
+
+    private fun setUpPlaces(){
+        val autocompleteFragment = supportFragmentManager
+            .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+
+        autocompleteFragment.setPlaceFields(placeFields)
+
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener{
+            override fun onPlaceSelected(place: Place) {
+                autoplacesFragment.visibility = GONE
+                toolbar_title.visibility = VISIBLE
+                textLocation.visibility = VISIBLE
+                textLocation.text = place.name
+            }
+
+            override fun onError(status: Status) {
+                Log.e("LOCATIONNN", ""+status.statusMessage)
+            }
+
+        })
+    }
+
+    private fun locationOnClick(){
+        textLocation?.setOnClickListener {
+            autoplacesFragment.visibility = VISIBLE
+            toolbar_title.visibility = GONE
+            textLocation.visibility = GONE
         }
     }
 

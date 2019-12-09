@@ -93,5 +93,6 @@
     <string name="_400kes">400KES</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="my_location">My Location</string>
+    <string name="location">Current Location</string>
 
 </resources>
