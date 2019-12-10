@@ -94,5 +94,7 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="my_location">My Location</string>
     <string name="location">Current Location</string>
+    <string name="cart">Cart</string>
+    <string name="home">Home</string>
 
 </resources>

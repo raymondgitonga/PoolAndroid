@@ -8,12 +8,16 @@ import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
@@ -24,16 +28,18 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar_layout.*
 import timber.log.Timber
-import java.util.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
@@ -42,9 +48,10 @@ class MainActivity : AppCompatActivity(){
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mainViewModel: MainViewModel? = null
+    private val freightFragment = VendorFragment()
     lateinit var placesClient: PlacesClient
 
-    private var placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
+    private var placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
 
 
@@ -56,26 +63,98 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        setUpPlaces()
         fetchLastLocation()
         createFormFragment()
+        setupDrawer()
+        loadUserDetails()
+        bottomNavigation()
         initialisePlaces()
-        setUpPlaces()
         locationOnClick()
     }
 
     private fun createFormFragment() {
-        val freightFragment = VendorFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.details_fragment, freightFragment)
         transaction.commit()
     }
 
-    fun setToolBar(title: String) {
-        toolbar_title.text = title
+    private fun setupDrawer(){
+        setSupportActionBar(toolBar)
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+           this, drawerLayout, toolBar, R.string.open_drawer, R.string.close_drawer){}
+        drawerToggle.isDrawerIndicatorEnabled = true
+        drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
+
     }
 
-    fun setLocationVisibility(visibility: Int){
-        textLocation.visibility = visibility
+    fun setupToolbar(title: String){
+        val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
+        toolbarTitle.text = title
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.orders_navigation -> {
+                Toast.makeText(this, "Orders clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.profile_navigation -> {
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.settings_navigation -> {
+                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.info_navigation -> {
+                Toast.makeText(this, "Info clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.share_navigation -> {
+                Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.help_navigation -> {
+                Toast.makeText(this, "Help clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.logout_navigation -> {
+                logout()
+            }
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else{
+            super.onBackPressed()
+        }
+    }
+
+    private fun bottomNavigation(){
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNav)
+
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home_bottom -> {
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.details_fragment, freightFragment)
+                    transaction.commit()
+                }
+
+                R.id.cart_bottom ->{
+                    Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.help_bottom ->{
+                    Toast.makeText(this, "Help clicked", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            true
+        }
     }
     
     private fun fetchLastLocation() {
@@ -125,7 +204,7 @@ class MainActivity : AppCompatActivity(){
 
         autocompleteFragment.setPlaceFields(placeFields)
 
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener{
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 autoplacesFragment.visibility = GONE
                 toolbar_title.visibility = VISIBLE
@@ -157,11 +236,11 @@ class MainActivity : AppCompatActivity(){
     }
 
     companion object {
-        private val REQUEST_CODE = 101
+        private const val REQUEST_CODE = 101
     }
 
     private fun loadUserDetails() {
-        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
         val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
         val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView

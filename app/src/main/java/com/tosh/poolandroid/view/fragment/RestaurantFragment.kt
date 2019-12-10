@@ -59,7 +59,6 @@ class RestaurantFragment: Fragment() {
     fun setupToolBar(){
         vendorName = arguments?.getString("VENDOR_NAME")
 
-        (activity as MainActivity).setToolBar(vendorName.toString())
-        (activity as MainActivity).setLocationVisibility(View.GONE)
+        (activity as MainActivity).setupToolbar(vendorName.toString())
     }
 }

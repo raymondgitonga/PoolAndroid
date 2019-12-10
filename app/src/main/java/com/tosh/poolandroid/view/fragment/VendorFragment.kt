@@ -44,10 +44,8 @@ class VendorFragment: Fragment() {
 
     private fun setupVendors(){
 
-        //toolbar
-        (activity as MainActivity).setToolBar("Choose Vendor")
-        (activity as MainActivity).setLocationVisibility(VISIBLE)
-
+        //Toolbar
+        (activity as MainActivity).setupToolbar(getString(R.string.choose_vendor))
 
         //recyclerView
         vendorsRv = view?.findViewById(R.id.vendorsRv)

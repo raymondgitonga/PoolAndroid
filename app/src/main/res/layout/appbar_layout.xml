@@ -1,49 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolBar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@null"
-    app:titleTextColor="@color/black">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/colorAccent"
+        app:elevation="0dp">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/choose_vendor"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:minHeight="?attr/actionBarSize"
+            android:background="#F7FAF4"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:text="@string/choose_vendor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="60dp"
+                android:gravity="center" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/textLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/location"
             android:textColor="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:visibility="gone"/>
-
         <LinearLayout
             android:id="@+id/autoplacesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
 
-        <fragment
-            android:id="@+id/autocomplete_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
+            <fragment
+                android:id="@+id/autocomplete_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
 
         </LinearLayout>
-    </LinearLayout>
 
-</com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:menu="@menu/bottom_menu"
+        android:layout_alignParentBottom="true"/>
+
+    <FrameLayout
+        android:id="@+id/details_fragment"
+        android:layout_below="@+id/appBar"
+        android:layout_above="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</RelativeLayout>
