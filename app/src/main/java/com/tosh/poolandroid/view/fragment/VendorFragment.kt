@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
@@ -19,6 +20,7 @@ import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.appbar_layout.*
+import kotlinx.android.synthetic.main.fragment_vendor.*
 
 class VendorFragment: Fragment() {
 
@@ -44,6 +46,8 @@ class VendorFragment: Fragment() {
 
     private fun setupVendors(){
 
+        vendorPlaceholder.startShimmerAnimation()
+
         //Toolbar
         (activity as MainActivity).setupToolbar(getString(R.string.choose_vendor))
 
@@ -58,6 +62,8 @@ class VendorFragment: Fragment() {
         mainViewModel!!.loadVendors()?.observe(viewLifecycleOwner, Observer { vendors ->
             vendorAdapter = VendorAdapter(vendors)
             vendorsRv!!.adapter = vendorAdapter
+            vendorPlaceholder.stopShimmerAnimation()
+            vendorPlaceholder.visibility = GONE
             loadFragment()
         })
     }
@@ -66,6 +72,7 @@ class VendorFragment: Fragment() {
 
         val VENDOR_NAME = "VENDOR_NAME"
         val VENDOR_ID = "VENDOR_ID"
+
         vendorAdapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(vendor: Vendor) {
                 val fragmentRestaurant = RestaurantFragment()

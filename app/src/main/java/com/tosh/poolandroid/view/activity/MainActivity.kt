@@ -28,7 +28,6 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
@@ -37,6 +36,7 @@ import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar_layout.*
 import timber.log.Timber
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mainViewModel: MainViewModel? = null
-    private val freightFragment = VendorFragment()
+    private val vendorFragment = VendorFragment()
     lateinit var placesClient: PlacesClient
 
     private var placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun createFormFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.details_fragment, freightFragment)
+        transaction.replace(R.id.details_fragment, vendorFragment)
         transaction.commit()
     }
 
@@ -126,9 +126,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
+        val fm = supportFragmentManager
+
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else{
+        }else{
             super.onBackPressed()
         }
     }
@@ -140,7 +142,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when(it.itemId){
                 R.id.home_bottom -> {
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.details_fragment, freightFragment)
+                    transaction.replace(R.id.details_fragment, vendorFragment)
+                    transaction.addToBackStack(null)
                     transaction.commit()
                 }
 
