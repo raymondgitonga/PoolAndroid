@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.appbar_layout.*
 import kotlinx.android.synthetic.main.fragment_vendor.*
 
 class VendorFragment: Fragment() {
