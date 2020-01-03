@@ -5,9 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.*
+import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.remote.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
-import com.tosh.poolandroid.model.repository.UserRepository
+import com.tosh.poolandroid.model.repository.MainRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +17,7 @@ import retrofit2.Response
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val repository: UserRepository = UserRepository(application)
+    private val repository: MainRepository = MainRepository(application)
 
 
     fun userLogin(email: String, password: String): LiveData<String> {
@@ -123,6 +124,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return categoryList
     }
 
+
     // viewmodel for product extras
     fun loadProductExtras(id:Int): MutableLiveData<List<Extra>>? {
         var productExtrasList: MutableLiveData<List<Extra>>? = MutableLiveData<List<Extra>>()
@@ -160,6 +162,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun insert(userEntity: UserEntity) {
         repository.insert(userEntity)
+    }
+
+    fun insert(cartItemEntity: CartItemEntity) {
+        repository.insert(cartItemEntity)
+    }
+
+    fun getCartItems(): LiveData<List<CartItemEntity>> {
+        return repository.getCartItems()
     }
 
     fun getUserDetails(): LiveData<List<UserEntity>> {

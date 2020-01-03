@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +11,15 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Category
 
 
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryView>() {
 
-class CategoryAdapter:RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
-
-    var category : List<Category> = listOf()
+    var category: List<Category> = listOf()
     private val viewPool = RecyclerView.RecycledViewPool()
+    val context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryView {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryView(view)
     }
 
@@ -31,26 +33,28 @@ class CategoryAdapter:RecyclerView.Adapter<CategoryAdapter.CategoryView>(){
 
         holder.categoryName.text = category.name
 
-        val categoryLayoutManager = LinearLayoutManager(holder.productRv.context, LinearLayoutManager.VERTICAL, false)
+        val categoryLayoutManager =
+            LinearLayoutManager(holder.productRv.context, LinearLayoutManager.VERTICAL, false)
 
         categoryLayoutManager.initialPrefetchItemCount = 5
 
         holder.productRv.apply {
             layoutManager = categoryLayoutManager
-            adapter = ProductAdapter(category.products)
+            adapter = ProductAdapter(context, category.products)
             setRecycledViewPool(viewPool)
         }
 
     }
 
-    fun setCategories(category: List<Category>){
+    fun setCategories(category: List<Category>) {
         this.category = category
     }
 
-    class CategoryView(itemView: View, var category: Category? = null) : RecyclerView.ViewHolder(itemView){
+    class CategoryView(itemView: View, var category: Category? = null) :
+        RecyclerView.ViewHolder(itemView) {
         val categoryName: TextView = itemView.findViewById(R.id.category_title)
-        val productRv : RecyclerView = itemView.findViewById(R.id.productRv)
+        val productRv: RecyclerView = itemView.findViewById(R.id.productRv)
+
+        }
 
     }
-
-}

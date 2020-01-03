@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.model.Product
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.VendorAdapter
@@ -20,7 +21,7 @@ import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_vendor.*
 
-class VendorFragment: Fragment() {
+class VendorFragment(): Fragment() {
 
     private var vendorAdapter: VendorAdapter? = null
     private var mainViewModel: MainViewModel? = null
@@ -86,7 +87,7 @@ class VendorFragment: Fragment() {
                     fragmentTransaction.addToBackStack(null)
                     fragmentTransaction.commit()
                 }else{
-                    Log.e("Clicked","AIII")
+                    Log.e("Clicked","Shopping")
                 }
 
 

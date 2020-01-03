@@ -1,6 +1,7 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.model.Product
+import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
+import com.tosh.poolandroid.view.adapter.ProductAdapter
+import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
-
-
 
 class RestaurantFragment: Fragment() {
 
@@ -25,7 +28,6 @@ class RestaurantFragment: Fragment() {
     private var vendorName: String? = null
     private var vendorID: Int? = null
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_restaurant, container, false)
     }
@@ -34,6 +36,7 @@ class RestaurantFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         productRecyclerView()
         setupToolBar()
+
     }
 
     private fun productRecyclerView(){
@@ -61,4 +64,6 @@ class RestaurantFragment: Fragment() {
 
         (activity as MainActivity).setupToolbar(vendorName.toString())
     }
+
 }
+
