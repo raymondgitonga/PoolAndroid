@@ -1,5 +1,5 @@
 ## POOL Mobile App (In development)
-#### Created Raymond Gitonga
+#### Created by Raymond Gitonga
 
 ### Descriotion
 An application that allows users to shop from different shops at the same time
