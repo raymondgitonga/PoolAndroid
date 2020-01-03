@@ -20,7 +20,7 @@ An application that allows users to shop from different shops at the same time
 
 
 ### Contact details
-You can contact me through my email raytosh95@gmail.com
+You can contact me through my email raytosh95@gmail.com or makpalyy@gmail.com
 
 ### License
 MIT 2019 Raymond Gitonga
