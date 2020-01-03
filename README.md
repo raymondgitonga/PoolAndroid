@@ -7,13 +7,6 @@ An application that allows users to shop from different shops at the same time
 ### Technologies Used
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 
-### Getting Started
-In order for you to be able to run the application you must fulfill the following requirements:
-
-Android phone/emulator must be at least at SDK level 22 in order to run the application. 
-Have android studio installed. If you wish to clone this application to make changes then you can 
-click on this link https://github.com/raymondleta/PoolAndroid and fork the repository.
-
 ### Screenshots
 
  Splash screen                 |  Onboarding screen               |  Onboarding screen
