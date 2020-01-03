@@ -20,14 +20,14 @@ click on this link https://github.com/raymondleta/PoolAndroid and fork the repos
 :-----------------------------:|:--------------------------------:|:--------------------------------:
  ![Day](screenshots/1.png)     | ![Night mode](screenshots/2.png) | ![Night mode](screenshots/3.png)
  Onbording screen              |  Main Screen                     |  Product Screen
-![Day](screenshots/4.png)      | ![Night mode](screenshots/6.png) | ![Night mode](screenshots/6.png) 
+![Day](screenshots/4.png)      | ![Night mode](screenshots/5.png) | ![Night mode](screenshots/6.png) 
 
 
 
 
 
 ### Contact details
-You can contact me throug my email raytosh95@gmail.com
+You can contact me through my email raytosh95@gmail.com
 
 ### License
 MIT 2019 Raymond Gitonga
