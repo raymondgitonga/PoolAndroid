@@ -13,9 +13,10 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Product
 
 
-class ProductAdapter(private val context: Context, private val productModel: List<Product>) :
+class ProductAdapter(private val context: Context, private val productModel: List<Product>, val rootPosition:Int, val headerView:View, productClickListener: ProductClickListener) :
     RecyclerView.Adapter<ProductAdapter.ProductView>() {
 
+    var productClickListener: ProductClickListener = productClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
         return ProductView(view)
@@ -41,42 +42,31 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
             .centerCrop()
             .into(holder.foodImg)
 
-        holder.setClick(object : ItemClickListener {
-            override fun onItemClickListener(view: View, position: Int) {
-                Toast.makeText(context, "" + productModel[position].productName, Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-        })
-
     }
 
-    class ProductView(itemView: View, var product: List<Product>? = null) :
-        RecyclerView.ViewHolder(itemView),View.OnClickListener {
+    inner class ProductView(itemView: View, var product: List<Product>? = null) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val foodImg: ImageView = itemView.findViewById(R.id.foodImg)
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDesc: TextView = itemView.findViewById(R.id.foodDesc)
         val foodPrice: TextView = itemView.findViewById(R.id.foodPrice)
         private val addToCart: ImageView = itemView.findViewById(R.id.addToCart)
 
-        lateinit var listener: ItemClickListener
 
-        fun setClick(listener: ItemClickListener) {
-            this.listener = listener
-        }
 
         init {
             addToCart.setOnClickListener(this)
         }
 
-        override fun onClick(v: View?) {
-            listener.onItemClickListener(v!!, adapterPosition)
+        override fun onClick(childView: View) {
+            productClickListener.onItemClick(rootPosition,adapterPosition, headerView,childView)
         }
     }
 
-    interface ItemClickListener {
-
-        fun onItemClickListener(view: View, position: Int)
+    interface ProductClickListener {
+        fun onItemClick(rootPoition:Int,childPosition:Int,headerView: View ,childView: View)
     }
+
+
 
 }
