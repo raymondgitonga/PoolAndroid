@@ -19,10 +19,8 @@ click on this link https://github.com/raymondleta/PoolAndroid and fork the repos
  Splash screen                 |  Onboarding screen
 :-----------------------------:|:--------------------------------:
  ![Day](screenshots/1.png)     | ![Night mode](screenshots/2.png)
-:-----------------------------:|:--------------------------------:
  Onbording screen              |  Main Screen
-:-----------------------------:|:--------------------------------:
-![Day](screenshots/3.png)      | ![Night mode](screenshots/4.png)
+![Day](screenshots/3.png)      | ![Night mode](screenshots/5.png)
 
 
 
