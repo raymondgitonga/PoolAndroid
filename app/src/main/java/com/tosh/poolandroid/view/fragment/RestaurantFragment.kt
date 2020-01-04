@@ -20,6 +20,9 @@ import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.view.adapter.ProductAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.fragment_restaurant.*
+import kotlinx.android.synthetic.main.fragment_vendor.*
 import java.util.*
 
 class RestaurantFragment: Fragment() {
@@ -52,10 +55,10 @@ class RestaurantFragment: Fragment() {
                 mainViewModel!!.loadProductExtras(productDetails.id)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
                         if (extras.isEmpty()){
-                            Toast.makeText(view!!.context, "No extras",
-                                Toast.LENGTH_SHORT).show()
+                            Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_SHORT, true).show()
                         }else {
                             // prints out list of extras
+                            Toasty.info(view!!.context, "Show dialog with extras", Toast.LENGTH_SHORT, true).show();
                             extras.forEach(System.out::print)
                         }
                     })
@@ -65,6 +68,8 @@ class RestaurantFragment: Fragment() {
     }
 
     private fun productRecyclerView(){
+        restaurantPlaceholder.startShimmerAnimation()
+
         vendorID = arguments?.getInt("VENDOR_ID")
 
         recyclerView = view!!.findViewById(R.id.foodRv)
@@ -77,6 +82,8 @@ class RestaurantFragment: Fragment() {
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 categoryAdapter!!.setCategories(categories)
+                restaurantPlaceholder.stopShimmerAnimation()
+                restaurantPlaceholder.visibility = View.GONE
                 categoryAdapter!!.notifyDataSetChanged()
             }
         })

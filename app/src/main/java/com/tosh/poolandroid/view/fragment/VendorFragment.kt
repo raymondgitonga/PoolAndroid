@@ -96,4 +96,6 @@ class VendorFragment(): Fragment() {
         })
     }
 
+
 }
+

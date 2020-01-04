@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     android:id="@+id/fragmentRestaurant">
 
+    <io.supercharge.shimmerlayout.ShimmerLayout
+        android:id="@+id/restaurantPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_animation_duration="1200">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+
+        </LinearLayout>
+
+    </io.supercharge.shimmerlayout.ShimmerLayout>
+
     <FrameLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
