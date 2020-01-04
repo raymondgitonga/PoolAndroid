@@ -91,6 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/proceed_btn">
 
         <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:lazyloader_animDur="800"

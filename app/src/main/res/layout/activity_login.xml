@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         android:padding="16dp"
         tools:context=".view.activity.LoginActivity">
 
@@ -110,6 +111,7 @@
             android:id="@+id/containerLL">
 
         <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:lazyloader_animDur="800"
