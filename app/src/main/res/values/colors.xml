@@ -4,10 +4,12 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#F7FAF4</color>
 
+    <color name="colorPrimaryLight">#75e900</color>
 
     <color name="colorTheme">#00796B</color>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+
 
     <color name="placeholderBg">#dddddd</color>
 </resources>

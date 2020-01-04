@@ -79,21 +79,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countryCode"/>
 
-    <ProgressBar
-        android:id="@+id/phone_progress"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="7dp"
-        android:layout_height="12dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="731dp"
-        android:layout_weight="1"
+    <LinearLayout
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-
+        android:layout_marginTop="10dp"
+        android:id="@+id/containerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/phoneText"
-        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proceed_btn">
+
+        <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lazyloader_animDur="800"
+            app:lazyloader_dotsDist="10dp"
+            app:lazyloader_dotsRadius="10dp"
+            app:lazyloader_firstDelayDur="100"
+            app:lazyloader_firstDotColor="@color/colorPrimaryLight"
+            app:lazyloader_interpolator="@android:anim/decelerate_interpolator"
+            app:lazyloader_secondDelayDur="200"
+            app:lazyloader_secondDotColor="@color/colorPrimaryLight"
+            app:lazyloader_thirdDotColor="@color/colorPrimaryLight" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -155,6 +155,7 @@ dependencies {
     //stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
 
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
     //mockito
     testImplementation 'org.mockito:mockito-inline:2.8.47'
 

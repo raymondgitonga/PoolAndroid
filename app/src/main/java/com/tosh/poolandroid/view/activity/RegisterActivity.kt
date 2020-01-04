@@ -5,11 +5,17 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.Interpolator
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.agrawalsuneet.dotsloader.loaders.LazyLoader
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.show
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -17,10 +23,13 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
+    lateinit var containerLL: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        containerLL = findViewById<LinearLayout>(R.id.containerLL)
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         register_login_btn.setOnClickListener {
@@ -62,11 +71,13 @@ class RegisterActivity : AppCompatActivity() {
                 confirm_password_register.error = "Passwords dont match"
                 return@setOnClickListener
             }
+            loading()
             instantiateRegisterViewModel(name, email, password, confirmPassword)
         }
     }
 
     private fun instantiateRegisterViewModel(name:String, email:String,  password:String, confirmPassord:String) {
+        containerLL.visibility = View.VISIBLE
         val registrationViewModel: MainViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
         registrationViewModel.userRegister(name,email, password, confirmPassord).observe(this, Observer {
 
@@ -75,11 +86,11 @@ class RegisterActivity : AppCompatActivity() {
                 intent.putExtra("Name", name)
                 intent.putExtra("Email", email)
                 addToSharedPreferences(email)
-                register_progress.show()
                 startActivity(intent)
                 finish()
             }else{
                 Toast.makeText(applicationContext,it, Toast.LENGTH_LONG).show()
+                containerLL.visibility = View.GONE
             }
         })
     }
@@ -93,5 +104,19 @@ class RegisterActivity : AppCompatActivity() {
         editor.putString("email", email)
         editor.apply()
 
+    }
+
+    private fun loading(){
+        var lazyLoader = LazyLoader(this, 15, 5,
+            ContextCompat.getColor(this, R.color.loader_selected),
+            ContextCompat.getColor(this, R.color.loader_selected),
+            ContextCompat.getColor(this, R.color.loader_selected))
+            .apply {
+                animDuration = 500
+                firstDelayDuration = 100
+                secondDelayDuration = 200
+                interpolator = DecelerateInterpolator() as Interpolator
+            }
+        containerLL.addView(lazyLoader)
     }
 }
