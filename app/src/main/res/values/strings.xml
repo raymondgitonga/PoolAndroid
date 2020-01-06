@@ -96,5 +96,10 @@
     <string name="location">Current Location</string>
     <string name="cart">Cart</string>
     <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="extras">Extras</string>
+    <string name="_300_kes">300 KES</string>
+    <string name="chips">Chips</string>
+    <string name="add_to_cart1">Add To Cart</string>
 
 </resources>

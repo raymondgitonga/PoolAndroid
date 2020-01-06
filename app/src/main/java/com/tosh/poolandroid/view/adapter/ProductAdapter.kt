@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,7 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDesc: TextView = itemView.findViewById(R.id.foodDesc)
         val foodPrice: TextView = itemView.findViewById(R.id.foodPrice)
-        private val addToCart: ImageView = itemView.findViewById(R.id.addToCart)
+        private val addToCart: LinearLayout = itemView.findViewById(R.id.addToCart)
 
 
 

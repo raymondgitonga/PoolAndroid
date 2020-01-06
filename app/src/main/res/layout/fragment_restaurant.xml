@@ -23,6 +23,10 @@
             <include layout="@layout/restaurant_placeholder"/>
             <include layout="@layout/restaurant_placeholder"/>
             <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
+            <include layout="@layout/restaurant_placeholder"/>
 
         </LinearLayout>
 

@@ -1,10 +1,12 @@
 package com.tosh.poolandroid.view.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ import com.tosh.poolandroid.model.Product
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
+import com.tosh.poolandroid.view.adapter.ExtraAdapter
 import com.tosh.poolandroid.view.adapter.ProductAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -32,6 +35,7 @@ class RestaurantFragment: Fragment() {
     lateinit var recyclerView: RecyclerView
     private var vendorName: String? = null
     private var vendorID: Int? = null
+    lateinit var extraDialog: Dialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_restaurant, container, false)
@@ -41,6 +45,7 @@ class RestaurantFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+        extraDialog = Dialog(requireActivity())
         productRecyclerView()
         setupToolBar()
         productClick()
@@ -57,14 +62,18 @@ class RestaurantFragment: Fragment() {
                         if (extras.isEmpty()){
                             Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_SHORT, true).show()
                         }else {
-                            // prints out list of extras
-                            Toasty.info(view!!.context, "Show dialog with extras", Toast.LENGTH_SHORT, true).show();
-                            extras.forEach(System.out::print)
+                            showExtraDialog()
                         }
                     })
             }
 
         })
+    }
+
+    fun showExtraDialog(){
+        extraDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        extraDialog.setContentView(R.layout.dialog_extra)
+        extraDialog.show()
     }
 
     private fun productRecyclerView(){

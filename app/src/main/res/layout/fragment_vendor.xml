@@ -19,6 +19,9 @@
             <include layout="@layout/vendor_placeholder"/>
             <include layout="@layout/vendor_placeholder"/>
             <include layout="@layout/vendor_placeholder"/>
+            <include layout="@layout/vendor_placeholder"/>
+            <include layout="@layout/vendor_placeholder"/>
+            <include layout="@layout/vendor_placeholder"/>
 
         </LinearLayout>
 
