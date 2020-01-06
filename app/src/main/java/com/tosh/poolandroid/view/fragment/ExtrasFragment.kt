@@ -1,22 +1,17 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.ButterKnife
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.view.adapter.ExtraAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
-import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fragment_restaurant.*
+
+
 
 class ExtrasFragment: DialogFragment() {
 
@@ -30,6 +25,8 @@ class ExtrasFragment: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.dialog_extra, container, false)
+        dialog!!.window.requestFeature(Window.FEATURE_NO_TITLE);
+        dialog!!.setCanceledOnTouchOutside(true)
         return rootView
     }
 
@@ -38,6 +35,14 @@ class ExtrasFragment: DialogFragment() {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         productClick()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val window = dialog!!.window
+        window.setLayout(1000, 600)
+        window.setGravity(Gravity.CENTER)
     }
 
     private fun productClick(){
