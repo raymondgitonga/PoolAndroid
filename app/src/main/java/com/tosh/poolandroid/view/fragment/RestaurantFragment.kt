@@ -36,6 +36,7 @@ class RestaurantFragment: Fragment() {
     private var vendorName: String? = null
     private var vendorID: Int? = null
     lateinit var extraDialog: Dialog
+    var  productDetails: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_restaurant, container, false)
@@ -55,9 +56,9 @@ class RestaurantFragment: Fragment() {
     private fun productClick(){
         categoryAdapter?.setOnProductItemClickListener(object : CategoryAdapter.CategoryProductListener{
             override fun onProductItemClick(headerPosition: Int, childPosition: Int, headerView: View, childView: View) {
-                val productDetails = categoryAdapter!!.category[headerPosition].products[childPosition]
+                productDetails = categoryAdapter!!.category[headerPosition].products[childPosition].id
 
-                mainViewModel!!.loadProductExtras(productDetails.id)
+                mainViewModel!!.loadProductExtras(productDetails!!)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
                         if (extras.isEmpty()){
                             Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_SHORT, true).show()
@@ -71,9 +72,22 @@ class RestaurantFragment: Fragment() {
     }
 
     fun showExtraDialog(){
-        extraDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        extraDialog.setContentView(R.layout.dialog_extra)
-        extraDialog.show()
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val prev = fragmentManager.findFragmentByTag("dialog")
+
+        if (prev != null) {
+            fragmentTransaction.remove(prev)
+        }
+        val PRODUCT_ID = "PRODUCT_ID"
+        val bundle = Bundle()
+        bundle.putInt( PRODUCT_ID,productDetails!!)
+
+
+        fragmentTransaction.addToBackStack(null)
+        val fragmentExtras = ExtrasFragment()
+        fragmentExtras.arguments = bundle
+        fragmentExtras.show(fragmentTransaction, "extras")
     }
 
     private fun productRecyclerView(){
