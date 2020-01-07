@@ -3,6 +3,7 @@
 
 ### Descriotion
 An application that allows users to shop from different shops at the same time
+(Only data for kfc available at the moment)
 
 ### Technologies Used
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
@@ -31,6 +32,7 @@ An application that allows users to shop from different shops at the same time
 ### Todo
 
 - [x] Extras dialog
+- [ ] Network timeouts and error handling
 - [ ] Forgot password
 - [ ] Cart Layout
 - [ ] Checkout
