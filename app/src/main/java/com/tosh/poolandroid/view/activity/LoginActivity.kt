@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.WindowManager
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.agrawalsuneet.dotsloader.loaders.LazyLoader
+import com.google.android.material.snackbar.Snackbar
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -72,7 +74,11 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                Toast.makeText(applicationContext,it, Toast.LENGTH_LONG).show()
+                val contextView: View = findViewById(R.id.loginLayout)
+                val snackbar = Snackbar
+                    .make(contextView, it, Snackbar.LENGTH_LONG)
+                snackbar.show()
+//                Toast.makeText(applicationContext,it, Toast.LENGTH_LONG).show()
                 containerLL.visibility = GONE
             }
         })

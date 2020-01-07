@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/registerLayout">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,6 +107,19 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:cornerRadius="15dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_login_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/have_an_account"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"/>
+
         <LinearLayout
             android:visibility="gone"
             android:gravity="center_horizontal"
@@ -114,6 +128,7 @@
             android:id="@+id/containerLL">
 
             <com.agrawalsuneet.dotsloader.loaders.LazyLoader
+                android:id="@+id/lazyLoader"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,18 +142,6 @@
                 app:lazyloader_secondDotColor="@color/colorPrimaryLight"
                 app:lazyloader_thirdDotColor="@color/colorPrimaryLight" />
         </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_login_btn"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/have_an_account"
-            android:textColor="#000"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginTop="18dp"/>
 
     </LinearLayout>
 </ScrollView>
