@@ -78,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                 val snackbar = Snackbar
                     .make(contextView, it, Snackbar.LENGTH_LONG)
                 snackbar.show()
-//                Toast.makeText(applicationContext,it, Toast.LENGTH_LONG).show()
                 containerLL.visibility = GONE
             }
         })
