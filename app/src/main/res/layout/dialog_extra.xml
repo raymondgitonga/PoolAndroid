@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/dialog_rounded_bg">
 
     <TextView
+        android:id="@+id/extraText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="@string/extras"
-        android:gravity="center_horizontal" />
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="5dp"
         android:id="@+id/extraRv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/extraText"/>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:visibility="gone"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.FadingCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/extraText"
+        app:SpinKit_Color="@color/black"
+        android:layout_centerInParent="true"/>
 
     <Button
+        android:layout_below="@+id/extraRv"
+        android:id="@+id/btnExtra"
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_to_cart1"
-        android:layout_gravity="center_horizontal" />
-
-</LinearLayout>
+        android:layout_centerInParent="true"
+        android:layout_margin="2dp"/>
+</RelativeLayout>

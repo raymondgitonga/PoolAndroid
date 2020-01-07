@@ -45,6 +45,15 @@
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             app:spanCount="2" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.FadingCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            app:SpinKit_Color="@color/black"
+            android:visibility="gone"/>
     </FrameLayout>
 
 </LinearLayout>

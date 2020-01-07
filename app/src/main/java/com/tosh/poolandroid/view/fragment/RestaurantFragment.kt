@@ -2,31 +2,29 @@ package com.tosh.poolandroid.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.TextView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.ybq.android.spinkit.style.ChasingDots
+import com.github.ybq.android.spinkit.style.FadingCircle
+import com.github.ybq.android.spinkit.style.Wave
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.model.Product
-import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
-import com.tosh.poolandroid.view.adapter.ExtraAdapter
-import com.tosh.poolandroid.view.adapter.ProductAdapter
-import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_restaurant.*
-import kotlinx.android.synthetic.main.fragment_vendor.*
-import java.util.*
+
+
 
 class RestaurantFragment: Fragment() {
 
@@ -37,6 +35,8 @@ class RestaurantFragment: Fragment() {
     private var vendorID: Int? = null
     lateinit var extraDialog: Dialog
     var  productDetails: Int? = null
+    lateinit var progressBar: ProgressBar
+    lateinit var extraFragment: ExtrasFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_restaurant, container, false)
@@ -44,25 +44,33 @@ class RestaurantFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+        setup()
+    }
+
+    private fun setup(){
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         extraDialog = Dialog(requireActivity())
+        extraFragment = ExtrasFragment()
         productRecyclerView()
         setupToolBar()
         productClick()
-
+        setupProgressBar()
     }
 
     private fun productClick(){
         categoryAdapter?.setOnProductItemClickListener(object : CategoryAdapter.CategoryProductListener{
             override fun onProductItemClick(headerPosition: Int, childPosition: Int, headerView: View, childView: View) {
+                progressBar.visibility = VISIBLE
                 productDetails = categoryAdapter!!.category[headerPosition].products[childPosition].id
 
                 mainViewModel!!.loadProductExtras(productDetails!!)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
                         if (extras.isEmpty()){
+                            progressBar.visibility = GONE
                             Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_SHORT, true).show()
                         }else {
+                            progressBar.visibility = GONE
                             showExtraDialog()
                         }
                     })
@@ -106,7 +114,7 @@ class RestaurantFragment: Fragment() {
                 layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 categoryAdapter!!.setCategories(categories)
                 restaurantPlaceholder.stopShimmerAnimation()
-                restaurantPlaceholder.visibility = View.GONE
+                restaurantPlaceholder.visibility = GONE
                 categoryAdapter!!.notifyDataSetChanged()
             }
         })
@@ -116,6 +124,12 @@ class RestaurantFragment: Fragment() {
         vendorName = arguments?.getString("VENDOR_NAME")
 
         (activity as MainActivity).setupToolbar(vendorName.toString())
+    }
+    
+    fun setupProgressBar(){
+        progressBar = spin_kit as ProgressBar
+        val wave = FadingCircle()
+        progressBar.indeterminateDrawable = wave
     }
 
 }
