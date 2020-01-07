@@ -13,8 +13,9 @@ An application that allows users to shop from different shops at the same time
 :-----------------------------:|:--------------------------------:|:--------------------------------:
  ![Day](screenshots/1.png)     | ![Night mode](screenshots/2.png) | ![Night mode](screenshots/3.png)
  Onbording screen              |  Main Screen                     |  Product Screen
-![Day](screenshots/4.png)      | ![Night mode](screenshots/5.png) | ![Night mode](screenshots/6.png) 
-
+ ![Day](screenshots/4.png)     | ![Night mode](screenshots/5.png) | ![Night mode](screenshots/6.png) 
+ Extras screen                 |                                  | 
+ ![Day](screenshots/7.png)
 
 
 
