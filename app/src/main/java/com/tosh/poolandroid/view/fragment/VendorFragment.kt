@@ -89,8 +89,6 @@ class VendorFragment(): Fragment() {
                 }else{
                     Log.e("Clicked","Shopping")
                 }
-
-
             }
 
         })

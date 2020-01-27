@@ -1,7 +1,7 @@
 package com.tosh.poolandroid.model.remote
 
 import com.tosh.poolandroid.model.*
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface RetrofitApi {
@@ -10,7 +10,7 @@ interface RetrofitApi {
     fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): Single<LoginResponse>
 
     @FormUrlEncoded
     @POST("user/register")
@@ -19,7 +19,7 @@ interface RetrofitApi {
         @Field("email") email: String,
         @Field("password") password: String,
         @Field("confirmPassword") confirmPassword: String
-    ): Call<RegisterResponse>
+    ): Single<RegisterResponse>
 
     @FormUrlEncoded
     @POST("user/phone")
@@ -27,14 +27,14 @@ interface RetrofitApi {
         @Field("name") name: String,
         @Field("phone") phone:String,
         @Field("email") email: String
-    ): Call<RegisterResponse>
+    ): Single<RegisterResponse>
 
     @GET("api/v1/vendor/all")
-    fun getVendor(): Call<List<Vendor>>
+    fun getVendor(): Single<List<Vendor>>
 
     @GET("/api/v1/category/vendor/{vendor_id}")
-    fun getCategoryProducts(@Path("vendor_id") vendorId:Int): Call<List<Category>>
+    fun getCategoryProducts(@Path("vendor_id") vendorId:Int): Single<List<Category>>
 
     @GET("/api/v1/extra/product/{productId}")
-    fun getProductExtras(@Path("productId") productId:Int): Call<List<Extra>>
+    fun getProductExtras(@Path("productId") productId:Int): Single<List<Extra>>
 }

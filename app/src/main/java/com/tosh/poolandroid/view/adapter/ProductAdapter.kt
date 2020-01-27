@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Product
+import com.tosh.poolandroid.util.getProgressDrawable
+import com.tosh.poolandroid.util.loadImage
 
 
 class ProductAdapter(private val context: Context, private val productModel: List<Product>, val rootPosition:Int, val headerView:View, productClickListener: ProductClickListener) :
@@ -35,13 +35,8 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
         holder.foodDesc.text = product.productDetails
         holder.foodPrice.text = price
 
+        holder.foodImg.loadImage(productModel[position].imgUrl, getProgressDrawable(holder.foodImg.context))
         holder.product = listOf(product)
-
-        Picasso.get()
-            .load(productModel[position].imgUrl)
-            .fit()
-            .centerCrop()
-            .into(holder.foodImg)
 
     }
 

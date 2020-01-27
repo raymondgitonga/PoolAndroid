@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Vendor
+import com.tosh.poolandroid.util.getProgressDrawable
+import com.tosh.poolandroid.util.loadImage
 
 
-class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
+class VendorAdapter(private val vendorModel: List<Vendor>) :
+    RecyclerView.Adapter<VendorAdapter.VendorView>() {
 
     private lateinit var listener: OnItemClickListener
 
@@ -24,26 +26,24 @@ class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapte
 
         val vendor = vendorModel[position]
 
-       holder.vendorName.text = vendor.name
+        holder.vendorName.text = vendor.name
+        holder.vendorImage.loadImage(
+            vendorModel[position].img_url,
+            getProgressDrawable(holder.vendorImage.context)
+        )
 
-
-        Picasso.get()
-                .load(vendorModel[position].img_url)
-                .fit()
-                .centerCrop()
-                .into(holder.vendorImage)
 
         holder.vendor = listOf(vendor)
 
-        
+
     }
 
     override fun getItemCount(): Int {
         return vendorModel.size
     }
 
-    class VendorView(itemView: View, var vendor: List<Vendor>, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
-
+    class VendorView(itemView: View, var vendor: List<Vendor>, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
 
 
         val vendorImage: ImageView = itemView.findViewById<View>(R.id.vendor_image) as ImageView
@@ -57,11 +57,11 @@ class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapte
         }
     }
 
-    interface OnItemClickListener{
-        fun onItemClick(vendorModel:Vendor)
+    interface OnItemClickListener {
+        fun onItemClick(vendorModel: Vendor)
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 

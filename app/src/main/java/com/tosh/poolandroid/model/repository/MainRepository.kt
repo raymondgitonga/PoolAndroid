@@ -9,7 +9,6 @@ class MainRepository(application: Application) {
 
     private var userDao: UserDao
     private var cartItemDao: CartItemDao
-
     private var userDetails: LiveData<List<UserEntity>>
     private var cartItems: LiveData<List<CartItemEntity>>
 
@@ -24,7 +23,6 @@ class MainRepository(application: Application) {
         cartItemDao = mainDb.cartItemDao()
         cartItems = cartItemDao.getCartItems()
     }
-
 
     fun insert(userEntity: UserEntity) {
         class SaveUser : AsyncTask<Void, Void, Void>() {

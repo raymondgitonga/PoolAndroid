@@ -9,6 +9,10 @@ import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.remote.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.MainRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,23 +22,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val repository: MainRepository = MainRepository(application)
+    private val disposable = CompositeDisposable()
+    private val client = RetrofitClient()
 
 
     fun userLogin(email: String, password: String): LiveData<String> {
         val loginResponse = MutableLiveData<String>()
 
-        RetrofitClient.makeRetrofitApi().userLogin(email, password)
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    loginResponse.value = t.message
-                }
-
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                    if (response.isSuccessful) {
-                        loginResponse.value = response.body()?.message.toString()
-
-                        if (response.body()?.message == "successful") {
-                            for (user in response.body()?.user!!) {
+        disposable.add(
+            client.userLogin(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        loginResponse.value = it.message
+                        if (it.message == "successful") {
+                            for (user in it.user) {
                                 val newUser = UserEntity(
                                     name = user.name,
                                     email = user.email,
@@ -43,120 +46,133 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                                 insert(newUser)
                             }
+                        } else {
+                            loginResponse.value = it.message
                         }
-                    } else {
-                        loginResponse.value = response.body()?.message.toString()
 
+                    },
+                    {
+                        // add error handling
                     }
-                }
+                )
+        )
 
-            })
         return loginResponse
     }
 
-    fun addUserPhone(name: String, email: String, phone:String): LiveData<String> {
+    fun addUserPhone(name: String, email: String, phone: String): LiveData<String> {
         val registerResponse = MutableLiveData<String>()
 
-        RetrofitClient.makeRetrofitApi().addUserPhone(name, phone, email)
-                .enqueue(object : Callback<RegisterResponse> {
-                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        registerResponse.value = t.message
-                    }
+        disposable.add(
+            client.addUserPhone(name, phone, email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
 
-                    override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                        if (response.isSuccessful) {
-                            registerResponse.value = response.body()?.message.toString()
-
-                            if (response.body()?.message == "successful") {
+                        if (it.isSuccessful){
+                            registerResponse.value = it.message
+                            if (it.message == "successful") {
 
                                 val newUser = UserEntity(
-                                        name = response.body()!!.user.name,
-                                        email = response.body()!!.user.email,
-                                        phone = response.body()!!.user.phone
+                                    name = it.user.name,
+                                    email = it.user.email,
+                                    phone = it.user.phone
                                 )
 
                                 insert(newUser)
+                            }else {
+                                registerResponse.value = it.message
                             }
-                        } else {
-                            registerResponse.value = response.body()?.message.toString()
-
                         }
+                    },
+                    {
+                        // add error message
                     }
-
-                })
+                )
+        )
         return registerResponse
     }
 
-    fun userRegister(name:String, email:String, password:String, confirmPassword:String):LiveData<String>{
+    fun userRegister(name: String, email: String, password: String, confirmPassword: String): LiveData<String> {
         val registerResponse = MutableLiveData<String>()
-        RetrofitClient.makeRetrofitApi().userRegister(name, email, password, confirmPassword)
-                .enqueue(object : Callback<RegisterResponse> {
-                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        registerResponse.value = t.message
-                    }
 
-                    override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                        if (response.isSuccessful){
-                            registerResponse.value = response.body()?.message.toString()
-                        }else{
-                            registerResponse.value = response.body()?.message.toString()
+        disposable.add(
+            client.userRegister(name, email, password, confirmPassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        if (it.isSuccessful) {
+                            registerResponse.value = it.message
+                        } else {
+                            registerResponse.value = it.message
                         }
+                    },
+                    {
+                        // returm error
                     }
-
-                })
+                )
+        )
         return registerResponse
     }
 
-    fun loadCategories(id:Int): MutableLiveData<List<Category>>? {
-       var categoryList: MutableLiveData<List<Category>>? = MutableLiveData<List<Category>>()
+    fun loadCategories(id: Int): MutableLiveData<List<Category>>? {
+        var categoryList: MutableLiveData<List<Category>>? = MutableLiveData()
 
-        RetrofitClient.makeRetrofitApi2().getCategoryProducts(id)
-                .enqueue(object : Callback<List<Category>> {
-                    override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
-                        categoryList?.value = response.body()
+        disposable.add(
+            client.getCategoryProducts(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                       categoryList?.value = it
+                    },
+                    {
+                        // add error handling
                     }
-
-                    override fun onFailure(call: Call<List<Category>>, t: Throwable) {
-
-                    }
-                })
-
+                )
+        )
         return categoryList
     }
 
 
-    // viewmodel for product extras
-    fun loadProductExtras(id:Int): MutableLiveData<List<Extra>>? {
-        var productExtrasList: MutableLiveData<List<Extra>>? = MutableLiveData<List<Extra>>()
+    fun loadProductExtras(id: Int): MutableLiveData<List<Extra>>? {
+        var productExtrasList: MutableLiveData<List<Extra>>? = MutableLiveData()
 
-        RetrofitClient.makeRetrofitApi2().getProductExtras(id)
-            .enqueue(object : Callback<List<Extra>> {
-                override fun onResponse(call: Call<List<Extra>>, response: Response<List<Extra>>) {
-                    productExtrasList?.value = response.body()
-                }
-
-                override fun onFailure(call: Call<List<Extra>>, t: Throwable) {
-
-                }
-            })
+        disposable.add(
+            client.getVendorExtras(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        productExtrasList?.value = it
+                    },
+                    {
+                        // add error handling
+                    }
+                )
+        )
 
         return productExtrasList
     }
 
-    fun loadVendors():MutableLiveData<List<Vendor>>?{
+    fun loadVendors(): MutableLiveData<List<Vendor>>? {
         var vendorList: MutableLiveData<List<Vendor>>? = MutableLiveData()
 
-        RetrofitClient.makeRetrofitApi2().getVendor()
-                .enqueue(object : Callback<List<Vendor>> {
-                    override fun onResponse(call: Call<List<Vendor>>, response: Response<List<Vendor>>) {
-                        vendorList?.value = response.body()
+        disposable.add(
+            client.getVendor()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        vendorList?.value = it
+                    },
+                    {
+                        // add error handling
                     }
-
-                    override fun onFailure(call: Call<List<Vendor>>, t: Throwable) {
-
-                    }
-                })
-
+                )
+        )
         return vendorList
     }
 
@@ -176,5 +192,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getUserDetails()
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }
