@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.model.database.CartItemEntity
+import com.tosh.poolandroid.model.database.MainDatabase
 import com.tosh.poolandroid.model.remote.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.MainRepository
@@ -13,12 +14,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
     private val repository: MainRepository = MainRepository(application)
@@ -70,7 +72,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .subscribe(
                     {
 
-                        if (it.isSuccessful){
+                        if (it.isSuccessful) {
                             registerResponse.value = it.message
                             if (it.message == "successful") {
 
@@ -81,7 +83,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                                 )
 
                                 insert(newUser)
-                            }else {
+                            } else {
                                 registerResponse.value = it.message
                             }
                         }
@@ -126,7 +128,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                       categoryList?.value = it
+                        categoryList?.value = it
                     },
                     {
                         // add error handling
@@ -135,7 +137,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
         return categoryList
     }
-
 
     fun loadProductExtras(id: Int): MutableLiveData<List<Extra>>? {
         var productExtrasList: MutableLiveData<List<Extra>>? = MutableLiveData()

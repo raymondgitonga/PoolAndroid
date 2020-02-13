@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.style.FadingCircle
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Extra
+import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.view.adapter.ExtraAdapter
 
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -23,9 +24,10 @@ import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.dialog_extra.*
 import kotlinx.android.synthetic.main.dialog_extra.spin_kit
 import kotlinx.android.synthetic.main.fragment_restaurant.*
+import kotlinx.coroutines.launch
 
 
-class ExtrasFragment: DialogFragment() {
+class ExtrasFragment: BaseDialogFragment() {
 
     private lateinit var rootView: View
     var productDetailsId: Int? = null
@@ -77,7 +79,7 @@ class ExtrasFragment: DialogFragment() {
         extraRv.layoutManager = LinearLayoutManager(activity)
         extraRv.adapter = extraAdapter
 
-        productDetailsId = arguments?.getInt("PRODUCT_ID")
+        productDetailsId = arguments?.getInt("ID")
         mainViewModel!!.loadProductExtras(productDetailsId!!)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
                         if (extras.isEmpty()){
@@ -97,6 +99,27 @@ class ExtrasFragment: DialogFragment() {
         extraAdapter?.setOnItemClickListener(object : ExtraAdapter.OnItemClickListener{
             override fun onItemClick(extraModel: Extra) {
                 btnExtra.setOnClickListener {
+                    val productId = arguments?.getInt("ID")
+                    val productName = arguments?.getString("NAME")
+                    val productPrice = arguments?.getDouble("PRICE")
+                    val vendorId = arguments?.getInt("VENDOR_ID")
+                    val cartItem = CartItemEntity(
+                        id = 0,
+                        productId = productId!!,
+                        productName = productName!!,
+                        productPrice = productPrice!!,
+                        extraId = extraModel.id,
+                        extraName = extraModel.name,
+                        extraPrice = extraModel.price,
+                        productQuantity = null,
+                        vendorId = vendorId!!,
+                        total = productPrice + extraModel.price
+                    )
+
+                    launch {
+                        mainViewModel!!.insert(cartItem)
+                    }
+
                     dismiss()
                     Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_LONG, true).show()
                 }

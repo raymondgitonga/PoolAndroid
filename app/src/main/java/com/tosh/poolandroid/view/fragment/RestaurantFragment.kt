@@ -14,19 +14,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.ybq.android.spinkit.style.ChasingDots
 import com.github.ybq.android.spinkit.style.FadingCircle
-import com.github.ybq.android.spinkit.style.Wave
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_restaurant.*
+import kotlinx.coroutines.launch
 
 
-
-class RestaurantFragment: Fragment() {
+class RestaurantFragment : BaseFragment() {
 
     private var mainViewModel: MainViewModel? = null
     private var categoryAdapter: CategoryAdapter? = null
@@ -34,11 +33,15 @@ class RestaurantFragment: Fragment() {
     private var vendorName: String? = null
     private var vendorID: Int? = null
     lateinit var extraDialog: Dialog
-    var  productDetails: Int? = null
+    var productId: Int? = null
     lateinit var progressBar: ProgressBar
     lateinit var extraFragment: ExtrasFragment
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_restaurant, container, false)
     }
 
@@ -48,7 +51,7 @@ class RestaurantFragment: Fragment() {
         setup()
     }
 
-    private fun setup(){
+    private fun setup() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         extraDialog = Dialog(requireActivity())
         extraFragment = ExtrasFragment()
@@ -58,20 +61,54 @@ class RestaurantFragment: Fragment() {
         setupProgressBar()
     }
 
-    private fun productClick(){
-        categoryAdapter?.setOnProductItemClickListener(object : CategoryAdapter.CategoryProductListener{
+    private fun productClick() {
+        categoryAdapter?.setOnProductItemClickListener(object : CategoryAdapter.CategoryProductListener {
             override fun onProductItemClick(headerPosition: Int, childPosition: Int, headerView: View, childView: View) {
                 progressBar.visibility = VISIBLE
-                productDetails = categoryAdapter!!.category[headerPosition].products[childPosition].id
+                val product = categoryAdapter!!.category[headerPosition].products[childPosition]
+                productId = product.id
 
-                mainViewModel!!.loadProductExtras(productDetails!!)
+                mainViewModel!!.loadProductExtras(productId!!)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
-                        if (extras.isEmpty()){
+                        if (extras.isEmpty()) {
+                            launch {
+                                val cartItems = CartItemEntity(
+                                    id = 0,
+                                    productId = productId!!,
+                                    productName = product.productName,
+                                    productPrice = product.price,
+                                    extraId = null,
+                                    extraName = null,
+                                    extraPrice = 0.0,
+                                    productQuantity = null,
+                                    vendorId = product.vendorId,
+                                    total = product.price + 0.0
+                                )
+                                mainViewModel!!.insert(cartItems)
+                            }
                             progressBar.visibility = GONE
-                            Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_SHORT, true).show()
-                        }else {
+                            Toasty.success(
+                                view!!.context,
+                                "Added to cart",
+                                Toast.LENGTH_SHORT,
+                                true
+                            ).show()
+                        } else {
+                            val cartItem = CartItemEntity(
+                                id = 0,
+                                productId = productId!!,
+                                productName = product.productName,
+                                productPrice = product.price,
+                                extraId = null,
+                                extraName = null,
+                                extraPrice = 0.0,
+                                productQuantity = null,
+                                vendorId = product.vendorId,
+                                total = product.price + 0.0
+                            )
                             progressBar.visibility = GONE
-                            showExtraDialog()
+                            showExtraDialog(cartItem.productId, cartItem.productName,
+                                cartItem.productPrice, cartItem.vendorId)
                         }
                     })
             }
@@ -79,7 +116,7 @@ class RestaurantFragment: Fragment() {
         })
     }
 
-    fun showExtraDialog(){
+    fun showExtraDialog(productId : Int, productName: String, productPrice : Double, vendorId: Int ) {
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val prev = fragmentManager.findFragmentByTag("dialog")
@@ -87,18 +124,18 @@ class RestaurantFragment: Fragment() {
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
-        val PRODUCT_ID = "PRODUCT_ID"
         val bundle = Bundle()
-        bundle.putInt( PRODUCT_ID,productDetails!!)
-
-
+        bundle.putInt("ID", productId)
+        bundle.putString("NAME", productName)
+        bundle.putDouble("PRICE", productPrice)
+        bundle.putInt("VENDOR_ID", vendorId)
         fragmentTransaction.addToBackStack(null)
         val fragmentExtras = ExtrasFragment()
         fragmentExtras.arguments = bundle
         fragmentExtras.show(fragmentTransaction, "extras")
     }
 
-    private fun productRecyclerView(){
+    private fun productRecyclerView() {
         restaurantPlaceholder.startShimmerAnimation()
 
         vendorID = arguments?.getInt("VENDOR_ID")
@@ -109,24 +146,26 @@ class RestaurantFragment: Fragment() {
         recyclerView.adapter = categoryAdapter
 
 
-        mainViewModel!!.loadCategories(vendorID!!)!!.observe(viewLifecycleOwner, Observer { categories ->
-            recyclerView.apply {
-                layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                categoryAdapter!!.setCategories(categories)
-                restaurantPlaceholder.stopShimmerAnimation()
-                restaurantPlaceholder.visibility = GONE
-                categoryAdapter!!.notifyDataSetChanged()
-            }
-        })
+        mainViewModel!!.loadCategories(vendorID!!)!!.observe(
+            viewLifecycleOwner,
+            Observer { categories ->
+                recyclerView.apply {
+                    layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                    categoryAdapter!!.setCategories(categories)
+                    restaurantPlaceholder.stopShimmerAnimation()
+                    restaurantPlaceholder.visibility = GONE
+                    categoryAdapter!!.notifyDataSetChanged()
+                }
+            })
     }
 
-    fun setupToolBar(){
+    fun setupToolBar() {
         vendorName = arguments?.getString("VENDOR_NAME")
 
         (activity as MainActivity).setupToolbar(vendorName.toString())
     }
-    
-    fun setupProgressBar(){
+
+    fun setupProgressBar() {
         progressBar = spin_kit as ProgressBar
         val wave = FadingCircle()
         progressBar.indeterminateDrawable = wave
