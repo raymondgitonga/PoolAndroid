@@ -2,10 +2,16 @@ package com.tosh.poolandroid.model.repository
 
 import android.app.Application
 import android.os.AsyncTask
+import android.os.Bundle
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.database.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class MainRepository(application: Application) {
+class MainRepository(application: Application)  {
+
+    private lateinit var job: Job
 
     private var userDao: UserDao
     private var cartItemDao: CartItemDao
@@ -52,6 +58,16 @@ class MainRepository(application: Application) {
         }
 
         SaveItem().execute()
+    }
+
+    suspend fun getCartTotal(): Double{
+        var total: Double? = null
+        coroutineScope {
+           launch {
+               total = cartItemDao.cartTotal()
+           }
+        }
+        return total!!
     }
 
     fun getUserDetails(): LiveData<List<UserEntity>> {

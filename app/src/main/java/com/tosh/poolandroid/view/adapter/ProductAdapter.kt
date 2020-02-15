@@ -29,7 +29,7 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
 
     override fun onBindViewHolder(holder: ProductView, position: Int) {
         var product = productModel[position]
-        var price = product.price.toString() + " KSH"
+        var price = product.price.toInt().toString() + " KSH"
 
         holder.foodName.text = product.productName
         holder.foodDesc.text = product.productDetails

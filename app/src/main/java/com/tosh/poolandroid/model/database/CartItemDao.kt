@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.model.database
 
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 @Dao
@@ -13,4 +14,7 @@ interface CartItemDao {
 
     @Query("DELETE FROM cart_item")
     suspend fun deleteCart()
+
+    @Query("SELECT COALESCE(sum(COALESCE(productPrice,0)), 0) From cart_item")
+    suspend fun cartTotal(): Double
 }

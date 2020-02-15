@@ -67,7 +67,6 @@ class VendorFragment: Fragment() {
         })
     }
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

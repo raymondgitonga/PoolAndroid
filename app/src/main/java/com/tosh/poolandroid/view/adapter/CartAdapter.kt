@@ -24,7 +24,7 @@ class CartAdapter(val cartItems: List<CartItemEntity>? = null):RecyclerView.Adap
 
         holder.productName.text = cartItem!!.productName
         holder.extraName.text = cartItem.extraName
-        holder.productPrice.text = cartItem.productPrice.toString()
+        holder.productPrice.text = cartItem.productPrice.toInt().toString()
 
     }
 

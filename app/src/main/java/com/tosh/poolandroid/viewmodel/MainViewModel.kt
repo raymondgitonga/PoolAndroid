@@ -185,9 +185,14 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.insert(cartItemEntity)
     }
 
-//    fun getCartItems(): LiveData<List<CartItemEntity>> {
-//        return repository.getCartItems()
-//    }
+    fun getCartTotal(): MutableLiveData<Double>{
+       var cartTotal: MutableLiveData<Double>? = MutableLiveData()
+
+        launch {
+            cartTotal!!.value = repository.getCartTotal()
+        }
+        return cartTotal!!
+    }
 
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return repository.getUserDetails()
