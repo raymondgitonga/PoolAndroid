@@ -10,7 +10,7 @@ interface CartItemDao {
     fun insertDetails(cartItemEntity: CartItemEntity)
 
     @Query("SELECT * FROM cart_item ORDER BY vendorId")
-    fun getCartItems(): LiveData<List<CartItemEntity>>
+    suspend fun getCartItems(): List<CartItemEntity>
 
     @Delete
     fun deleteCart(cartItemEntity: CartItemEntity)

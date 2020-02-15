@@ -31,6 +31,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.view.fragment.CartFragment
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mainViewModel: MainViewModel? = null
     private val vendorFragment = VendorFragment()
+    private val cartFragment = CartFragment()
     lateinit var placesClient: PlacesClient
 
     private var placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomNavigation()
         initialisePlaces()
         locationOnClick()
+        cartFragment()
     }
 
     private fun createFormFragment() {
@@ -147,8 +150,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     transaction.commit()
                 }
 
-                R.id.cart_bottom ->{
-                    Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show()
+                R.id.profile_bottom ->{
+                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 }
 
                 R.id.help_bottom ->{
@@ -157,6 +160,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             true
+        }
+    }
+
+    private fun cartFragment(){
+        topbarCart.setOnClickListener {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.details_fragment, cartFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
     }
     

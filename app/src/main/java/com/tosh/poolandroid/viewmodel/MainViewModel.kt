@@ -185,9 +185,9 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.insert(cartItemEntity)
     }
 
-    fun getCartItems(): LiveData<List<CartItemEntity>> {
-        return repository.getCartItems()
-    }
+//    fun getCartItems(): LiveData<List<CartItemEntity>> {
+//        return repository.getCartItems()
+//    }
 
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return repository.getUserDetails()

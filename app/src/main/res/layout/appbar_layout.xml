@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:background="@color/colorAccent"
         app:elevation="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
@@ -32,6 +35,14 @@
                 android:gravity="center" />
 
         </androidx.appcompat.widget.Toolbar>
+        <ImageView
+            android:id="@+id/topbarCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cart"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/textLocation"
@@ -55,6 +66,7 @@
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
 
         </LinearLayout>
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

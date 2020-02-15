@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,13 +8,15 @@ import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.model.Product
 import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.VendorAdapter
@@ -21,14 +24,11 @@ import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_vendor.*
 
-class VendorFragment(): Fragment() {
+class VendorFragment: Fragment() {
 
     private var vendorAdapter: VendorAdapter? = null
     private var mainViewModel: MainViewModel? = null
     private var vendorsRv: RecyclerView? = null
-    private var textLocation: TextView? = null
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_vendor, container, false)
@@ -65,6 +65,17 @@ class VendorFragment(): Fragment() {
             vendorPlaceholder.visibility = GONE
             loadFragment()
         })
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity!!.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun loadFragment(){
