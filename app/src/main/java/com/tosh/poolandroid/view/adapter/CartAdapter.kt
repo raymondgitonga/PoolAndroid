@@ -8,21 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.database.CartItemEntity
 
-class CartAdapter(val cartItems: List<CartItemEntity>):RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(val cartItems: List<CartItemEntity>? = null):RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
 //    private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
-        return CartViewHolder(view, cartItems)
+        return CartViewHolder(view, cartItems!!)
     }
 
-    override fun getItemCount() = cartItems.size
+    override fun getItemCount() = cartItems!!.size
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-       val cartItem = cartItems[position]
+       val cartItem = cartItems?.get(position)
 
-        holder.productName.text = cartItem.productName
+        holder.productName.text = cartItem!!.productName
         holder.extraName.text = cartItem.extraName
         holder.productPrice.text = cartItem.productPrice.toString()
 

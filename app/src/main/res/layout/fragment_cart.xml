@@ -13,9 +13,11 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/cartLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="gone"
                 android:background="#F1F8E9">
 
             <TextView
@@ -25,18 +27,6 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/total_5000_kes"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/cartEmpty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:text="@string/cart_empty"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnBuy"
@@ -63,5 +53,17 @@
                 android:id="@+id/cartRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/cartEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                android:gravity="center_horizontal"
+                android:text="@string/cart_empty"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:visibility="gone" />
         </LinearLayout>
 </LinearLayout>

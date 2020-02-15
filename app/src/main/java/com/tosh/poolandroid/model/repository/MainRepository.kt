@@ -10,7 +10,6 @@ class MainRepository(application: Application) {
     private var userDao: UserDao
     private var cartItemDao: CartItemDao
     private var userDetails: LiveData<List<UserEntity>>
-//    private var cartItems: LiveData<List<CartItemEntity>>
 
     init {
         val mainDb: MainDatabase = MainDatabase.getInstance(
@@ -21,7 +20,6 @@ class MainRepository(application: Application) {
         userDetails = userDao.getUserDetails()
 
         cartItemDao = mainDb.cartItemDao()
-//        cartItems = cartItemDao.getCartItems()
     }
 
     fun insert(userEntity: UserEntity) {
@@ -59,10 +57,4 @@ class MainRepository(application: Application) {
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return userDetails
     }
-
-//    fun getCartItems(): LiveData<List<CartItemEntity>> {
-//        return cartItems
-//    }
-
-
 }

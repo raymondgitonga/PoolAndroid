@@ -2,7 +2,6 @@ package com.tosh.poolandroid.view.fragment
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -17,8 +16,7 @@ import com.tosh.poolandroid.view.adapter.CartAdapter
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.coroutines.launch
 
-class CartFragment : BaseFragment(){
-
+class CartFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_cart, container, false)
@@ -27,11 +25,15 @@ class CartFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter = CartAdapter()
+        adapter.notifyDataSetChanged()
+
         fetchDataFromCart()
+        deleteCartItems()
     }
 
 
-    fun fetchDataFromCart(){
+    private fun fetchDataFromCart() {
 
         (activity as MainActivity).setupToolbar(getString(R.string.shopping_cart))
         //recyclerView
@@ -43,17 +45,30 @@ class CartFragment : BaseFragment(){
         launch {
             context.let {
                 val cartItems = MainDatabase.getInstance(it!!)!!.cartItemDao().getCartItems()
-                if (cartItems.isNotEmpty()){
+                if (cartItems.isNotEmpty()) {
                     cartRv.adapter = CartAdapter(cartItems)
                     btnBuy.visibility = VISIBLE
                     emptyCart.visibility = VISIBLE
-                }else{
-                    cartEmpty.visibility = GONE
+                    cartLl.visibility = VISIBLE
+                } else {
+                    cartEmpty.visibility = VISIBLE
                 }
             }
         }
     }
 
-
-
+    private fun deleteCartItems() {
+        val placeholderFragment = PlaceholderFragment()
+        emptyCart.setOnClickListener {
+            launch {
+                context.let {
+                    MainDatabase.getInstance(it!!)!!.cartItemDao().deleteCart()
+                    val transaction = activity!!.supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.details_fragment, placeholderFragment)
+                    transaction.commit()
+                }
+            }
+        }
+    }
 }
+

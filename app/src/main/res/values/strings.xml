@@ -101,7 +101,7 @@
     <string name="_300_kes">300 KES</string>
     <string name="chips">Chips</string>
     <string name="add_to_cart1">Add To Cart</string>
-    <string name="cart_empty">Cart Empty</string>
+    <string name="cart_empty">Cart is empty</string>
     <string name="buy">Checkout</string>
     <string name="empty_cart">Empty Cart</string>
     <string name="kfc_streetwise_2">KFC Streetwise 2</string>
