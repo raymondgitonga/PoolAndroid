@@ -8,7 +8,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,12 +17,10 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Extra
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.view.adapter.ExtraAdapter
-
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.dialog_extra.*
 import kotlinx.android.synthetic.main.dialog_extra.spin_kit
-import kotlinx.android.synthetic.main.fragment_restaurant.*
 import kotlinx.coroutines.launch
 
 
@@ -31,6 +28,10 @@ class ExtrasFragment: BaseDialogFragment() {
 
     private lateinit var rootView: View
     var productDetailsId: Int? = null
+    private var productId: Int? = null
+    private var productName: String ? = null
+    private var productPrice: Double? = null
+    private var vendorId: Int? = null
 
 
     private var mainViewModel: MainViewModel? = null
@@ -42,8 +43,8 @@ class ExtrasFragment: BaseDialogFragment() {
         rootView = inflater.inflate(R.layout.dialog_extra, container, false)
 
         if (dialog != null && dialog!!.window != null) {
-            dialog!!.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-            dialog!!.window.requestFeature(Window.FEATURE_NO_TITLE);
+            dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dialog?.window!!.requestFeature(Window.FEATURE_NO_TITLE);
         }
         return rootView
     }
@@ -55,11 +56,12 @@ class ExtrasFragment: BaseDialogFragment() {
         productClick()
         extraOnClick()
         setupProgressBar()
+        noItemSelected()
 
-        btnExtra.setOnClickListener {
-            Toasty.error(view!!.context, "Nothing selected", Toast.LENGTH_LONG, true).show()
-            dismiss()
-        }
+        productId = arguments!!.getInt("ID")
+        productName = arguments!!.getString("NAME")
+        productPrice = arguments?.getDouble("PRICE")
+        vendorId = arguments?.getInt("VENDOR_ID")
 
     }
 
@@ -67,7 +69,7 @@ class ExtrasFragment: BaseDialogFragment() {
         super.onResume()
 
         val window = dialog!!.window
-        window.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        window!!.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
         window.setGravity(Gravity.CENTER)
         progressBar.visibility = VISIBLE
     }
@@ -99,10 +101,10 @@ class ExtrasFragment: BaseDialogFragment() {
         extraAdapter?.setOnItemClickListener(object : ExtraAdapter.OnItemClickListener{
             override fun onItemClick(extraModel: Extra) {
                 btnExtra.setOnClickListener {
-                    val productId = arguments?.getInt("ID")
-                    val productName = arguments?.getString("NAME")
-                    val productPrice = arguments?.getDouble("PRICE")
-                    val vendorId = arguments?.getInt("VENDOR_ID")
+                     productId = arguments?.getInt("ID")
+                     productName = arguments?.getString("NAME")
+                     productPrice = arguments?.getDouble("PRICE")
+                     vendorId = arguments?.getInt("VENDOR_ID")
                     val cartItem = CartItemEntity(
                         id = 0,
                         productId = productId!!,
@@ -113,7 +115,7 @@ class ExtrasFragment: BaseDialogFragment() {
                         extraPrice = extraModel.price,
                         productQuantity = null,
                         vendorId = vendorId!!,
-                        total = productPrice + extraModel.price
+                        total = productPrice!! + extraModel.price
                     )
 
                     launch {
@@ -128,7 +130,30 @@ class ExtrasFragment: BaseDialogFragment() {
         })
     }
 
-    fun setupProgressBar(){
+    private fun noItemSelected(){
+        btnExtra.setOnClickListener {
+            val cartItem = CartItemEntity(
+                id = 0,
+                productId = productId!!,
+                productName = productName!!,
+                productPrice = productPrice!!,
+                extraId = null,
+                extraName = null,
+                extraPrice = null,
+                productQuantity = null,
+                vendorId = vendorId!!,
+                total = productPrice!!
+            )
+
+            launch {
+                mainViewModel!!.insert(cartItem)
+            }
+            Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_LONG, true).show()
+            dismiss()
+        }
+    }
+
+    private fun setupProgressBar(){
         progressBar = spin_kit as ProgressBar
         val wave = FadingCircle()
         progressBar.indeterminateDrawable = wave

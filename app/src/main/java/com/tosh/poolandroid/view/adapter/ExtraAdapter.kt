@@ -15,9 +15,9 @@ class ExtraAdapter  : RecyclerView.Adapter<ExtraAdapter.ExtraView>() {
     var extra: List<Extra> = listOf()
     private lateinit var listener: OnItemClickListener
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExtraAdapter.ExtraView {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExtraView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.extra_item, parent, false)
-        return ExtraAdapter.ExtraView(view, extra, listener)
+        return ExtraView(view, extra, listener)
     }
 
     override fun onBindViewHolder(holder: ExtraView, position: Int) {
