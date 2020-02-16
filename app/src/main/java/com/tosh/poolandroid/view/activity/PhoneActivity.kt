@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.agrawalsuneet.dotsloader.loaders.LazyLoader
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.util.show
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_phone.*
 

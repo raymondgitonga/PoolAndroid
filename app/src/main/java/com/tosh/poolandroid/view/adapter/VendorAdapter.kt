@@ -11,7 +11,6 @@ import com.tosh.poolandroid.model.Vendor
 import com.tosh.poolandroid.util.getProgressDrawable
 import com.tosh.poolandroid.util.loadImage
 
-
 class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapter<VendorAdapter.VendorView>() {
 
     private lateinit var listener: OnItemClickListener

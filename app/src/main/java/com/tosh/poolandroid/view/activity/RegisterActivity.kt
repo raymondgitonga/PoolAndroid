@@ -9,8 +9,6 @@ import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.Interpolator
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.util.PatternsCompat
