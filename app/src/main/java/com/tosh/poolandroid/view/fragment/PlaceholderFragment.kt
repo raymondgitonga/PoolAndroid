@@ -27,9 +27,6 @@ class PlaceholderFragment : Fragment() {
         placeCart.visibility = VISIBLE
     }
 
-
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

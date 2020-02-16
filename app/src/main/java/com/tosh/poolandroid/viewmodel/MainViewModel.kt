@@ -194,6 +194,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartTotal!!
     }
 
+    fun deleteCartItem(id: Int){
+        launch {
+            repository.deleteCartItem(id)
+        }
+    }
+
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return repository.getUserDetails()
     }

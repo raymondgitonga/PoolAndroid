@@ -70,6 +70,14 @@ class MainRepository(application: Application)  {
         return total!!
     }
 
+    suspend fun deleteCartItem(id: Int){
+        coroutineScope {
+            launch {
+                cartItemDao.deleteCartItem(id)
+            }
+        }
+    }
+
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return userDetails
     }
