@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.model.database.CartItemEntity
-import com.tosh.poolandroid.model.remote.RetrofitClient
+import com.tosh.poolandroid.model.network.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.MainRepository
 import com.tosh.poolandroid.util.addToSharedPreferences

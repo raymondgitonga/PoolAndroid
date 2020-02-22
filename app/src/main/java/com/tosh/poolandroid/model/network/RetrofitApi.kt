@@ -1,4 +1,4 @@
-package com.tosh.poolandroid.model.remote
+package com.tosh.poolandroid.model.network
 
 import com.tosh.poolandroid.model.*
 import io.reactivex.Single

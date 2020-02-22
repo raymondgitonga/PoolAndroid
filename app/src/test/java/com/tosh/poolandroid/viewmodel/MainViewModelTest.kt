@@ -1,7 +1,7 @@
 package com.tosh.poolandroid.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.tosh.poolandroid.model.remote.RetrofitApi
+import com.tosh.poolandroid.model.network.RetrofitApi
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
