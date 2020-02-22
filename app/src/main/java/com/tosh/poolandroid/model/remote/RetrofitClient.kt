@@ -2,6 +2,9 @@ package com.tosh.poolandroid.model.remote
 
 import com.google.gson.GsonBuilder
 import com.tosh.poolandroid.model.*
+import com.tosh.poolandroid.util.Constants.AUTH_BASE_URL
+import com.tosh.poolandroid.util.Constants.BILLING_API
+import com.tosh.poolandroid.util.Constants.VENDOR_PRODUCT_URL
 import io.reactivex.Single
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +32,7 @@ class RetrofitClient {
     }
 
     private val userApi = Retrofit.Builder()
-        .baseUrl(UrlConstant.AUTH_BASE_URL)
+        .baseUrl(AUTH_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(httpInterceptor())
@@ -38,7 +41,7 @@ class RetrofitClient {
         .create(RetrofitApi::class.java)
 
     private val vendorApi = Retrofit.Builder()
-        .baseUrl(UrlConstant.VENDOR_PRODUCT_URL)
+        .baseUrl(VENDOR_PRODUCT_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(httpInterceptor())
@@ -46,7 +49,7 @@ class RetrofitClient {
         .create(RetrofitApi::class.java)
 
     private val billingApi = Retrofit.Builder()
-        .baseUrl(UrlConstant.BILLING_API)
+        .baseUrl(BILLING_API)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(httpInterceptor())

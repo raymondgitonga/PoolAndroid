@@ -3,6 +3,7 @@ package com.tosh.poolandroid.view.fragment
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -19,6 +20,7 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.database.MainDatabase
+import com.tosh.poolandroid.util.deliveryDistance
 import com.tosh.poolandroid.util.getAddress
 import com.tosh.poolandroid.util.getSharedPreferencesValue
 import com.tosh.poolandroid.view.activity.MainActivity
@@ -51,9 +53,6 @@ class CartFragment : BaseFragment() {
 
         fetchDataFromCart()
         deleteAllCartItems()
-
-        getAddress(context!!, getSharedPreferencesValue(context!!, "latitude").toDouble(),
-            getSharedPreferencesValue(context!!, "longitude").toDouble())
     }
 
     override fun onAttach(context: Context) {

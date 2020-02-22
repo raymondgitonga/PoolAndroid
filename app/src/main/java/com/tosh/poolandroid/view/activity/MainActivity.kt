@@ -31,6 +31,8 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
+import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.view.fragment.CartFragment
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -189,8 +191,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun addToSharedPreferences(latitude: String?, longitude: String?) {
         pref = PreferenceManager.getDefaultSharedPreferences(this)
         editor = pref!!.edit()
-        editor!!.putString("latitude", latitude)
-        editor!!.putString("longitude", longitude)
+        editor!!.putString(SHARED_LATITUDE, latitude)
+        editor!!.putString(SHARED_LONGITUDE, longitude)
         editor!!.apply()
 
     }
