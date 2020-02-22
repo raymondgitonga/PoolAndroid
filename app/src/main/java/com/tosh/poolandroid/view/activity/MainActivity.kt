@@ -240,6 +240,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun logout() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
         settings.edit().remove("email").apply()
+        settings.edit().remove("phone").apply()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()

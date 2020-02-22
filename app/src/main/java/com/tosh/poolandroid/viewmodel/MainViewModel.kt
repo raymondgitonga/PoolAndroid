@@ -8,6 +8,7 @@ import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.remote.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.MainRepository
+import com.tosh.poolandroid.util.addToSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -40,6 +41,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                                 )
 
                                 insert(newUser)
+                                addToSharedPreferences(getApplication(), newUser.email, newUser.phone)
                             }
                         } else {
                             loginResponse.value = it.message
@@ -76,6 +78,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                                 )
 
                                 insert(newUser)
+                                addToSharedPreferences(getApplication(), newUser.email, newUser.phone)
                             } else {
                                 registerResponse.value = it.message
                             }

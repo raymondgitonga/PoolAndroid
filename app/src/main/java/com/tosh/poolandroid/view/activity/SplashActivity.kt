@@ -2,9 +2,9 @@ package com.tosh.poolandroid.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.getSharedPreferencesValue
 import com.tosh.poolandroid.view.appIntro.AppIntroActivity
 
 
@@ -14,8 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
-        val value = mSharedPreference.getString("email", "default")
+        val value = getSharedPreferencesValue(baseContext, "email")
 
         Thread(Runnable {
             runProgressBar()

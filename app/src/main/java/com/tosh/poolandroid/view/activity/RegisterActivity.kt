@@ -1,9 +1,7 @@
 package com.tosh.poolandroid.view.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
@@ -85,7 +83,6 @@ class RegisterActivity : AppCompatActivity() {
                 val intent = Intent(applicationContext, PhoneActivity::class.java)
                 intent.putExtra("Name", name)
                 intent.putExtra("Email", email)
-                addToSharedPreferences(email)
                 startActivity(intent)
                 finish()
             }else{
@@ -96,17 +93,6 @@ class RegisterActivity : AppCompatActivity() {
                 containerLL.visibility = View.GONE
             }
         })
-    }
-
-    fun addToSharedPreferences(email: String) {
-        var preferences: SharedPreferences?
-        var editor: SharedPreferences.Editor?
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        editor = preferences.edit()
-        editor.putString("email", email)
-        editor.apply()
-
     }
 
     private fun loading(){

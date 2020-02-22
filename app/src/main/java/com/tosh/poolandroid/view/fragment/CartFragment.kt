@@ -19,6 +19,7 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.database.MainDatabase
+import com.tosh.poolandroid.util.getSharedPreferencesValue
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CartAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -64,6 +65,7 @@ class CartFragment : BaseFragment() {
     }
 
     private fun fetchDataFromCart() {
+        val phone = getSharedPreferencesValue(context!!, "phone")
 
         (activity as MainActivity).setupToolbar(getString(R.string.shopping_cart))
 
@@ -77,7 +79,7 @@ class CartFragment : BaseFragment() {
             totalCart.text = "Total $grandTotal KES"
             val request = MpesaRequest(
                 amount = grandTotal,
-                phone = "254714581282"
+                phone = phone
             )
             MakeMpesaRequest(request)
         })

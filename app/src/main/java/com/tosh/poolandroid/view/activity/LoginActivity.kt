@@ -1,9 +1,7 @@
 package com.tosh.poolandroid.view.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -69,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
 
             if (it == "successful"){
                 val intent = Intent(applicationContext, MainActivity::class.java)
-                addToSharedPreferences(email)
                 startActivity(intent)
                 finish()
             }else{
@@ -80,16 +77,6 @@ class LoginActivity : AppCompatActivity() {
                 containerLL.visibility = GONE
             }
         })
-    }
-
-    fun addToSharedPreferences(email: String) {
-        var preferences: SharedPreferences? = PreferenceManager.getDefaultSharedPreferences(this)
-        var editor: SharedPreferences.Editor?
-
-        editor = preferences?.edit()
-        editor?.putString("email", email)
-        editor?.apply()
-
     }
 
     private fun loading(){
