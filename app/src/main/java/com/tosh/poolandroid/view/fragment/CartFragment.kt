@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -15,11 +16,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.database.MainDatabase
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CartAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.coroutines.launch
 
@@ -28,6 +31,7 @@ class CartFragment : BaseFragment() {
     private var mainViewModel: MainViewModel? = null
     var adapter: CartAdapter? = null
     lateinit var placeholderFragment: CartFragment
+    lateinit var grandTotal: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +73,13 @@ class CartFragment : BaseFragment() {
         }
 
         mainViewModel!!.getCartTotal().observe(viewLifecycleOwner, Observer { total ->
-            val grandTotal = total.toInt()
+            grandTotal = total.toInt().toString()
             totalCart.text = "Total $grandTotal KES"
+            val request = MpesaRequest(
+                amount = grandTotal,
+                phone = "254714581282"
+            )
+            MakeMpesaRequest(request)
         })
 
         launch {
@@ -89,6 +98,18 @@ class CartFragment : BaseFragment() {
                     cartEmpty.visibility = VISIBLE
                 }
             }
+        }
+    }
+
+    fun MakeMpesaRequest(request: MpesaRequest){
+        btnBuy.setOnClickListener{
+            mainViewModel!!.makeMpesaRequest(request).observe(viewLifecycleOwner, Observer {
+                if (it.status == "Success"){
+
+                }else{
+                    Toasty.success(context!!, "Processing payment failed", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 

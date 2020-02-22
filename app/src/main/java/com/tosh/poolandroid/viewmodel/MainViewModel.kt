@@ -197,6 +197,44 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return repository.getUserDetails()
     }
 
+    fun makeMpesaRequest(request: MpesaRequest): LiveData<MpesaResponse>{
+        val mpesaResponse: MutableLiveData<MpesaResponse> = MutableLiveData()
+
+        disposable.add(
+            client.makeMpesaRequest(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                       mpesaResponse.value = it
+                    },
+                    {
+                        //add error
+                    }
+                )
+        )
+        return mpesaResponse
+    }
+
+    fun mpesaRequestStatus(): LiveData<MpesaResponse>{
+        val mpesaResponse: MutableLiveData<MpesaResponse> = MutableLiveData()
+
+        disposable.add(
+            client.mpesaRequestStatus()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        mpesaResponse.value = it
+                    },
+                    {
+                        //add error
+                    }
+                )
+        )
+        return mpesaResponse
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

@@ -45,6 +45,14 @@ class RetrofitClient {
         .build()
         .create(RetrofitApi::class.java)
 
+    private val billingApi = Retrofit.Builder()
+        .baseUrl(UrlConstant.BILLING_API)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(httpInterceptor())
+        .build()
+        .create(RetrofitApi::class.java)
+
 
     fun userLogin(email: String, password: String): Single<LoginResponse>{
         return  userApi.userLogin(email, password)
@@ -70,6 +78,12 @@ class RetrofitClient {
         return vendorApi.getCategoryProducts(vendorId)
     }
 
+    fun makeMpesaRequest(request: MpesaRequest): Single<MpesaResponse>{
+        return billingApi.makeMpesaRequest(request)
+    }
 
+    fun mpesaRequestStatus(): Single<MpesaResponse>{
+        return  billingApi.mpesaRequestStatus()
+    }
 
 }
