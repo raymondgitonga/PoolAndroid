@@ -33,23 +33,26 @@ import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
+import com.tosh.poolandroid.util.addLocationPreferences
 import com.tosh.poolandroid.view.fragment.CartFragment
+import com.tosh.poolandroid.view.fragment.HelpFragment
+import com.tosh.poolandroid.view.fragment.ProfileFragment
 import com.tosh.poolandroid.view.fragment.VendorFragment
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar_layout.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
-
-    private var pref: SharedPreferences? = null
-    private var editor: SharedPreferences.Editor? = null
+    
     private var latitude: String? = null
     private var longitude: String? = null
     private var currentLocation: Location? = null
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mainViewModel: MainViewModel? = null
     private val vendorFragment = VendorFragment()
+    private val profileFragment = ProfileFragment()
     private val cartFragment = CartFragment()
+    private val helpFragment = HelpFragment()
     lateinit var placesClient: PlacesClient
 
     private var placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -101,7 +104,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Orders clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.profile_navigation -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.details_fragment, profileFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
             R.id.settings_navigation -> {
                 Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
@@ -113,7 +119,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.help_navigation -> {
-                Toast.makeText(this, "Help clicked", Toast.LENGTH_SHORT).show()
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.details_fragment, helpFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
             R.id.logout_navigation -> {
                 logout()
@@ -147,11 +156,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
 
                 R.id.profile_bottom ->{
-                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.details_fragment, profileFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
                 }
 
                 R.id.help_bottom ->{
-                    Toast.makeText(this, "Help clicked", Toast.LENGTH_SHORT).show()
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.details_fragment, helpFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
                 }
             }
 
@@ -182,18 +197,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 currentLocation = location
                 latitude = currentLocation!!.latitude.toString()
                 longitude = currentLocation!!.longitude.toString()
-                addToSharedPreferences(latitude, longitude)
+                addLocationPreferences(applicationContext, latitude, longitude)
+
             }
         }
-
-    }
-
-    private fun addToSharedPreferences(latitude: String?, longitude: String?) {
-        pref = PreferenceManager.getDefaultSharedPreferences(this)
-        editor = pref!!.edit()
-        editor!!.putString(SHARED_LATITUDE, latitude)
-        editor!!.putString(SHARED_LONGITUDE, longitude)
-        editor!!.apply()
 
     }
 

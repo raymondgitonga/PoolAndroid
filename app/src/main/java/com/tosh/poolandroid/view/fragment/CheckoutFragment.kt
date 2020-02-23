@@ -48,7 +48,7 @@ class CheckoutFragment : BaseFragment() {
         setUpCheckoutDetails()
     }
 
-    fun setUpCheckoutDetails(){
+    private fun setUpCheckoutDetails(){
         shoppingCost.text = "$total KES"
         grandTotal.text = "$checkoutTotal KES"
         deliveryAddress.text = deliveryLocation

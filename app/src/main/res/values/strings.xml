@@ -123,5 +123,12 @@
     <string name="details">Details</string>
     <string name="shopping_cost">Shopping Cost</string>
     <string name="checkout_details">Checkout Details</string>
+    <string name="change"><u>Change</u></string>
+    <string name="text_name">Name</string>
+    <string name="raymond_gitonga">Raymond Gitonga</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone">Phone</string>
+    <string name="_254729320243">254729320243</string>
+    <string name="edit">Edit</string>
 
 </resources>
