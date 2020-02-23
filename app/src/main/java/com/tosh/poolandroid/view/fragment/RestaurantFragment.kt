@@ -2,6 +2,7 @@ package com.tosh.poolandroid.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -68,6 +69,8 @@ class RestaurantFragment : BaseFragment() {
                 val product = categoryAdapter!!.category[headerPosition].products[childPosition]
                 productId = product.id
 
+                getCartItemCount(productId!!)
+
                 mainViewModel!!.loadProductExtras(productId!!)
                     ?.observe(viewLifecycleOwner, Observer { extras ->
                         if (extras.isEmpty()) {
@@ -114,6 +117,15 @@ class RestaurantFragment : BaseFragment() {
             }
 
         })
+    }
+
+   fun getCartItemCount(productId: Int){
+        var itemCount: Int? = null
+
+       mainViewModel!!.getCartItemCount(productId)!!.observe(viewLifecycleOwner, Observer {
+           itemCount = it
+       })
+        Log.d("ITEMCOUNT ----> ", " $itemCount")
     }
 
     fun showExtraDialog(productId : Int, productName: String, productPrice : Double, vendorId: Int ) {

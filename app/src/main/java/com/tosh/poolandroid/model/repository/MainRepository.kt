@@ -11,8 +11,6 @@ import kotlin.coroutines.CoroutineContext
 
 class MainRepository(application: Application)  {
 
-    private lateinit var job: Job
-
     private var userDao: UserDao
     private var cartItemDao: CartItemDao
     private var userDetails: LiveData<List<UserEntity>>
@@ -60,6 +58,14 @@ class MainRepository(application: Application)  {
         SaveItem().execute()
     }
 
+    suspend fun deleteCartItem(id: Int){
+        coroutineScope {
+            launch {
+                cartItemDao.deleteCartItem(id)
+            }
+        }
+    }
+
     suspend fun getCartTotal(): Double{
         var total: Double? = null
         coroutineScope {
@@ -70,11 +76,9 @@ class MainRepository(application: Application)  {
         return total!!
     }
 
-    suspend fun deleteCartItem(id: Int){
-        coroutineScope {
-            launch {
-                cartItemDao.deleteCartItem(id)
-            }
+    suspend fun getCartItemCount(productId: Int): Int? {
+        return coroutineScope{
+            cartItemDao.getItemCount(productId)
         }
     }
 

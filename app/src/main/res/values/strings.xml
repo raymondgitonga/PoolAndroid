@@ -109,5 +109,19 @@
     <string name="remove">Remove</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="total_5000_kes">Total: 5000 Kes</string>
+    <string name="deliver_to">Address</string>
+    <string name="kasarani_police_station">Kasarani Police Station</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="sorry_we_dont_deliver_to_your_location_yet">Sorry we don\'t deliver to your location yet</string>
+    <string name="_4150_kes">4150 KES</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="_150_kes">150 KES</string>
+    <string name="delivery_cost">Delivery cost</string>
+    <string name="_4000_kes">4000 KES</string>
+    <string name="checkout">Checkout</string>
+    <string name="change_address">Change address</string>
+    <string name="details">Details</string>
+    <string name="shopping_cost">Shopping Cost</string>
+    <string name="checkout_details">Checkout Details</string>
 
 </resources>

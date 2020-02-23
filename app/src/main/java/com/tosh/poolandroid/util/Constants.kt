@@ -8,8 +8,8 @@ object Constants {
     const val BILLING_API = "http://10.0.2.2:1111/"
 
     //distance calculation
-    const val FAR = 1
-    const val CLOSE = 0
+    const val FAR = 0
+    const val CLOSE = 1
 
     //shared preferences
     const val SHARED_EMAIL = "email"

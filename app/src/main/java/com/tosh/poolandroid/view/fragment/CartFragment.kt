@@ -53,6 +53,7 @@ class CartFragment : BaseFragment() {
 
         fetchDataFromCart()
         deleteAllCartItems()
+        openCheckoutFragment()
     }
 
     override fun onAttach(context: Context) {
@@ -80,11 +81,11 @@ class CartFragment : BaseFragment() {
         mainViewModel!!.getCartTotal().observe(viewLifecycleOwner, Observer { total ->
             grandTotal = total.toInt().toString()
             totalCart.text = "Total $grandTotal KES"
-            val request = MpesaRequest(
-                amount = grandTotal,
-                phone = phone
-            )
-            MakeMpesaRequest(request)
+//            val request = MpesaRequest(
+//                amount = grandTotal,
+//                phone = phone
+//            )
+//            MakeMpesaRequest(request)
         })
 
         launch {
@@ -103,6 +104,25 @@ class CartFragment : BaseFragment() {
                     cartEmpty.visibility = VISIBLE
                 }
             }
+        }
+    }
+
+    fun openCheckoutFragment() {
+        btnBuy.setOnClickListener {
+            val fragmentCheckout = CheckoutFragment()
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val checkoutTotal = grandTotal.toInt().plus(150).toString()
+
+            val bundle = Bundle()
+            bundle.putString("CHECKOUT_TOTAL", checkoutTotal)
+            bundle.putString("TOTAL", grandTotal)
+            fragmentCheckout.arguments = bundle
+
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.replace(R.id.details_fragment, fragmentCheckout)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
         }
     }
 

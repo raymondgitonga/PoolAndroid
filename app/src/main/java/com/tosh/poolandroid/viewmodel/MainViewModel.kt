@@ -12,6 +12,7 @@ import com.tosh.poolandroid.util.addToSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
@@ -236,6 +237,15 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 )
         )
         return mpesaResponse
+    }
+
+    fun getCartItemCount(productId: Int): MutableLiveData<Int>? {
+        var itemCount: MutableLiveData<Int>? = MutableLiveData()
+        launch {
+            itemCount!!.value = repository.getCartItemCount(productId)
+        }
+
+        return itemCount
     }
 
     override fun onCleared() {

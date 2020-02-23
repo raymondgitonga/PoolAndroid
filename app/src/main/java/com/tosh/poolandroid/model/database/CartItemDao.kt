@@ -19,4 +19,7 @@ interface CartItemDao {
 
     @Query("DELETE FROM cart_item WHERE id = :id")
     suspend fun deleteCartItem(id: Int)
+
+    @Query("SELECT EXISTS(SELECT * FROM cart_item WHERE productId = :productId)")
+    suspend fun getItemCount(productId: Int): Int?
 }
