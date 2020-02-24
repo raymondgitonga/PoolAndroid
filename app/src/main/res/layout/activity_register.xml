@@ -13,15 +13,6 @@
         android:padding="16dp"
         tools:context=".view.activity.RegisterActivity">
 
-
-        <ImageView
-            android:id="@+id/logo_register"
-            android:layout_width="112dp"
-            android:layout_height="71dp"
-            android:layout_gravity="center_horizontal|top"
-            android:contentDescription="@string/logo_register"
-            app:srcCompat="@drawable/poolblack" />
-
         <TextView
             android:id="@+id/register"
             android:layout_width="match_parent"
@@ -32,7 +23,8 @@
             android:textColor="#000"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:paddingBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

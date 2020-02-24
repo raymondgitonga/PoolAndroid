@@ -1,66 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.appIntro.ThirdFragment"
-    android:orientation="vertical"
     android:background="@drawable/screen1"
     android:layout_gravity="center">
 
-
     <ImageView
         android:id="@+id/screen1_img"
-        android:layout_width="212dp"
-        android:layout_height="181dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="104dp"
+        android:layout_marginBottom="64dp"
         android:contentDescription="@string/screen1_img"
         android:src="@drawable/payment"
-        android:layout_gravity="center_horizontal" />
+        app:layout_constraintBottom_toTopOf="@+id/title_intro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
 
     <TextView
         android:id="@+id/title_intro"
-        android:layout_width="96dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="35dp"
         android:fontFamily="@font/abril_fatface"
         android:gravity="center"
         android:text="@string/title3"
         android:textColor="#000"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal" />
+        app:layout_constraintBottom_toTopOf="@+id/desc1_intro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screen1_img" />
 
     <TextView
         android:id="@+id/desc1_intro"
-        android:layout_width="275dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="111dp"
         android:fontFamily="@font/arbutus"
         android:gravity="center"
         android:text="@string/description3"
         android:textColor="#000"
         android:textSize="20sp"
-        android:layout_gravity="center_horizontal" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_getStarted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_intro" />
 
-    <Button
+
+    <TextView
         android:id="@+id/btn_getStarted"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/btn_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center_horizontal"
         android:text="@string/get_started"
-        android:textStyle="bold"
         android:textColor="#000"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/desc1_intro" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
