@@ -85,4 +85,12 @@ class MainRepository(application: Application)  {
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return userDetails
     }
+
+    suspend fun deleteUser(){
+        coroutineScope {
+            launch {
+                userDao.deleteUser()
+            }
+        }
+    }
 }

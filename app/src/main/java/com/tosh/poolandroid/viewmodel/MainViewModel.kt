@@ -248,6 +248,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return itemCount
     }
 
+    fun deleteUser(){
+        launch {
+            repository.deleteUser()
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

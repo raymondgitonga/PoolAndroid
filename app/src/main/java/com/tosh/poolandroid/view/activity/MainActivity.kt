@@ -31,8 +31,10 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.util.Constants.SHARED_EMAIL
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
+import com.tosh.poolandroid.util.Constants.SHARED_PHONE
 import com.tosh.poolandroid.util.addLocationPreferences
 import com.tosh.poolandroid.view.fragment.CartFragment
 import com.tosh.poolandroid.view.fragment.HelpFragment
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         setUpPlaces()
         fetchLastLocation()
         createFormFragment()
@@ -248,8 +251,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun logout() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        settings.edit().remove("email").apply()
-        settings.edit().remove("phone").apply()
+        settings.edit().remove(SHARED_EMAIL).apply()
+        settings.edit().remove(SHARED_PHONE).apply()
+        settings.edit().remove(SHARED_LATITUDE).apply()
+        settings.edit().remove(SHARED_LONGITUDE).apply()
+        mainViewModel!!.deleteUser()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
@@ -265,7 +271,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
         val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
             for (i in userEntities.indices) {
                 navName.text = userEntities[i].name
