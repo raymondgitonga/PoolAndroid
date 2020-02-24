@@ -44,28 +44,6 @@
             android:layout_marginTop="20dp"
             android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/textLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/location"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/colorAccent"
-            android:visibility="gone"/>
-        <LinearLayout
-            android:id="@+id/autoplacesFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <fragment
-                android:id="@+id/autocomplete_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
-
-        </LinearLayout>
         </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

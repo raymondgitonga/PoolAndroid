@@ -2,7 +2,6 @@ package com.tosh.poolandroid.view.activity
 
 import android.Manifest
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -67,14 +66,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        setUpPlaces()
         fetchLastLocation()
         createFormFragment()
         setupDrawer()
         loadUserDetails()
         bottomNavigation()
-        initialisePlaces()
-        locationOnClick()
         cartFragment()
     }
 
@@ -215,38 +211,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun initialisePlaces(){
-        Places.initialize(applicationContext, getString(R.string.google_api_key))
-        placesClient = Places.createClient(this)
-    }
+    private fun loadUserDetails() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
+        val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
 
-    private fun setUpPlaces(){
-        val autocompleteFragment = supportFragmentManager
-            .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-
-        autocompleteFragment.setPlaceFields(placeFields)
-
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                autoplacesFragment.visibility = GONE
-                toolbar_title.visibility = VISIBLE
-                textLocation.visibility = VISIBLE
-                textLocation.text = place.name
+        mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
+            for (i in userEntities.indices) {
+                navName.text = userEntities[i].name
+                navEmail.text = userEntities[i].email
             }
-
-            override fun onError(status: Status) {
-                Log.e("LOCATIONNN", ""+status.statusMessage)
-            }
-
         })
-    }
 
-    private fun locationOnClick(){
-        textLocation?.setOnClickListener {
-            autoplacesFragment.visibility = VISIBLE
-            toolbar_title.visibility = GONE
-            textLocation.visibility = GONE
-        }
     }
 
     private fun logout() {
@@ -264,20 +241,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         private const val REQUEST_CODE = 101
     }
-
-    private fun loadUserDetails() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val headerView = navigationView.getHeaderView(0)
-        val navName = headerView.findViewById<View>(R.id.navigation_name) as TextView
-        val navEmail = headerView.findViewById<View>(R.id.navigation_email) as TextView
-
-        mainViewModel!!.getUserDetails().observe(this, Observer { userEntities ->
-            for (i in userEntities.indices) {
-                navName.text = userEntities[i].name
-                navEmail.text = userEntities[i].email
-            }
-        })
-
-    }
-
 }

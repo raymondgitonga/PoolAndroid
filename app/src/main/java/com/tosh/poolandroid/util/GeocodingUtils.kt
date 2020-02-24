@@ -13,11 +13,11 @@ fun getAddress(context: Context, latitude: Double, longitude: Double): String {
     val geocoder = Geocoder(context, Locale.getDefault())
 
 
-    val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+    val addresses = geocoder.getFromLocation(latitude, longitude, 2)
 
-    var returnAddresses = addresses.get(0)
-    var fullAddress = StringBuilder("")
-    var length: Int = returnAddresses.maxAddressLineIndex
+    val returnAddresses = addresses.get(0)
+    val fullAddress = StringBuilder("")
+    val length: Int = returnAddresses.maxAddressLineIndex
     for (i in 0..length) {
         fullAddress.append(returnAddresses.getAddressLine(i)).append("\n")
     }
@@ -26,7 +26,7 @@ fun getAddress(context: Context, latitude: Double, longitude: Double): String {
     return address
 }
 
-fun deliveryDistance(latitude: Double, longitude: Double): Int {
+fun deliveryDistance(latitude: Double, longitude: Double): String {
 
     val lat1 = -1.298219
     val lon1 = 36.762513
@@ -38,13 +38,12 @@ fun deliveryDistance(latitude: Double, longitude: Double): Int {
     dist = acos(dist)
     dist = rad2deg(dist)
     dist *= 60 * 1.1515
-
     dist *= 1.609344
 
-    return if (dist > 0.5){
-        0
-    }else {
-        1
+    return if (dist > 2){
+        "FAR"
+    } else {
+        "CLOSE"
     }
 }
 

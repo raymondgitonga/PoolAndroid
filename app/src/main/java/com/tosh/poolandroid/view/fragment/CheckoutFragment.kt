@@ -1,19 +1,12 @@
 package com.tosh.poolandroid.view.fragment
 
-
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
-
 import com.tosh.poolandroid.R
-import com.tosh.poolandroid.util.Constants.CLOSE
-import com.tosh.poolandroid.util.Constants.FAR
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.util.deliveryDistance
@@ -28,9 +21,15 @@ class CheckoutFragment : BaseFragment() {
     private lateinit var total: String
     private lateinit var latitude: String
     private lateinit var longitude: String
-    private lateinit var deliveryLocation:String
+    private lateinit var deliveryLocation: String
+    private var isLocationChanged: Boolean? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_checkout, container, false)
     }
 
@@ -39,6 +38,8 @@ class CheckoutFragment : BaseFragment() {
 
         (activity as MainActivity).setupToolbar(getString(R.string.checkout_details))
 
+        isLocationChanged = false
+
         checkoutTotal = arguments?.getString("CHECKOUT_TOTAL")!!
         total = arguments?.getString("TOTAL")!!
         latitude = getSharedPreferencesValue(context!!, SHARED_LATITUDE)
@@ -46,18 +47,28 @@ class CheckoutFragment : BaseFragment() {
         deliveryLocation = getAddress(context!!, latitude.toDouble(), longitude.toDouble())
 
         setUpCheckoutDetails()
+        changeLocation()
     }
 
-    private fun setUpCheckoutDetails(){
+    private fun setUpCheckoutDetails() {
         shoppingCost.text = "$total KES"
         grandTotal.text = "$checkoutTotal KES"
         deliveryAddress.text = deliveryLocation
 
-        val distance = deliveryDistance(latitude.toDouble(), longitude.toDouble())
+        when (deliveryDistance(latitude.toDouble(), longitude.toDouble())) {
+            "CLOSE" -> locationError.visibility = GONE
+            "FAR" -> locationError.visibility = VISIBLE
+        }
+    }
 
-        when(distance){
-            FAR -> locationError.visibility = VISIBLE
-            CLOSE -> locationError.visibility = GONE
+    private fun changeLocation() {
+        changeLocation.setOnClickListener {
+            isLocationChanged = true
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragmentPlaces = PlacesFragment()
+            fragmentPlaces.show(fragmentTransaction, "places")
+
         }
     }
 }

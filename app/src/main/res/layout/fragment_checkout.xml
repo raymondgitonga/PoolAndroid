@@ -7,90 +7,92 @@
     tools:context=".view.fragment.CheckoutFragment">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal">
+        android:layout_margin="12dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/tvCost"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:textColor="@color/black"
             android:text="@string/shopping_cost" />
 
         <TextView
             android:id="@+id/shoppingCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/black"
             android:text="@string/_4000_kes" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal">
+        android:layout_margin="12dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/tvDeliveryCost"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:textColor="@color/black"
             android:text="@string/delivery_cost" />
+
+        <TextView
+            android:id="@+id/deliveryCost"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/_150_kes" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/_150_kes" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/grand_total"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/grandTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_alignParentEnd="true"
             android:text="@string/_4150_kes"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal">
+        android:layout_margin="12dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:textColor="@color/black"
             android:text="@string/payment_method" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="2"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/mpesa" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <ImageView
@@ -103,6 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/black"
         android:text="@string/deliver_to"
         android:textSize="20sp"/>
 
@@ -112,13 +115,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:gravity="center"
+        android:maxLines="2"
         android:text="@string/kasarani_police_station" />
 
     <TextView
+        android:id="@+id/changeLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/black"
         android:text="@string/change"
         android:textAllCaps="false"
         android:textStyle="italic" />
