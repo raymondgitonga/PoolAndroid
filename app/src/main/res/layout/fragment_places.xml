@@ -8,7 +8,7 @@
     tools:context=".view.fragment.PlacesFragment"
     android:id="@+id/places">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/autocomplete_fragment"
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         android:layout_width="match_parent"

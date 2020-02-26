@@ -16,9 +16,13 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.addLocationPreferences
 import kotlinx.android.synthetic.main.fragment_places.*
 
+
 class PlacesFragment : BaseDialogFragment() {
 
     lateinit var placesClient: PlacesClient
+
+    lateinit var newLocation: (data:String)-> Unit
+    lateinit var newLatLon: (data:ArrayList<String>)-> Unit
 
     private var placeFields =
         listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -27,7 +31,6 @@ class PlacesFragment : BaseDialogFragment() {
     lateinit var longitude: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
 
         return inflater.inflate(R.layout.fragment_places, container, false)
     }
@@ -63,9 +66,14 @@ class PlacesFragment : BaseDialogFragment() {
                 val latlng = (place.latLng).toString().split(",")
                 latitiude = latlng[0].split("(")[1]
                 longitude = latlng[1].split(")")[0]
+                var arrLatLon = ArrayList<String>()
+                arrLatLon.add(latitiude)
+                arrLatLon.add(longitude)
 
                 btnPlaces.setOnClickListener {
                     addLocationPreferences(context!!, latitiude, longitude)
+                    place.name?.let { placeName -> newLocation.invoke(placeName) }
+                    arrLatLon?.let{ latlon -> newLatLon.invoke(latlon)}
                     dismiss()
                 }
             }

@@ -105,7 +105,7 @@ class CartFragment : BaseFragment() {
         }
     }
 
-    fun openCheckoutFragment() {
+    private fun openCheckoutFragment() {
         btnBuy.setOnClickListener {
             val fragmentCheckout = CheckoutFragment()
             val fragmentManager = activity!!.supportFragmentManager

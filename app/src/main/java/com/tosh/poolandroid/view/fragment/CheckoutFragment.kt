@@ -63,10 +63,19 @@ class CheckoutFragment : BaseFragment() {
 
     private fun changeLocation() {
         changeLocation.setOnClickListener {
-            isLocationChanged = true
-            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentManager = childFragmentManager
+
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragmentPlaces = PlacesFragment()
+            fragmentPlaces.newLocation = {
+                deliveryAddress.text = it
+            }
+            fragmentPlaces.newLatLon = {
+                when (deliveryDistance(it[0].toDouble(), it[1].toDouble())) {
+                    "CLOSE" -> locationError.visibility = GONE
+                    "FAR" -> locationError.visibility = VISIBLE
+                }
+            }
             fragmentPlaces.show(fragmentTransaction, "places")
 
         }

@@ -13,7 +13,7 @@ fun getAddress(context: Context, latitude: Double, longitude: Double): String {
     val geocoder = Geocoder(context, Locale.getDefault())
 
 
-    val addresses = geocoder.getFromLocation(latitude, longitude, 2)
+    val addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
     val returnAddresses = addresses.get(0)
     val fullAddress = StringBuilder("")
