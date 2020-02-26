@@ -30,6 +30,8 @@ class PlacesFragment : BaseDialogFragment() {
     lateinit var latitiude: String
     lateinit var longitude: String
 
+    private lateinit var autocompleteFragment: AutocompleteSupportFragment
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         return inflater.inflate(R.layout.fragment_places, container, false)
@@ -37,6 +39,9 @@ class PlacesFragment : BaseDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        autocompleteFragment = activity!!.supportFragmentManager
+            .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
 
         initialisePlaces()
         setUpPlaces()
@@ -50,14 +55,19 @@ class PlacesFragment : BaseDialogFragment() {
         window.setGravity(Gravity.TOP)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val f: AutocompleteSupportFragment? =activity!!.supportFragmentManager
+            .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
+        if (f != null) activity!!.supportFragmentManager.beginTransaction().remove(f).commit()
+    }
+
     private fun initialisePlaces() {
         Places.initialize(context!!, getString(R.string.google_api_key))
         placesClient = Places.createClient(context!!)
     }
 
     private fun setUpPlaces() {
-        val autocompleteFragment = activity!!.supportFragmentManager
-            .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
 
         autocompleteFragment.setPlaceFields(placeFields)
 

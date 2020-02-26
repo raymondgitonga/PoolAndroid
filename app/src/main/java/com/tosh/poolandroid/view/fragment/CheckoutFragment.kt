@@ -63,7 +63,7 @@ class CheckoutFragment : BaseFragment() {
 
     private fun changeLocation() {
         changeLocation.setOnClickListener {
-            val fragmentManager = childFragmentManager
+            val fragmentManager =  activity!!.supportFragmentManager
 
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragmentPlaces = PlacesFragment()
