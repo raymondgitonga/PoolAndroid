@@ -42,7 +42,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                                 )
 
                                 insert(newUser)
-                                addToSharedPreferences(getApplication(), newUser.email, newUser.phone)
+                                addToSharedPreferences(
+                                    getApplication(),
+                                    newUser.email,
+                                    newUser.phone
+                                )
                             }
                         } else {
                             loginResponse.value = it.message
@@ -79,7 +83,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                                 )
 
                                 insert(newUser)
-                                addToSharedPreferences(getApplication(), newUser.email, newUser.phone)
+                                addToSharedPreferences(
+                                    getApplication(),
+                                    newUser.email,
+                                    newUser.phone
+                                )
                             } else {
                                 registerResponse.value = it.message
                             }
@@ -93,7 +101,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return registerResponse
     }
 
-    fun userRegister(name: String, email: String, password: String, confirmPassword: String): LiveData<String> {
+    fun userRegister(
+        name: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ): LiveData<String> {
         val registerResponse = MutableLiveData<String>()
 
         disposable.add(
@@ -182,8 +195,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.insert(cartItemEntity)
     }
 
-    fun getCartTotal(): MutableLiveData<Double>{
-       var cartTotal: MutableLiveData<Double>? = MutableLiveData()
+    fun getCartTotal(): MutableLiveData<Double> {
+        var cartTotal: MutableLiveData<Double>? = MutableLiveData()
 
         launch {
             cartTotal!!.value = repository.getCartTotal()
@@ -191,7 +204,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartTotal!!
     }
 
-    fun deleteCartItem(id: Int){
+    fun deleteCartItem(id: Int) {
         launch {
             repository.deleteCartItem(id)
         }
@@ -199,44 +212,6 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     fun getUserDetails(): LiveData<List<UserEntity>> {
         return repository.getUserDetails()
-    }
-
-    fun makeMpesaRequest(request: MpesaRequest): LiveData<MpesaResponse>{
-        val mpesaResponse: MutableLiveData<MpesaResponse> = MutableLiveData()
-
-        disposable.add(
-            client.makeMpesaRequest(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                       mpesaResponse.value = it
-                    },
-                    {
-                        //add error
-                    }
-                )
-        )
-        return mpesaResponse
-    }
-
-    fun mpesaRequestStatus(): LiveData<MpesaResponse>{
-        val mpesaResponse: MutableLiveData<MpesaResponse> = MutableLiveData()
-
-        disposable.add(
-            client.mpesaRequestStatus()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        mpesaResponse.value = it
-                    },
-                    {
-                        //add error
-                    }
-                )
-        )
-        return mpesaResponse
     }
 
     fun getCartItemCount(productId: Int): MutableLiveData<Int>? {
@@ -248,10 +223,30 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return itemCount
     }
 
-    fun deleteUser(){
+    fun deleteUser() {
         launch {
             repository.deleteUser()
         }
+    }
+
+    fun makeMpesaRequest(request: MpesaRequest): MutableLiveData<MpesaResponse> {
+        val mpesaResponse: MutableLiveData<MpesaResponse> = MutableLiveData()
+
+        disposable.add(
+            client.makeMpesaRequesst(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        mpesaResponse?.value = it
+                    },
+                    {
+                     // handle error
+                    }
+                )
+        )
+
+        return mpesaResponse
     }
 
     override fun onCleared() {

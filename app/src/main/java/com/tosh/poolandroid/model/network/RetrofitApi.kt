@@ -38,9 +38,7 @@ interface RetrofitApi {
     @GET("/api/v1/extra/product/{productId}")
     fun getProductExtras(@Path("productId") productId:Int): Single<List<Extra>>
 
-    @POST("api/v1/billing/stk-push")
+    @POST("/mobile/stk")
     fun makeMpesaRequest(@Body request: MpesaRequest): Single<MpesaResponse>
 
-    @GET("api/v1/billing/user-response")
-    fun mpesaRequestStatus(): Single<MpesaResponse>
 }

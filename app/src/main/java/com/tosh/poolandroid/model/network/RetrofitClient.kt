@@ -3,7 +3,7 @@ package com.tosh.poolandroid.model.network
 import com.google.gson.GsonBuilder
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.util.Constants.AUTH_BASE_URL
-import com.tosh.poolandroid.util.Constants.BILLING_API
+import com.tosh.poolandroid.util.Constants.PAYMENT_API
 import com.tosh.poolandroid.util.Constants.VENDOR_PRODUCT_URL
 import io.reactivex.Single
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,8 +48,8 @@ class RetrofitClient {
         .build()
         .create(RetrofitApi::class.java)
 
-    private val billingApi = Retrofit.Builder()
-        .baseUrl(BILLING_API)
+    private val paymentApi = Retrofit.Builder()
+        .baseUrl(PAYMENT_API)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(httpInterceptor())
@@ -81,12 +81,8 @@ class RetrofitClient {
         return vendorApi.getCategoryProducts(vendorId)
     }
 
-    fun makeMpesaRequest(request: MpesaRequest): Single<MpesaResponse>{
-        return billingApi.makeMpesaRequest(request)
-    }
-
-    fun mpesaRequestStatus(): Single<MpesaResponse>{
-        return  billingApi.mpesaRequestStatus()
+    fun makeMpesaRequesst(request: MpesaRequest): Single<MpesaResponse>{
+        return paymentApi.makeMpesaRequest(request)
     }
 
 }
