@@ -1,6 +1,7 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -18,7 +19,10 @@ import com.tosh.poolandroid.util.getAddress
 import com.tosh.poolandroid.util.getSharedPreferencesValue
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_checkout.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CheckoutFragment : BaseFragment() {
 
@@ -27,8 +31,11 @@ class CheckoutFragment : BaseFragment() {
     private lateinit var latitude: String
     private lateinit var longitude: String
     private lateinit var deliveryLocation: String
-    private var isLocationChanged: Boolean? = null
+    private var isLocationNear: Boolean? = false
     private var mainViewModel: MainViewModel? = null
+    lateinit var date: String
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +52,6 @@ class CheckoutFragment : BaseFragment() {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        isLocationChanged = false
 
         checkoutTotal = arguments?.getString("CHECKOUT_TOTAL")!!
         total = arguments?.getString("TOTAL")!!
@@ -53,38 +59,55 @@ class CheckoutFragment : BaseFragment() {
         longitude = getSharedPreferencesValue(context!!, SHARED_LONGITUDE)
         deliveryLocation = getAddress(context!!, latitude.toDouble(), longitude.toDouble())
 
-        val mpesaRequest = MpesaRequest(
-            amount = checkoutTotal,
-            phone = getUserPhone()
-        )
+        val pattern = "yyyyMMddHHmmss"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        date = simpleDateFormat.format(Date())
 
         btnCheckout.setOnClickListener {
-            progressCheckout.visibility = VISIBLE
-            makeMpesaRequest(mpesaRequest)
+            if (isLocationNear == true) {
+                progressCheckout.visibility = VISIBLE
+                getUserPhone(checkoutTotal, date)
+            }else{
+                Toasty.info(context!!, "We don't deliver to your location yet", Toast.LENGTH_SHORT).show()
+            }
         }
 
         setUpCheckoutDetails()
         changeLocation()
     }
 
-    private fun getUserPhone(): String {
-        var phoneNumber: String? = null
+    private fun getUserPhone(amount: String, date: String){
         mainViewModel!!.getUserDetails().observe(viewLifecycleOwner, Observer { userEntities ->
             for (i in userEntities.indices) {
-                phoneNumber = userEntities[i].phone
+                val mpesaRequest = MpesaRequest(
+                    amount = amount,
+                    phone = userEntities[i].phone,
+                    timestamp = date
+                )
+                makeMpesaRequest(mpesaRequest)
             }
         })
-
-        return phoneNumber.toString()
     }
 
     private fun makeMpesaRequest(request: MpesaRequest) {
         mainViewModel!!.makeMpesaRequest(request).observe(viewLifecycleOwner, Observer {
             if (it.status == "Success") {
-                progressCheckout.visibility = GONE
                 Toast.makeText(context, "Processing", Toast.LENGTH_SHORT).show()
+                getMpesaResult()
             } else {
                 Toast.makeText(context, "Error processing payment", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun getMpesaResult(){
+        mainViewModel!!.getMpesaResult().observe(viewLifecycleOwner, Observer {
+            if (it == "Success"){
+                progressCheckout.visibility = GONE
+                Toasty.success(context!!, "Order Successfull", Toast.LENGTH_SHORT).show()
+            }else{
+                progressCheckout.visibility = GONE
+                Toasty.error(context!!, "Payment not successful, check account", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -93,11 +116,6 @@ class CheckoutFragment : BaseFragment() {
         shoppingCost.text = "$total KES"
         grandTotal.text = "$checkoutTotal KES"
         deliveryAddress.text = deliveryLocation
-
-        when (deliveryDistance(latitude.toDouble(), longitude.toDouble())) {
-            "CLOSE" -> locationError.visibility = GONE
-            "FAR" -> locationError.visibility = VISIBLE
-        }
     }
 
     private fun changeLocation() {
@@ -111,8 +129,14 @@ class CheckoutFragment : BaseFragment() {
             }
             fragmentPlaces.newLatLon = {
                 when (deliveryDistance(it[0].toDouble(), it[1].toDouble())) {
-                    "CLOSE" -> locationError.visibility = GONE
-                    "FAR" -> locationError.visibility = VISIBLE
+                    "CLOSE" -> {
+                        isLocationNear = true
+                        locationError.visibility = GONE
+                    }
+                    "FAR" -> {
+                        isLocationNear = false
+                        locationError.visibility = VISIBLE
+                    }
                 }
             }
             fragmentPlaces.show(fragmentTransaction, "places")

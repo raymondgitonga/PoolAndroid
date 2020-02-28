@@ -85,4 +85,8 @@ class RetrofitClient {
         return paymentApi.makeMpesaRequest(request)
     }
 
+    fun getMpesaResult(): Single<String>{
+        return paymentApi.getMpesaResult()
+    }
+
 }

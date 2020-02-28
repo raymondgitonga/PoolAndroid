@@ -41,4 +41,7 @@ interface RetrofitApi {
     @POST("/mobile/stk")
     fun makeMpesaRequest(@Body request: MpesaRequest): Single<MpesaResponse>
 
+    @GET("/mobile/result_code")
+    fun getMpesaResult():Single<String>
+
 }

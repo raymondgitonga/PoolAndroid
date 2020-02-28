@@ -1,6 +1,7 @@
 package com.tosh.poolandroid.viewmodel
 
 import android.app.Application
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.*
@@ -12,7 +13,6 @@ import com.tosh.poolandroid.util.addToSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
@@ -238,7 +238,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        mpesaResponse?.value = it
+                        mpesaResponse.value = it
                     },
                     {
                      // handle error
@@ -247,6 +247,29 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         )
 
         return mpesaResponse
+    }
+
+    fun getMpesaResult(): MutableLiveData<String>{
+        val mpesaResult: MutableLiveData<String> = MutableLiveData()
+
+
+            Handler().postDelayed({
+                disposable.add(
+                    client.getMpesaResult()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {
+                                mpesaResult.value = it
+                            },
+                            {
+
+                            }
+                        )
+                )
+            }, 10000)
+
+        return mpesaResult
     }
 
     override fun onCleared() {
