@@ -6,27 +6,22 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.tosh.poolandroid.R
@@ -35,10 +30,7 @@ import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_PHONE
 import com.tosh.poolandroid.util.addLocationPreferences
-import com.tosh.poolandroid.view.fragment.CartFragment
-import com.tosh.poolandroid.view.fragment.HelpFragment
-import com.tosh.poolandroid.view.fragment.ProfileFragment
-import com.tosh.poolandroid.view.fragment.VendorFragment
+import com.tosh.poolandroid.view.fragment.*
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar_layout.*
@@ -54,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val profileFragment = ProfileFragment()
     private val cartFragment = CartFragment()
     private val helpFragment = HelpFragment()
+    private val ordersFragment = OrdersFragment()
     lateinit var placesClient: PlacesClient
 
     private var placeFields = listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
@@ -72,10 +65,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loadUserDetails()
         bottomNavigation()
         cartFragment()
+        initItemCounter()
     }
 
     override fun onResume() {
         super.onResume()
+        initItemCounter()
+    }
+
+    override fun onAttachFragment(fragment: Fragment) {
+        super.onAttachFragment(fragment)
         initItemCounter()
     }
 
@@ -105,19 +104,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.orders_navigation -> {
-                Toast.makeText(this, "Orders clicked", Toast.LENGTH_SHORT).show()
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.details_fragment, ordersFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
             R.id.profile_navigation -> {
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.details_fragment, profileFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
-            }
-            R.id.settings_navigation -> {
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.info_navigation -> {
-                Toast.makeText(this, "Info clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.share_navigation -> {
                 Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show()
@@ -233,7 +229,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initItemCounter(){
         mainViewModel!!.getCartItemSize().observe(this, Observer {
-            if(it > 0){
+            if(it >= 0){
                 itemCount.text = it.toString()
             }else{
                 itemCount.visibility = GONE
