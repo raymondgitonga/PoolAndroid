@@ -125,7 +125,6 @@ class RestaurantFragment : BaseFragment() {
        mainViewModel!!.getCartItemCount(productId)!!.observe(viewLifecycleOwner, Observer {
            itemCount = it
        })
-        Log.d("ITEMCOUNT ----> ", " $itemCount")
     }
 
     fun showExtraDialog(productId : Int, productName: String, productPrice : Double, vendorId: Int ) {

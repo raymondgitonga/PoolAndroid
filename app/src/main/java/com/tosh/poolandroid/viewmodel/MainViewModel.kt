@@ -10,6 +10,7 @@ import com.tosh.poolandroid.model.network.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.repository.MainRepository
 import com.tosh.poolandroid.util.addToSharedPreferences
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -270,6 +271,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
             }, 10000)
 
         return mpesaResult
+    }
+
+    fun getCartItemSize(): LiveData<Int> {
+        var cartCount: LiveData<Int> = MutableLiveData()
+        cartCount = repository.getCartItemSize()
+
+        return cartCount
     }
 
     override fun onCleared() {

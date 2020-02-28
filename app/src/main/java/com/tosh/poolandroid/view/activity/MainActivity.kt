@@ -74,6 +74,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         cartFragment()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initItemCounter()
+    }
+
     private fun createFormFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.details_fragment, vendorFragment)
@@ -224,6 +229,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
+    }
+
+    private fun initItemCounter(){
+        mainViewModel!!.getCartItemSize().observe(this, Observer {
+            if(it > 0){
+                itemCount.text = it.toString()
+            }else{
+                itemCount.visibility = GONE
+            }
+        })
     }
 
     private fun logout() {

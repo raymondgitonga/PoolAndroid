@@ -1,5 +1,6 @@
 package com.tosh.poolandroid.model.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -22,4 +23,7 @@ interface CartItemDao {
 
     @Query("SELECT EXISTS(SELECT * FROM cart_item WHERE productId = :productId)")
     suspend fun getItemCount(productId: Int): Int?
+
+    @Query("SELECT COUNT(*) FROM cart_item")
+    fun getCartItemSize(): LiveData<Int>?
 }
