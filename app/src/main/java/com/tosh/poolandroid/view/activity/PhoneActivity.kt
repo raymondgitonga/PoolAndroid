@@ -52,7 +52,7 @@ class PhoneActivity : AppCompatActivity() {
     private fun instantiatePhoneViewModel(name:String, email:String, phone:String) {
         val phoneViewModel: MainViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
         phoneViewModel.addUserPhone(name, email, phone).observe(this, Observer {
-            if (it != "successful"){
+            if (it == "successful"){
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
                 finish()
