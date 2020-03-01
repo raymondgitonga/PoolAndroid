@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
 
         getUserDetails()
         changePasswordFragment()
-
+        editDetailsFragmment()
     }
 
     private fun getUserDetails(){
@@ -50,13 +50,21 @@ class ProfileFragment : Fragment() {
 
     private fun changePasswordFragment(){
         changePassword.setOnClickListener {
-            Log.e("EMAIL --->>>", "$email")
-
             val fragmentManager = activity!!.supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragmentPassword = PasswordFragment()
 
             fragmentPassword.show(fragmentTransaction, "password")
+        }
+    }
+
+    private fun editDetailsFragmment(){
+        btn_edit_profile.setOnClickListener {
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragmentEdit = EditFragment()
+
+            fragmentEdit.show(fragmentTransaction, "edit details")
         }
     }
 }

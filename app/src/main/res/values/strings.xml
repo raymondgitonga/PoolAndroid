@@ -137,5 +137,6 @@
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
+    <string name="phone">Phone number</string>
 
 </resources>
