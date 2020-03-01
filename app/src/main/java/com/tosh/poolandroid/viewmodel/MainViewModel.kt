@@ -242,7 +242,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                         mpesaResponse.value = it
                     },
                     {
-                     // handle error
+                        // handle error
                     }
                 )
         )
@@ -250,25 +250,25 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return mpesaResponse
     }
 
-    fun getMpesaResult(): MutableLiveData<String>{
+    fun getMpesaResult(): MutableLiveData<String> {
         val mpesaResult: MutableLiveData<String> = MutableLiveData()
 
 
-            Handler().postDelayed({
-                disposable.add(
-                    client.getMpesaResult()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            {
-                                mpesaResult.value = it
-                            },
-                            {
+        Handler().postDelayed({
+            disposable.add(
+                client.getMpesaResult()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            mpesaResult.value = it
+                        },
+                        {
 
-                            }
-                        )
-                )
-            }, 10000)
+                        }
+                    )
+            )
+        }, 10000)
 
         return mpesaResult
     }
@@ -278,6 +278,46 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         cartCount = repository.getCartItemSize()
 
         return cartCount
+    }
+
+    fun updateUserDetails(update: UserUpdate): MutableLiveData<String> {
+        val updateResponse: MutableLiveData<String> = MutableLiveData()
+
+        disposable.add(
+            client.updateUserDetails(update)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        updateResponse.value = it
+                    },
+                    {
+                        // error
+                    }
+                )
+        )
+
+        return updateResponse
+    }
+
+    fun updatePassword(updatePassword: UpdatePassword): MutableLiveData<String>{
+        val passwordResponse: MutableLiveData<String> = MutableLiveData()
+
+        disposable.add(
+            client.updatePassword(updatePassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        passwordResponse.value = it
+                    },
+                    {
+
+                    }
+                )
+        )
+
+        return passwordResponse
     }
 
     override fun onCleared() {

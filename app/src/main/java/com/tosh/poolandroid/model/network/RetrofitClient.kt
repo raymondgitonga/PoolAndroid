@@ -89,4 +89,12 @@ class RetrofitClient {
         return paymentApi.getMpesaResult()
     }
 
+    fun updateUserDetails(updateDetails: UserUpdate): Single<String>{
+        return userApi.updateUserDetails(updateDetails)
+    }
+
+    fun updatePassword(updatePassword: UpdatePassword): Single<String>{
+        return userApi.updateUserPassword(updatePassword)
+    }
+
 }

@@ -133,5 +133,9 @@
     <string name="change1">Change</string>
     <string name="help_line_0729320243">Help Line: 0729320243</string>
     <string name="call">Call</string>
+    <string name="change_password">Change password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
 
 </resources>

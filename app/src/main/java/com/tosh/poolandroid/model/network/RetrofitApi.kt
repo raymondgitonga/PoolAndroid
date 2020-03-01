@@ -44,4 +44,10 @@ interface RetrofitApi {
     @GET("/mobile/result_code")
     fun getMpesaResult():Single<String>
 
+    @PATCH("/user/updateDetails")
+    fun updateUserDetails(@Body userUpdate: UserUpdate): Single<String>
+
+    @PATCH("/user/updatePassword")
+    fun updateUserPassword(@Body update: UpdatePassword): Single<String>
+
 }
