@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 class RetrofitClient {
@@ -89,7 +90,7 @@ class RetrofitClient {
         return paymentApi.getMpesaResult()
     }
 
-    fun updateUserDetails(updateDetails: UserUpdate): Single<String>{
+    fun updateUserDetails(updateDetails: UserUpdate): Single<UpdateResponse>{
         return userApi.updateUserDetails(updateDetails)
     }
 

@@ -18,6 +18,8 @@ class ProfileFragment : Fragment() {
 
     private var mainViewModel: MainViewModel? = null
     lateinit var email: String
+    lateinit var name: String
+    lateinit var phone: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -39,9 +41,11 @@ class ProfileFragment : Fragment() {
         mainViewModel!!.getUserDetails().observe(viewLifecycleOwner, Observer { userEntities ->
             for (i in userEntities.indices) {
                 email = userEntities[i].email
-                profileUserName.text = userEntities[i].name
-                profileEmailAddress.text = userEntities[i].email
-                profilePhoneNumber.text = userEntities[i].phone
+                name = userEntities[i].name
+                phone = userEntities[i].phone
+                profileUserName.text = name
+                profileEmailAddress.text = email
+                profilePhoneNumber.text = phone
             }
         })
     }
@@ -66,6 +70,11 @@ class ProfileFragment : Fragment() {
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragmentEdit = EditFragment()
 
+            val args = Bundle()
+            args.putString("EMAIL", email)
+            args.putString("NAME", name)
+            args.putString("PHONE", phone)
+            fragmentEdit.arguments = args
             fragmentEdit.show(fragmentTransaction, "edit details")
         }
     }

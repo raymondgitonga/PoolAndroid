@@ -4,17 +4,19 @@ import android.app.Application
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.model.database.CartItemEntity
-import com.tosh.poolandroid.model.network.RetrofitClient
 import com.tosh.poolandroid.model.database.UserEntity
+import com.tosh.poolandroid.model.network.RetrofitClient
 import com.tosh.poolandroid.model.repository.MainRepository
 import com.tosh.poolandroid.util.addToSharedPreferences
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+
+
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
@@ -280,8 +282,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartCount
     }
 
-    fun updateUserDetails(update: UserUpdate): MutableLiveData<String> {
-        val updateResponse: MutableLiveData<String> = MutableLiveData()
+    fun updateUserDetails(update: UserUpdate): MutableLiveData<Boolean> {
+        val updateResponse: MutableLiveData<Boolean> = MutableLiveData()
 
         disposable.add(
             client.updateUserDetails(update)
@@ -289,7 +291,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        updateResponse.value = it
+                        updateResponse.value = it.isSuccessful
                     },
                     {
                         // error
