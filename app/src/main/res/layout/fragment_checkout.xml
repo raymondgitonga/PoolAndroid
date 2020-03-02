@@ -80,11 +80,21 @@
         android:layout_margin="12dp">
 
         <TextView
+            android:id="@+id/tvPayment"
             android:layout_marginTop="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="@string/payment_method" />
+
+        <EditText
+            android:id="@+id/mpesaNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_toEndOf="@+id/tvPayment"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
 
         <ImageView
             android:layout_width="40dp"

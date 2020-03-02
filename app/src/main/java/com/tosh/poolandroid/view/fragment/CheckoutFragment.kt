@@ -1,7 +1,6 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.MpesaRequest
+import com.tosh.poolandroid.util.Constants
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.util.deliveryDistance
@@ -50,6 +50,8 @@ class CheckoutFragment : BaseFragment() {
 
         (activity as MainActivity).setupToolbar(getString(R.string.checkout_details))
 
+
+        mpesaNumber.setText(getSharedPreferencesValue(context!!, Constants.SHARED_PHONE))
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
 
@@ -77,11 +79,13 @@ class CheckoutFragment : BaseFragment() {
     }
 
     private fun getUserPhone(amount: String, date: String){
+        val newPhone = mpesaNumber.text.toString().trim()
+
         mainViewModel!!.getUserDetails().observe(viewLifecycleOwner, Observer { userEntities ->
             for (i in userEntities.indices) {
                 val mpesaRequest = MpesaRequest(
                     amount = amount,
-                    phone = userEntities[i].phone,
+                    phone = "254$newPhone",
                     timestamp = date
                 )
                 makeMpesaRequest(mpesaRequest)
