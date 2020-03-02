@@ -13,7 +13,6 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-
 class ProfileFragment : Fragment() {
 
     private var mainViewModel: MainViewModel? = null

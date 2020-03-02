@@ -25,7 +25,6 @@ import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_restaurant.*
 import kotlinx.coroutines.launch
 
-
 class RestaurantFragment : BaseFragment() {
 
     private var mainViewModel: MainViewModel? = null

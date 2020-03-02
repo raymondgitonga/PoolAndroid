@@ -16,7 +16,6 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.util.addLocationPreferences
 import kotlinx.android.synthetic.main.fragment_places.*
 
-
 class PlacesFragment : BaseDialogFragment() {
 
     lateinit var placesClient: PlacesClient

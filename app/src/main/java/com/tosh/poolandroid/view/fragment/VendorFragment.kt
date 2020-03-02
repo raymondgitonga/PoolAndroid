@@ -20,9 +20,6 @@ import com.tosh.poolandroid.view.adapter.VendorAdapter
 import com.tosh.poolandroid.view.adapter.VendorAdapter.OnItemClickListener
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_vendor.*
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 class VendorFragment: Fragment() {
 

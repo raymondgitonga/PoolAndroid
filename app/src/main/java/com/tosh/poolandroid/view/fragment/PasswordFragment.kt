@@ -5,21 +5,17 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.UpdatePassword
 import com.tosh.poolandroid.util.Constants
 import com.tosh.poolandroid.view.activity.LoginActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_password.*
 
 class PasswordFragment : BaseDialogFragment() {

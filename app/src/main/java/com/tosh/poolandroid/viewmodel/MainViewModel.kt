@@ -4,7 +4,6 @@ import android.app.Application
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.model.database.UserEntity
@@ -15,8 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-
-
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
 

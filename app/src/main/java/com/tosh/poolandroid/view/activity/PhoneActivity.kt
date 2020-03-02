@@ -3,17 +3,11 @@ package com.tosh.poolandroid.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.GONE
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.Interpolator
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.agrawalsuneet.dotsloader.loaders.LazyLoader
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
