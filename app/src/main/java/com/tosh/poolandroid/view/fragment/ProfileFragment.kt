@@ -2,19 +2,17 @@ package com.tosh.poolandroid.view.fragment
 
 
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
+
 
 class ProfileFragment : Fragment() {
 
@@ -50,10 +48,14 @@ class ProfileFragment : Fragment() {
 
     private fun changePasswordFragment(){
         changePassword.setOnClickListener {
+
             val fragmentManager = activity!!.supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragmentPassword = PasswordFragment()
 
+            val args = Bundle()
+            args.putString("EMAIL", email)
+            fragmentPassword.arguments = args
             fragmentPassword.show(fragmentTransaction, "password")
         }
     }
