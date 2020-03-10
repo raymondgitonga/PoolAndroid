@@ -16,12 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.style.FadingCircle
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.database.CartItemEntity
+import com.tosh.poolandroid.util.getProgressDrawable
+import com.tosh.poolandroid.util.loadImage
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fragment_restaurant.restaurantPlaceholder
-import kotlinx.android.synthetic.main.fragment_restaurant.spin_kit
+import kotlinx.android.synthetic.main.fragment_restaurant.*
 import kotlinx.coroutines.launch
 
 class RestaurantFragment : BaseFragment() {
@@ -153,7 +154,7 @@ class RestaurantFragment : BaseFragment() {
         vendorID = arguments?.getInt("VENDOR_ID")
         vendorBanner = arguments?.getString("VENDOR_BANNER")
 
-//        vendorImage.loadImage(vendorBanner, getProgressDrawable(context!!))
+        vendorImage.loadImage(vendorBanner, getProgressDrawable(context!!))
 
         recyclerView = view!!.findViewById(R.id.foodRv)
         categoryAdapter = CategoryAdapter()
