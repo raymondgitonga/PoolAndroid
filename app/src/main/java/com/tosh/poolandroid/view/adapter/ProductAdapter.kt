@@ -1,18 +1,13 @@
 package com.tosh.poolandroid.view.adapter
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Product
-import com.tosh.poolandroid.util.getProgressDrawable
-import com.tosh.poolandroid.util.loadImage
-
 
 class ProductAdapter(private val context: Context, private val productModel: List<Product>, val rootPosition:Int, val headerView:View, productClickListener: ProductClickListener) :
     RecyclerView.Adapter<ProductAdapter.ProductView>() {
@@ -34,15 +29,12 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
         holder.foodName.text = product.productName
         holder.foodDesc.text = product.productDetails
         holder.foodPrice.text = price
-
-//        holder.foodImg.loadImage(productModel[position].imgUrl, getProgressDrawable(holder.foodImg.context))
         holder.product = listOf(product)
 
     }
 
     inner class ProductView(itemView: View, var product: List<Product>? = null) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-//        val foodImg: ImageView = itemView.findViewById(R.id.foodImg)
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDesc: TextView = itemView.findViewById(R.id.foodDesc)
         val foodPrice: TextView = itemView.findViewById(R.id.foodPrice)
