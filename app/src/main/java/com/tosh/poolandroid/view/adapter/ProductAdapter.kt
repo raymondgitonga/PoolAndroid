@@ -19,7 +19,7 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
 
     var productClickListener: ProductClickListener = productClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductView {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
         return ProductView(view)
     }
 
@@ -35,14 +35,14 @@ class ProductAdapter(private val context: Context, private val productModel: Lis
         holder.foodDesc.text = product.productDetails
         holder.foodPrice.text = price
 
-        holder.foodImg.loadImage(productModel[position].imgUrl, getProgressDrawable(holder.foodImg.context))
+//        holder.foodImg.loadImage(productModel[position].imgUrl, getProgressDrawable(holder.foodImg.context))
         holder.product = listOf(product)
 
     }
 
     inner class ProductView(itemView: View, var product: List<Product>? = null) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val foodImg: ImageView = itemView.findViewById(R.id.foodImg)
+//        val foodImg: ImageView = itemView.findViewById(R.id.foodImg)
         val foodName: TextView = itemView.findViewById(R.id.foodName)
         val foodDesc: TextView = itemView.findViewById(R.id.foodDesc)
         val foodPrice: TextView = itemView.findViewById(R.id.foodPrice)

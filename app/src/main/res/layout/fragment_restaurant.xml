@@ -1,50 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentRestaurant"
-    android:background="#F7FAF4">
+    android:background="#F7FAF4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <io.supercharge.shimmerlayout.ShimmerLayout
-        android:id="@+id/restaurantPlaceholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:shimmer_animation_duration="1200">
+            <io.supercharge.shimmerlayout.ShimmerLayout
+                android:id="@+id/restaurantPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_animation_duration="1200">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
-            <include layout="@layout/restaurant_placeholder"/>
+                    <include layout="@layout/restaurant_placeholder" />
 
-        </LinearLayout>
+                    <include layout="@layout/restaurant_placeholder" />
 
-    </io.supercharge.shimmerlayout.ShimmerLayout>
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                    <include layout="@layout/restaurant_placeholder" />
+
+                </LinearLayout>
+
+            </io.supercharge.shimmerlayout.ShimmerLayout>
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/vendorImage"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <FrameLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/foodRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_margin="10dp"
             app:spanCount="2" />
 
         <com.github.ybq.android.spinkit.SpinKitView
@@ -53,8 +81,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            app:SpinKit_Color="@color/black"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:SpinKit_Color="@color/black" />
+
+
     </FrameLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,14 +13,13 @@
         android:layout_marginTop="5dp"
         android:padding="12sp"
         android:text="@string/item_title"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productRv"
         android:layout_width="match_parent"
+        android:background="#F7FAF4"
         android:layout_height="wrap_content" />
-
-
 </LinearLayout>

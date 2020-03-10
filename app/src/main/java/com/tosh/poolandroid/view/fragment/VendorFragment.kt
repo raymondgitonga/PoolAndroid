@@ -78,6 +78,7 @@ class VendorFragment: Fragment() {
 
         val VENDOR_NAME = "VENDOR_NAME"
         val VENDOR_ID = "VENDOR_ID"
+        val VENDOR_BANNER = "VENDOR_BANNER"
 
         vendorAdapter?.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(vendor: Vendor) {
@@ -89,6 +90,7 @@ class VendorFragment: Fragment() {
                     val bundle = Bundle()
                     bundle.putString(VENDOR_NAME, vendor.name)
                     bundle.putInt(VENDOR_ID, vendor.id)
+                    bundle.putString(VENDOR_BANNER, vendor.banner_url)
                     fragmentRestaurant.arguments = bundle
                     fragmentTransaction.replace(R.id.details_fragment, fragmentRestaurant)
                     fragmentTransaction.addToBackStack(null)

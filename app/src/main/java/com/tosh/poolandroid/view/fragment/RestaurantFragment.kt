@@ -2,7 +2,6 @@ package com.tosh.poolandroid.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -10,7 +9,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +20,8 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fragment_restaurant.*
+import kotlinx.android.synthetic.main.fragment_restaurant.restaurantPlaceholder
+import kotlinx.android.synthetic.main.fragment_restaurant.spin_kit
 import kotlinx.coroutines.launch
 
 class RestaurantFragment : BaseFragment() {
@@ -32,6 +31,7 @@ class RestaurantFragment : BaseFragment() {
     lateinit var recyclerView: RecyclerView
     private var vendorName: String? = null
     private var vendorID: Int? = null
+    private var vendorBanner: String? = null
     lateinit var extraDialog: Dialog
     var productId: Int? = null
     lateinit var progressBar: ProgressBar
@@ -55,6 +55,8 @@ class RestaurantFragment : BaseFragment() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         extraDialog = Dialog(requireActivity())
         extraFragment = ExtrasFragment()
+
+
         productRecyclerView()
         setupToolBar()
         productClick()
@@ -149,6 +151,9 @@ class RestaurantFragment : BaseFragment() {
         restaurantPlaceholder.startShimmerAnimation()
 
         vendorID = arguments?.getInt("VENDOR_ID")
+        vendorBanner = arguments?.getString("VENDOR_BANNER")
+
+//        vendorImage.loadImage(vendorBanner, getProgressDrawable(context!!))
 
         recyclerView = view!!.findViewById(R.id.foodRv)
         categoryAdapter = CategoryAdapter()
