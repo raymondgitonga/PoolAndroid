@@ -106,11 +106,11 @@ class RetrofitClient {
         return userApi.updateUserPassword(updatePassword)
     }
 
-    fun postCart(cart: Cart): Single<CartResult>{
+    fun postCart(cart: Cart): Single<Int>{
         return ordersApi.postCart(cart)
     }
 
-    fun postCartItem(cartItem: CartItem): Single<CartItemResult>{
+    fun postCartItem(cartItem: CartItem): Single<String>{
         return ordersApi.postCartItem(cartItem)
     }
 

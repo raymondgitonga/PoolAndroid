@@ -1,7 +1,7 @@
 package com.tosh.poolandroid.model
 
 data class CartItem(
-    val cartPrimaryId: String,
+    val cartId: Int,
     val productId: Int,
     val productName: String,
     val extraId: Int,

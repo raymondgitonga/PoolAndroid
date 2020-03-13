@@ -9,6 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
@@ -16,13 +17,11 @@ import com.tosh.poolandroid.model.Cart
 import com.tosh.poolandroid.model.CartItem
 import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.MainDatabase
-import com.tosh.poolandroid.util.Constants
+import com.tosh.poolandroid.util.*
+import com.tosh.poolandroid.util.Constants.SHARED_CART_ID
 import com.tosh.poolandroid.util.Constants.SHARED_EMAIL
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
-import com.tosh.poolandroid.util.deliveryDistance
-import com.tosh.poolandroid.util.getAddress
-import com.tosh.poolandroid.util.getSharedPreferencesValue
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
@@ -30,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_checkout.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class CheckoutFragment : BaseFragment() {
 
@@ -42,6 +42,8 @@ class CheckoutFragment : BaseFragment() {
     private var mainViewModel: MainViewModel? = null
     lateinit var date: String
     private var id: Int? = null
+    //    private var cartId: Int? = null
+    var cartId: Int? = null
 
 
     override fun onCreateView(
@@ -167,7 +169,7 @@ class CheckoutFragment : BaseFragment() {
 
     private fun postCart() {
         launch {
-            context.let {
+            context.let { it ->
                 val cartItems = MainDatabase.getInstance(it!!)!!.cartItemDao().getCartItems()
 
                 val cart = Cart(
@@ -176,30 +178,38 @@ class CheckoutFragment : BaseFragment() {
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
-                    Log.e("CART---->", " ${it}")
+                    addToSharedPreferences(context!!, it.toString())
                 })
-
-                for (item in cartItems) {
-                    val cartItem = CartItem(
-                        cartPrimaryId = getSharedPreferencesValue(context!!, SHARED_EMAIL),
-                        productId = item.productId,
-                        productName = item.productName,
-                        extraId = item.extraId!!,
-                        extraName = item.extraName!!,
-                        extraPrice = item.extraPrice!!,
-                        productQuantity = item.productQuantity!!,
-                        productPrice = item.productPrice,
-                        totalPrice = item.total,
-                        vendorId = item.vendorId
-                    )
-
-                    Handler().postDelayed({
+                Handler().postDelayed({
+                    cartId = getSharedPreferencesValue(context!!, SHARED_CART_ID).toInt()
+                    for (item in cartItems) {
+                        val cartItem = CartItem(
+                            cartId = cartId!!,
+                            productId = item.productId,
+                            productName = item.productName,
+                            extraId = item.extraId!!,
+                            extraName = item.extraName!!,
+                            extraPrice = item.extraPrice!!,
+                            productQuantity = item.productQuantity!!,
+                            productPrice = item.productPrice,
+                            totalPrice = item.total,
+                            vendorId = item.vendorId
+                        )
                         mainViewModel!!.postCartItem(cartItem)
                             .observe(viewLifecycleOwner, Observer {
-                                Log.e("CARTITEM--->", " ${it}")
+                                if (it == "Success") {
+                                    mainViewModel!!.deleteCart()
+                                    val ordersFragment = OrdersFragment()
+                                    val transaction = activity!!.supportFragmentManager.beginTransaction()
+                                    transaction.replace(R.id.details_fragment, ordersFragment)
+                                    transaction.commit()
+                                } else {
+                                    Toasty.error(context!!, "Fail", Toast.LENGTH_SHORT).show()
+
+                                }
                             })
-                    }, 2000)
-                }
+                    }
+                }, 2000)
             }
         }
 

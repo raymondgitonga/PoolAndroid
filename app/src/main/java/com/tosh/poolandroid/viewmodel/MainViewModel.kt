@@ -327,8 +327,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return passwordResponse
     }
 
-    fun postCart(cart : Cart): MutableLiveData<String>{
-        val cartResponse: MutableLiveData<String> = MutableLiveData()
+    fun postCart(cart : Cart): MutableLiveData<Int>{
+        val cartResponse: MutableLiveData<Int> = MutableLiveData()
 
         disposable.add(
             client.postCart(cart)
@@ -336,10 +336,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                       cartResponse.value = it.result
+                       cartResponse.value = it
                     },
                     {
-                        cartResponse.value = it.localizedMessage
+                       cartResponse.value = 0
                     }
                 )
         )
@@ -356,10 +356,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        cartItemResponse.value = it.response
+                        cartItemResponse.value = it
                     },
                     {
-                        cartItemResponse.value = it.localizedMessage
+
                     }
                 )
         )

@@ -18,4 +18,5 @@ object Constants {
     const val SHARED_DEFAULT = "default"
     const val SHARED_LATITUDE = "latitude"
     const val SHARED_LONGITUDE = "longitude"
+    const val SHARED_CART_ID = "cartId"
 }
