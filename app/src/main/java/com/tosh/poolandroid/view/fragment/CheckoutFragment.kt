@@ -171,8 +171,8 @@ class CheckoutFragment : BaseFragment() {
                 val cartItems = MainDatabase.getInstance(it!!)!!.cartItemDao().getCartItems()
 
                 val cart = Cart(
-                    id = getSharedPreferencesValue(context!!, SHARED_EMAIL),
-                    primaryId = id!!
+                    primaryId = getSharedPreferencesValue(context!!, SHARED_EMAIL),
+                    userId = id!!
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
