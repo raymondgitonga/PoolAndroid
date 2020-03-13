@@ -199,11 +199,7 @@ class CheckoutFragment : BaseFragment() {
                                 Log.e("CARTITEM--->", " ${it}")
                             })
                     }, 2000)
-
-
                 }
-
-
             }
         }
 
