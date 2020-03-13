@@ -16,6 +16,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Extra
 import com.tosh.poolandroid.model.database.CartItemEntity
+import com.tosh.poolandroid.util.vibrate
 import com.tosh.poolandroid.view.adapter.ExtraAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
@@ -123,6 +124,7 @@ class ExtrasFragment: BaseDialogFragment() {
                     }
 
                     dismiss()
+                    vibrate(context!!, 80)
                     Toasty.success(view!!.context, "Added to cart", Toast.LENGTH_LONG, true).show()
                 }
             }

@@ -1,7 +1,11 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.app.Dialog
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -18,6 +22,7 @@ import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.database.CartItemEntity
 import com.tosh.poolandroid.util.getProgressDrawable
 import com.tosh.poolandroid.util.loadImage
+import com.tosh.poolandroid.util.vibrate
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
@@ -58,6 +63,7 @@ class RestaurantFragment : BaseFragment() {
         extraFragment = ExtrasFragment()
 
 
+
         productRecyclerView()
         setupToolBar()
         productClick()
@@ -65,8 +71,14 @@ class RestaurantFragment : BaseFragment() {
     }
 
     private fun productClick() {
-        categoryAdapter?.setOnProductItemClickListener(object : CategoryAdapter.CategoryProductListener {
-            override fun onProductItemClick(headerPosition: Int, childPosition: Int, headerView: View, childView: View) {
+        categoryAdapter?.setOnProductItemClickListener(object :
+            CategoryAdapter.CategoryProductListener {
+            override fun onProductItemClick(
+                headerPosition: Int,
+                childPosition: Int,
+                headerView: View,
+                childView: View
+            ) {
                 progressBar.visibility = VISIBLE
                 val product = categoryAdapter!!.category[headerPosition].products[childPosition]
                 productId = product.id
@@ -92,6 +104,7 @@ class RestaurantFragment : BaseFragment() {
                                 mainViewModel!!.insert(cartItems)
                             }
                             progressBar.visibility = GONE
+                            vibrate(context!!, 80)
                             Toasty.success(
                                 view!!.context,
                                 "Added to cart",
@@ -112,8 +125,10 @@ class RestaurantFragment : BaseFragment() {
                                 total = product.price + 0.0
                             )
                             progressBar.visibility = GONE
-                            showExtraDialog(cartItem.productId, cartItem.productName,
-                                cartItem.productPrice, cartItem.vendorId)
+                            showExtraDialog(
+                                cartItem.productId, cartItem.productName,
+                                cartItem.productPrice, cartItem.vendorId
+                            )
                         }
                     })
             }
@@ -121,15 +136,15 @@ class RestaurantFragment : BaseFragment() {
         })
     }
 
-   fun getCartItemCount(productId: Int){
+    fun getCartItemCount(productId: Int) {
         var itemCount: Int? = null
 
-       mainViewModel!!.getCartItemCount(productId)!!.observe(viewLifecycleOwner, Observer {
-           itemCount = it
-       })
+        mainViewModel!!.getCartItemCount(productId)!!.observe(viewLifecycleOwner, Observer {
+            itemCount = it
+        })
     }
 
-    fun showExtraDialog(productId : Int, productName: String, productPrice : Double, vendorId: Int ) {
+    fun showExtraDialog(productId: Int, productName: String, productPrice: Double, vendorId: Int) {
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val prev = fragmentManager.findFragmentByTag("dialog")
@@ -175,13 +190,13 @@ class RestaurantFragment : BaseFragment() {
             })
     }
 
-    fun setupToolBar() {
+    private fun setupToolBar() {
         vendorName = arguments?.getString("VENDOR_NAME")
 
         (activity as MainActivity).setupToolbar(vendorName.toString())
     }
 
-    fun setupProgressBar() {
+    private fun setupProgressBar() {
         progressBar = spin_kit as ProgressBar
         val wave = FadingCircle()
         progressBar.indeterminateDrawable = wave
