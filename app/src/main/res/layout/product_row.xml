@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/paneer_burger"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="@string/_21_pieces_of_kfcs_secret_formular_chicken_with_an_option_to_have_it_zinger_or_normal"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

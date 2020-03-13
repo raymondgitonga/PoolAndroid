@@ -242,6 +242,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         settings.edit().remove(SHARED_LATITUDE).apply()
         settings.edit().remove(SHARED_LONGITUDE).apply()
         mainViewModel!!.deleteUser()
+        mainViewModel!!.deleteCart()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()

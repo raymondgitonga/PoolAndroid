@@ -91,6 +91,14 @@ class MainRepository(application: Application)  {
         }
     }
 
+    suspend fun deleteCart(){
+        coroutineScope {
+            launch {
+                cartItemDao.deleteCart()
+            }
+        }
+    }
+
     fun getCartItemSize(): LiveData<Int>{
         return cartItemDao.getCartItemSize()!!
     }

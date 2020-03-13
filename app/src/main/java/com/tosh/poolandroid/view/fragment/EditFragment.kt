@@ -27,6 +27,7 @@ class EditFragment : BaseDialogFragment() {
     private lateinit var name: String
     private lateinit var phone: String
     private var mainViewModel: MainViewModel? = null
+    private var userId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +63,7 @@ class EditFragment : BaseDialogFragment() {
         email = arguments?.get("EMAIL").toString()
         name = arguments?.get("NAME").toString()
         phone = arguments?.get("PHONE").toString()
+        userId = arguments?.getInt("USERID")
 
         etName.setText(name)
         etPhone.setText(phone.substring(3))
@@ -110,6 +112,7 @@ class EditFragment : BaseDialogFragment() {
                 )
 
             val userEntity = UserEntity(
+                id = userId!!,
                 email = newEmail,
                 name = newName,
                 phone = "254$newPhone"

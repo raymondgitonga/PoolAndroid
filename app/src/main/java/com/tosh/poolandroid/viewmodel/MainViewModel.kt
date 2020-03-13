@@ -36,6 +36,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                         if (it.message == "successful") {
                             for (user in it.user) {
                                 val newUser = UserEntity(
+                                    id = user.id,
                                     name = user.name,
                                     email = user.email,
                                     phone = user.phone
@@ -77,6 +78,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                             if (it.message == "successful") {
 
                                 val newUser = UserEntity(
+                                    id = it.user.id,
                                     name = it.user.name,
                                     email = it.user.email,
                                     phone = it.user.phone
@@ -226,6 +228,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     fun deleteUser() {
         launch {
             repository.deleteUser()
+        }
+    }
+
+    fun deleteCart() {
+        launch {
+            repository.deleteCart()
         }
     }
 

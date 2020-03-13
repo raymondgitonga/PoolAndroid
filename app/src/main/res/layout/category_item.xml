@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/item_title"
+        android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold" />
