@@ -169,7 +169,7 @@ class RestaurantFragment : BaseFragment() {
         vendorID = arguments?.getInt("VENDOR_ID")
         vendorBanner = arguments?.getString("VENDOR_BANNER")
 
-        vendorImage.loadImage(vendorBanner, getProgressDrawable(context!!))
+//        vendorImage.loadImage(vendorBanner, getProgressDrawable(context!!))
 
         recyclerView = view!!.findViewById(R.id.foodRv)
         categoryAdapter = CategoryAdapter()

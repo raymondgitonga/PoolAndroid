@@ -44,14 +44,14 @@
             </io.supercharge.shimmerlayout.ShimmerLayout>
 
 
-    <ImageView
-        android:id="@+id/vendorImage"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="20dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/pool"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+<!--    <ImageView-->
+<!--        android:id="@+id/vendorImage"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/pool"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
     <FrameLayout
         android:layout_width="match_parent"

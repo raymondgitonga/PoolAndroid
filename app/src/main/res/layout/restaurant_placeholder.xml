@@ -16,27 +16,36 @@
         <View
             android:layout_width="300dp"
             android:layout_height="10dp"
-            android:layout_margin="12dp"
+            android:layout_margin="8dp"
             android:background="@color/placeholderBg" />
 
         <View
             android:layout_width="150dp"
             android:layout_height="10dp"
-            android:layout_margin="12dp"
+            android:layout_margin="8dp"
             android:background="@color/placeholderBg" />
 
-        <View
-            android:layout_width="150dp"
-            android:layout_height="10dp"
-            android:layout_margin="12dp"
-            android:background="@color/placeholderBg" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_margin="12dp"
-            android:layout_gravity="end"
-            android:background="@color/placeholderBg" />
+            <View
+                android:layout_width="150dp"
+                android:layout_height="10dp"
+                android:layout_margin="8dp"
+                android:background="@color/placeholderBg" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_margin="4dp"
+                android:layout_gravity="end"
+                android:background="@color/placeholderBg"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+
 
 
 
