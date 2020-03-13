@@ -1,6 +1,8 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -10,8 +12,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
+import com.tosh.poolandroid.model.Cart
+import com.tosh.poolandroid.model.CartItem
 import com.tosh.poolandroid.model.MpesaRequest
+import com.tosh.poolandroid.model.database.MainDatabase
 import com.tosh.poolandroid.util.Constants
+import com.tosh.poolandroid.util.Constants.SHARED_EMAIL
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.util.deliveryDistance
@@ -21,6 +27,7 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_checkout.*
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +41,7 @@ class CheckoutFragment : BaseFragment() {
     private var isLocationNear: Boolean? = false
     private var mainViewModel: MainViewModel? = null
     lateinit var date: String
-
+    private var id: Int? = null
 
 
     override fun onCreateView(
@@ -50,9 +57,17 @@ class CheckoutFragment : BaseFragment() {
 
         (activity as MainActivity).setupToolbar(getString(R.string.checkout_details))
 
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        mainViewModel!!.getUserDetails().observe(viewLifecycleOwner, Observer { userEntities ->
+            for (i in userEntities.indices) {
+                id = userEntities[i].id
+            }
+        })
+
 
         mpesaNumber.setText(getSharedPreferencesValue(context!!, Constants.SHARED_PHONE))
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
 
 
         checkoutTotal = arguments?.getString("CHECKOUT_TOTAL")!!
@@ -69,8 +84,9 @@ class CheckoutFragment : BaseFragment() {
             if (isLocationNear == true) {
                 progressCheckout.visibility = VISIBLE
                 getUserPhone(checkoutTotal, date)
-            }else{
-                Toasty.info(context!!, "We don't deliver to your location yet", Toast.LENGTH_SHORT).show()
+            } else {
+                Toasty.info(context!!, "We don't deliver to your location yet", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -78,7 +94,7 @@ class CheckoutFragment : BaseFragment() {
         changeLocation()
     }
 
-    private fun getUserPhone(amount: String, date: String){
+    private fun getUserPhone(amount: String, date: String) {
         val newPhone = mpesaNumber.text.toString().trim()
 
         mainViewModel!!.getUserDetails().observe(viewLifecycleOwner, Observer { userEntities ->
@@ -104,14 +120,16 @@ class CheckoutFragment : BaseFragment() {
         })
     }
 
-    private fun getMpesaResult(){
+    private fun getMpesaResult() {
         mainViewModel!!.getMpesaResult().observe(viewLifecycleOwner, Observer {
-            if (it == "Success"){
+            if (it == "Success") {
                 progressCheckout.visibility = GONE
                 Toasty.success(context!!, "Order Successfull", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 progressCheckout.visibility = GONE
-                Toasty.error(context!!, "Payment not successful, check account", Toast.LENGTH_SHORT).show()
+                Toasty.error(context!!, "Payment not successful, check account", Toast.LENGTH_SHORT)
+                    .show()
+                postCart()
             }
         })
     }
@@ -145,5 +163,49 @@ class CheckoutFragment : BaseFragment() {
             fragmentPlaces.show(fragmentTransaction, "places")
 
         }
+    }
+
+    private fun postCart() {
+        launch {
+            context.let {
+                val cartItems = MainDatabase.getInstance(it!!)!!.cartItemDao().getCartItems()
+
+                val cart = Cart(
+                    id = getSharedPreferencesValue(context!!, SHARED_EMAIL),
+                    primaryId = id!!
+                )
+
+                mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
+                    Log.e("CART---->", " ${it}")
+                })
+
+                for (item in cartItems) {
+                    val cartItem = CartItem(
+                        cartPrimaryId = getSharedPreferencesValue(context!!, SHARED_EMAIL),
+                        productId = item.productId,
+                        productName = item.productName,
+                        extraId = item.extraId!!,
+                        extraName = item.extraName!!,
+                        extraPrice = item.extraPrice!!,
+                        productQuantity = item.productQuantity!!,
+                        productPrice = item.productPrice,
+                        totalPrice = item.total,
+                        vendorId = item.vendorId
+                    )
+
+                    Handler().postDelayed({
+                        mainViewModel!!.postCartItem(cartItem)
+                            .observe(viewLifecycleOwner, Observer {
+                                Log.e("CARTITEM--->", " ${it}")
+                            })
+                    }, 2000)
+
+
+                }
+
+
+            }
+        }
+
     }
 }

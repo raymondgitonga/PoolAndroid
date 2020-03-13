@@ -327,6 +327,46 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return passwordResponse
     }
 
+    fun postCart(cart : Cart): MutableLiveData<String>{
+        val cartResponse: MutableLiveData<String> = MutableLiveData()
+
+        disposable.add(
+            client.postCart(cart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                       cartResponse.value = it.result
+                    },
+                    {
+                        cartResponse.value = it.localizedMessage
+                    }
+                )
+        )
+
+        return cartResponse
+    }
+
+    fun postCartItem(cartItem : CartItem): MutableLiveData<String>{
+        val cartItemResponse: MutableLiveData<String> = MutableLiveData()
+
+        disposable.add(
+            client.postCartItem(cartItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        cartItemResponse.value = it.response
+                    },
+                    {
+                        cartItemResponse.value = it.localizedMessage
+                    }
+                )
+        )
+
+        return cartItemResponse
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

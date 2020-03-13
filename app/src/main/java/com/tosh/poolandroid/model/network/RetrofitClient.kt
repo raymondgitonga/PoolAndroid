@@ -3,6 +3,7 @@ package com.tosh.poolandroid.model.network
 import com.google.gson.GsonBuilder
 import com.tosh.poolandroid.model.*
 import com.tosh.poolandroid.util.Constants.AUTH_BASE_URL
+import com.tosh.poolandroid.util.Constants.ORDER_API
 import com.tosh.poolandroid.util.Constants.PAYMENT_API
 import com.tosh.poolandroid.util.Constants.VENDOR_PRODUCT_URL
 import io.reactivex.Single
@@ -56,6 +57,14 @@ class RetrofitClient {
         .build()
         .create(RetrofitApi::class.java)
 
+    private val ordersApi = Retrofit.Builder()
+        .baseUrl(ORDER_API)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(httpInterceptor())
+        .build()
+        .create(RetrofitApi::class.java)
+
 
     fun userLogin(email: String, password: String): Single<LoginResponse>{
         return  userApi.userLogin(email, password)
@@ -95,6 +104,14 @@ class RetrofitClient {
 
     fun updatePassword(updatePassword: UpdatePassword): Single<String>{
         return userApi.updateUserPassword(updatePassword)
+    }
+
+    fun postCart(cart: Cart): Single<CartResult>{
+        return ordersApi.postCart(cart)
+    }
+
+    fun postCartItem(cartItem: CartItem): Single<CartItemResult>{
+        return ordersApi.postCartItem(cartItem)
     }
 
 }

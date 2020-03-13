@@ -50,4 +50,10 @@ interface RetrofitApi {
     @PATCH("/user/updatePassword")
     fun updateUserPassword(@Body update: UpdatePassword): Single<String>
 
+    @POST("/api/v1/cart/post-cart")
+    fun postCart(@Body cart: Cart): Single<CartResult>
+
+    @POST("/api/v1/cart-item/post-item")
+    fun postCartItem(@Body cartItem: CartItem): Single<CartItemResult>
+
 }

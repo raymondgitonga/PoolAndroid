@@ -94,10 +94,10 @@ class RestaurantFragment : BaseFragment() {
                                     productId = productId!!,
                                     productName = product.productName,
                                     productPrice = product.price,
-                                    extraId = null,
-                                    extraName = null,
+                                    extraId = 3,
+                                    extraName = "",
                                     extraPrice = 0.0,
-                                    productQuantity = null,
+                                    productQuantity = 0,
                                     vendorId = product.vendorId,
                                     total = product.price + 0.0
                                 )
@@ -117,7 +117,7 @@ class RestaurantFragment : BaseFragment() {
                                 productId = productId!!,
                                 productName = product.productName,
                                 productPrice = product.price,
-                                extraId = null,
+                                extraId = 0,
                                 extraName = null,
                                 extraPrice = 0.0,
                                 productQuantity = null,
