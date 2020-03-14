@@ -1,11 +1,7 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.app.Dialog
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -20,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.style.FadingCircle
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.database.CartItemEntity
-import com.tosh.poolandroid.util.getProgressDrawable
-import com.tosh.poolandroid.util.loadImage
 import com.tosh.poolandroid.util.vibrate
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.CategoryAdapter
@@ -58,6 +52,8 @@ class RestaurantFragment : BaseFragment() {
     }
 
     private fun setup() {
+        vendorName = arguments?.getString("VENDOR_NAME")
+
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         extraDialog = Dialog(requireActivity())
         extraFragment = ExtrasFragment()
@@ -81,6 +77,7 @@ class RestaurantFragment : BaseFragment() {
             ) {
                 progressBar.visibility = VISIBLE
                 val product = categoryAdapter!!.category[headerPosition].products[childPosition]
+
                 productId = product.id
 
                 getCartItemCount(productId!!)
@@ -99,7 +96,9 @@ class RestaurantFragment : BaseFragment() {
                                     extraPrice = 0.0,
                                     productQuantity = 0,
                                     vendorId = product.vendorId,
-                                    total = product.price + 0.0
+                                    total = product.price + 0.0,
+                                    vendorName = vendorName!!
+
                                 )
                                 mainViewModel!!.insert(cartItems)
                             }
@@ -122,12 +121,13 @@ class RestaurantFragment : BaseFragment() {
                                 extraPrice = 0.0,
                                 productQuantity = null,
                                 vendorId = product.vendorId,
-                                total = product.price + 0.0
+                                total = product.price + 0.0,
+                                vendorName = vendorName!!
                             )
                             progressBar.visibility = GONE
                             showExtraDialog(
                                 cartItem.productId, cartItem.productName,
-                                cartItem.productPrice, cartItem.vendorId
+                                cartItem.productPrice, cartItem.vendorId, cartItem.vendorName
                             )
                         }
                     })
@@ -144,7 +144,7 @@ class RestaurantFragment : BaseFragment() {
         })
     }
 
-    fun showExtraDialog(productId: Int, productName: String, productPrice: Double, vendorId: Int) {
+    fun showExtraDialog(productId: Int, productName: String, productPrice: Double, vendorId: Int, vendorName:String) {
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val prev = fragmentManager.findFragmentByTag("dialog")
@@ -157,6 +157,7 @@ class RestaurantFragment : BaseFragment() {
         bundle.putString("NAME", productName)
         bundle.putDouble("PRICE", productPrice)
         bundle.putInt("VENDOR_ID", vendorId)
+        bundle.putString("VENDOR_NAME", vendorName)
         fragmentTransaction.addToBackStack(null)
         val fragmentExtras = ExtrasFragment()
         fragmentExtras.arguments = bundle
@@ -191,8 +192,6 @@ class RestaurantFragment : BaseFragment() {
     }
 
     private fun setupToolBar() {
-        vendorName = arguments?.getString("VENDOR_NAME")
-
         (activity as MainActivity).setupToolbar(vendorName.toString())
     }
 

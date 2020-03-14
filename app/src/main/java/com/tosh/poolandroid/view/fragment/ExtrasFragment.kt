@@ -33,6 +33,7 @@ class ExtrasFragment: BaseDialogFragment() {
     private var productName: String ? = null
     private var productPrice: Double? = null
     private var vendorId: Int? = null
+    private var vendorName: String ? = null
 
 
     private var mainViewModel: MainViewModel? = null
@@ -63,6 +64,7 @@ class ExtrasFragment: BaseDialogFragment() {
         productName = arguments!!.getString("NAME")
         productPrice = arguments?.getDouble("PRICE")
         vendorId = arguments?.getInt("VENDOR_ID")
+        vendorName = arguments?.getString("VENDOR_NAME")
 
     }
 
@@ -116,7 +118,8 @@ class ExtrasFragment: BaseDialogFragment() {
                         extraPrice = extraModel.price,
                         productQuantity = null,
                         vendorId = vendorId!!,
-                        total = productPrice!! + extraModel.price
+                        total = productPrice!! + extraModel.price,
+                        vendorName = vendorName!!
                     )
 
                     launch {
@@ -144,7 +147,8 @@ class ExtrasFragment: BaseDialogFragment() {
                 extraPrice = null,
                 productQuantity = null,
                 vendorId = vendorId!!,
-                total = productPrice!!
+                total = productPrice!!,
+                vendorName = vendorName!!
             )
 
             launch {

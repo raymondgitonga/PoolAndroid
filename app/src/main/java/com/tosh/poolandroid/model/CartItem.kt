@@ -12,7 +12,6 @@ data class CartItem(
     val productQuantity: Int,
     val productPrice: Double,
     val totalPrice: Double,
-    val vendorId: Int
+    val vendorId: Int,
+    val vendorName: String
 )
-
-data class CartItemResult(val response: String)

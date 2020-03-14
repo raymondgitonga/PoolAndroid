@@ -16,5 +16,6 @@ data class CartItemEntity(
     val extraPrice: Double?,
     val productQuantity: Int?,
     val vendorId: Int,
-    val total: Double
+    val total: Double,
+    val vendorName:String
 ): Serializable

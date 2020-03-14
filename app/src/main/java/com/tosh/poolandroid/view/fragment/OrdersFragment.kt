@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.viewmodel.MainViewModel

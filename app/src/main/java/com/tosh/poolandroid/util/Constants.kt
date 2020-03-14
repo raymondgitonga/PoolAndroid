@@ -19,4 +19,8 @@ object Constants {
     const val SHARED_LATITUDE = "latitude"
     const val SHARED_LONGITUDE = "longitude"
     const val SHARED_CART_ID = "cartId"
+
+    const val ORDER_PENDING = "pending"
+    const val ORDER_PROGRESS = "progress"
+    const val ORDER_DONE = "done"
 }

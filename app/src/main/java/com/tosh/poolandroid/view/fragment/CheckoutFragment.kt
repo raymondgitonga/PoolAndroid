@@ -2,14 +2,12 @@ package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
@@ -18,8 +16,8 @@ import com.tosh.poolandroid.model.CartItem
 import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.MainDatabase
 import com.tosh.poolandroid.util.*
+import com.tosh.poolandroid.util.Constants.ORDER_PENDING
 import com.tosh.poolandroid.util.Constants.SHARED_CART_ID
-import com.tosh.poolandroid.util.Constants.SHARED_EMAIL
 import com.tosh.poolandroid.util.Constants.SHARED_LATITUDE
 import com.tosh.poolandroid.util.Constants.SHARED_LONGITUDE
 import com.tosh.poolandroid.view.activity.MainActivity
@@ -176,7 +174,8 @@ class CheckoutFragment : BaseFragment() {
                     userId = id!!,
                     cost = total.toDouble(),
                     deliveryCost = 150.0,
-                    total = checkoutTotal.toDouble()
+                    total = checkoutTotal.toDouble(),
+                    state = ORDER_PENDING
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
@@ -195,7 +194,8 @@ class CheckoutFragment : BaseFragment() {
                             productQuantity = 0,
                             productPrice = item.productPrice,
                             totalPrice = item.total,
-                            vendorId = item.vendorId
+                            vendorId = item.vendorId,
+                            vendorName = item.vendorName
                         )
                         mainViewModel!!.postCartItem(cartItem)
                             .observe(viewLifecycleOwner, Observer {
@@ -211,7 +211,7 @@ class CheckoutFragment : BaseFragment() {
                                 }
                             })
                     }
-                }, 2000)
+                }, 3000)
             }
         }
 

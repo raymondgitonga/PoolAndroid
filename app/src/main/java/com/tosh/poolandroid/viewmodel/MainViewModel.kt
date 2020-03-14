@@ -2,6 +2,7 @@ package com.tosh.poolandroid.viewmodel
 
 import android.app.Application
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tosh.poolandroid.model.*
@@ -14,7 +15,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
@@ -250,7 +250,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                         mpesaResponse.value = it
                     },
                     {
-                        // handle error
+                        Log.e("MPESA REQUEST", " ${it.localizedMessage}")
                     }
                 )
         )
@@ -272,7 +272,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                             mpesaResult.value = it
                         },
                         {
-
+                            Log.e("MPESA RESULT", " ${it.localizedMessage}")
                         }
                     )
             )
@@ -308,7 +308,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return updateResponse
     }
 
-    fun updatePassword(updatePassword: UpdatePassword): MutableLiveData<String>{
+    fun updatePassword(updatePassword: UpdatePassword): MutableLiveData<String> {
         val passwordResponse: MutableLiveData<String> = MutableLiveData()
 
         disposable.add(
@@ -328,7 +328,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return passwordResponse
     }
 
-    fun postCart(cart : Cart): MutableLiveData<Long>{
+    fun postCart(cart: Cart): MutableLiveData<Long> {
         val cartResponse: MutableLiveData<Long> = MutableLiveData()
 
         disposable.add(
@@ -337,7 +337,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                       cartResponse.value = it
+                        cartResponse.value = it
                     },
                     {
                         cartResponse.value = 0
@@ -348,7 +348,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartResponse
     }
 
-    fun postCartItem(cartItem : CartItem): MutableLiveData<String>{
+    fun postCartItem(cartItem: CartItem): MutableLiveData<String> {
         val cartItemResponse: MutableLiveData<String> = MutableLiveData()
 
         disposable.add(
