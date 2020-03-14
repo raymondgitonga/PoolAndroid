@@ -1,5 +1,7 @@
 package com.tosh.poolandroid.model
 
-data class Cart( val primaryId:String, val userId:Int)
+import java.util.*
 
-data class CartResult( val result:Int)
+data class Cart(val userId:Int, val cost: Double, val deliveryCost:Double, val total: Double)
+
+data class CartResult( val result: UUID)

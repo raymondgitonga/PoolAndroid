@@ -43,7 +43,7 @@ class CheckoutFragment : BaseFragment() {
     lateinit var date: String
     private var id: Int? = null
     //    private var cartId: Int? = null
-    var cartId: Int? = null
+    var cartId: Long? = null
 
 
     override fun onCreateView(
@@ -173,24 +173,26 @@ class CheckoutFragment : BaseFragment() {
                 val cartItems = MainDatabase.getInstance(it!!)!!.cartItemDao().getCartItems()
 
                 val cart = Cart(
-                    primaryId = getSharedPreferencesValue(context!!, SHARED_EMAIL),
-                    userId = id!!
+                    userId = id!!,
+                    cost = total.toDouble(),
+                    deliveryCost = 150.0,
+                    total = checkoutTotal.toDouble()
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
                     addToSharedPreferences(context!!, it.toString())
                 })
                 Handler().postDelayed({
-                    cartId = getSharedPreferencesValue(context!!, SHARED_CART_ID).toInt()
+                    cartId = getSharedPreferencesValue(context!!, SHARED_CART_ID).toLong()
                     for (item in cartItems) {
                         val cartItem = CartItem(
-                            cartId = cartId!!,
+                            cartOrderNumber = cartId!!,
                             productId = item.productId,
                             productName = item.productName,
                             extraId = item.extraId!!,
                             extraName = item.extraName!!,
                             extraPrice = item.extraPrice!!,
-                            productQuantity = item.productQuantity!!,
+                            productQuantity = 0,
                             productPrice = item.productPrice,
                             totalPrice = item.total,
                             vendorId = item.vendorId

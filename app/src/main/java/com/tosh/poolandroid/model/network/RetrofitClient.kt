@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import java.util.*
 
 
 class RetrofitClient {
@@ -106,7 +107,7 @@ class RetrofitClient {
         return userApi.updateUserPassword(updatePassword)
     }
 
-    fun postCart(cart: Cart): Single<Int>{
+    fun postCart(cart: Cart): Single<Long>{
         return ordersApi.postCart(cart)
     }
 

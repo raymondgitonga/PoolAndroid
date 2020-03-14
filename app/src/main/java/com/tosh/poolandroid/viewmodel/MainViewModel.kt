@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
@@ -327,8 +328,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return passwordResponse
     }
 
-    fun postCart(cart : Cart): MutableLiveData<Int>{
-        val cartResponse: MutableLiveData<Int> = MutableLiveData()
+    fun postCart(cart : Cart): MutableLiveData<Long>{
+        val cartResponse: MutableLiveData<Long> = MutableLiveData()
 
         disposable.add(
             client.postCart(cart)
@@ -339,7 +340,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                        cartResponse.value = it
                     },
                     {
-                       cartResponse.value = 0
+                        cartResponse.value = 0
                     }
                 )
         )

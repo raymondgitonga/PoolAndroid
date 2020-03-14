@@ -3,6 +3,7 @@ package com.tosh.poolandroid.model.network
 import com.tosh.poolandroid.model.*
 import io.reactivex.Single
 import retrofit2.http.*
+import java.util.*
 
 interface RetrofitApi {
     @FormUrlEncoded
@@ -51,7 +52,7 @@ interface RetrofitApi {
     fun updateUserPassword(@Body update: UpdatePassword): Single<String>
 
     @POST("/api/v1/cart/post-cart")
-    fun postCart(@Body cart: Cart): Single<Int>
+    fun postCart(@Body cart: Cart): Single<Long>
 
     @POST("/api/v1/cart-item/post-item")
     fun postCartItem(@Body cartItem: CartItem): Single<String>
