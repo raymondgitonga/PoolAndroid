@@ -11,6 +11,7 @@ import com.tosh.poolandroid.model.database.UserEntity
 import com.tosh.poolandroid.model.network.RetrofitClient
 import com.tosh.poolandroid.model.repository.MainRepository
 import com.tosh.poolandroid.util.addToSharedPreferences
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -348,11 +349,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartResponse
     }
 
-    fun postCartItem(cartItem: CartItem): MutableLiveData<String> {
+    fun postCartItem(cartItems: CartItems): MutableLiveData<String> {
         val cartItemResponse: MutableLiveData<String> = MutableLiveData()
 
         disposable.add(
-            client.postCartItem(cartItem)
+            client.postCartItem(cartItems)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -366,6 +367,26 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         )
 
         return cartItemResponse
+    }
+
+    fun getOrders(userId: Int): MutableLiveData<List<Order>>{
+        val orders: MutableLiveData<List<Order>> = MutableLiveData()
+
+        disposable.add(
+            client.getOrders(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        orders.value = it
+                    },
+                    {
+                        //error
+                    }
+                )
+        )
+
+        return orders
     }
 
     override fun onCleared() {

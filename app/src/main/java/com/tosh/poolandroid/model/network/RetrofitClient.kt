@@ -12,7 +12,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import java.util.*
 
 
 class RetrofitClient {
@@ -111,8 +110,12 @@ class RetrofitClient {
         return ordersApi.postCart(cart)
     }
 
-    fun postCartItem(cartItem: CartItem): Single<String>{
-        return ordersApi.postCartItem(cartItem)
+    fun postCartItem(cartItems: CartItems): Single<String>{
+        return ordersApi.postCartItem(cartItems)
+    }
+
+    fun getOrders(userId:Int): Single<List<Order>>{
+        return ordersApi.getOrders(userId)
     }
 
 }

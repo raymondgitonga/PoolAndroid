@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Cart
-import com.tosh.poolandroid.model.CartItem
+import com.tosh.poolandroid.model.CartItems
 import com.tosh.poolandroid.model.MpesaRequest
 import com.tosh.poolandroid.model.database.MainDatabase
 import com.tosh.poolandroid.util.*
@@ -186,7 +186,7 @@ class CheckoutFragment : BaseFragment() {
                 Handler().postDelayed({
                     cartId = getSharedPreferencesValue(context!!, SHARED_CART_ID).toLong()
                     for (item in cartItems) {
-                        val cartItem = CartItem(
+                        val cartItem = CartItems(
                             cartOrderNumber = cartId!!,
                             productId = item.productId,
                             productName = item.productName,

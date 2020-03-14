@@ -2,7 +2,7 @@ package com.tosh.poolandroid.model
 
 import java.util.*
 
-data class CartItem(
+data class CartItems(
     val cartOrderNumber: Long,
     val productId: Int,
     val productName: String,
