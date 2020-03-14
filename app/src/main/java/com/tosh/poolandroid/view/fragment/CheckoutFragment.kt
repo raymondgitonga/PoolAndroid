@@ -175,7 +175,9 @@ class CheckoutFragment : BaseFragment() {
                     cost = total.toDouble(),
                     deliveryCost = 150.0,
                     total = checkoutTotal.toDouble(),
-                    state = ORDER_PENDING
+                    state = ORDER_PENDING,
+                    latitude = getSharedPreferencesValue(context!!, SHARED_LATITUDE),
+                    longitude = getSharedPreferencesValue(context!!, SHARED_LONGITUDE)
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {
