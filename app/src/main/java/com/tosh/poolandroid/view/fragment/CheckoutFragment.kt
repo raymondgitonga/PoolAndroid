@@ -25,7 +25,9 @@ import com.tosh.poolandroid.viewmodel.MainViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import kotlinx.coroutines.launch
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 
@@ -177,7 +179,8 @@ class CheckoutFragment : BaseFragment() {
                     total = checkoutTotal.toDouble(),
                     state = ORDER_PENDING,
                     latitude = getSharedPreferencesValue(context!!, SHARED_LATITUDE),
-                    longitude = getSharedPreferencesValue(context!!, SHARED_LONGITUDE)
+                    longitude = getSharedPreferencesValue(context!!, SHARED_LONGITUDE),
+                    createdDate = date
                 )
 
                 mainViewModel!!.postCart(cart).observe(viewLifecycleOwner, Observer {

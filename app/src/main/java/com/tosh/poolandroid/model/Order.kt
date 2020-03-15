@@ -3,6 +3,7 @@ package com.tosh.poolandroid.model
 data class Order(
     val cartItems: List<CartItem>,
     val cost: Double,
+    val createdDate: String,
     val deliveryCost: Double,
     val latitude: String,
     val longitude: String,
