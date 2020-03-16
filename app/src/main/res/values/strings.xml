@@ -138,5 +138,8 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="phone">Phone number</string>
+    <string name="_01_january_1990">1 January 1990</string>
+    <string name="delivered">Delivered</string>
+    <string name="inprogress">In Progress</string>
 
 </resources>

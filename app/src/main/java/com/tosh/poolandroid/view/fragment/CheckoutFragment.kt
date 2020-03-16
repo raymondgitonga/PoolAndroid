@@ -70,8 +70,6 @@ class CheckoutFragment : BaseFragment() {
 
         mpesaNumber.setText(getSharedPreferencesValue(context!!, Constants.SHARED_PHONE))
 
-
-
         checkoutTotal = arguments?.getString("CHECKOUT_TOTAL")!!
         total = arguments?.getString("TOTAL")!!
         latitude = getSharedPreferencesValue(context!!, SHARED_LATITUDE)
@@ -207,6 +205,8 @@ class CheckoutFragment : BaseFragment() {
                                 if (it == "Success") {
                                     mainViewModel!!.deleteCart()
                                     val ordersFragment = OrdersFragment()
+                                    val bundle = Bundle()
+                                    bundle.putInt("USER_ID", id!!)
                                     val transaction = activity!!.supportFragmentManager.beginTransaction()
                                     transaction.replace(R.id.details_fragment, ordersFragment)
                                     transaction.commit()
