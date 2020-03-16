@@ -369,7 +369,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         return cartItemResponse
     }
 
-    fun getOrders(userId: Int): MutableLiveData<List<Order>>{
+    fun getOrders(userId: Int, orderId:Int?): MutableLiveData<List<Order>>{
         val orders: MutableLiveData<List<Order>> = MutableLiveData()
 
         disposable.add(
@@ -378,7 +378,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        orders.value = it
+                        it.forEach {order->
+                            if (order.orderNumber == orderId){
+                                orders.value = listOf(order)
+                            }else{
+                                orders.value = it
+                            }
+                        }
                     },
                     {
                         //error

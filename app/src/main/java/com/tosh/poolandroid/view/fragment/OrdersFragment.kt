@@ -58,7 +58,7 @@ class OrdersFragment : Fragment() {
 
         ordersRv!!.layoutManager = linearLayoutManager
 
-        mainViewModel!!.getOrders(userId).observe(viewLifecycleOwner, Observer {
+        mainViewModel!!.getOrders(userId, null).observe(viewLifecycleOwner, Observer {
             ordersProgress.visibility = GONE
             orderAdapter = OrderAdapter(it, context!!)
             ordersRv!!.adapter = orderAdapter
