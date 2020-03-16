@@ -1,7 +1,6 @@
 package com.tosh.poolandroid.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
@@ -17,9 +15,8 @@ import com.tosh.poolandroid.view.activity.MainActivity
 import com.tosh.poolandroid.view.adapter.OrderAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_orders.*
-import java.util.*
 
-class OrdersFragment : Fragment() {
+class OrdersFragment() : Fragment() {
 
     private var mainViewModel: MainViewModel? = null
     private var userId: Int? = null
@@ -65,4 +62,28 @@ class OrdersFragment : Fragment() {
         })
 
     }
+
+//    private fun openDetailsFragment(){
+//        var orderNumber: Int? = null
+//        orderAdapter?.setOnItemClickListener(object : OrderAdapter.OnItemClickListener{
+//            override fun onItemClick(orderModel: List<Order>) {
+//                val fragmentOrderDetails = OrderDetailsFragment()
+//                val fragmentManager = activity!!.supportFragmentManager
+//                val fragmentTransaction = fragmentManager.beginTransaction()
+//
+//                orderModel.forEach {
+//                    orderNumber = it.orderNumber
+//                }
+//
+//                val bundle = Bundle()
+//                bundle.putInt("ORDER_ID",orderNumber!!)
+//                Log.e("NOOOOO--->", " $orderNumber")
+//                fragmentOrderDetails.arguments = bundle
+//                fragmentTransaction.replace(R.id.details_fragment, fragmentOrderDetails)
+//                fragmentTransaction.addToBackStack(null)
+//                fragmentTransaction.commit()
+//            }
+//
+//        })
+//    }
 }

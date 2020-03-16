@@ -1,13 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.OrderDetailsFragment">
+    tools:context=".view.fragment.OrderDetailsFragment"
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/driverDetailsRl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/driverImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile_picture"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/driverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tosh Gitonga"
+            android:textSize="12sp"
+            android:layout_below="@+id/driverImg"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/driverPlate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="KCW 000f"
+            android:textSize="12sp"
+            android:layout_below="@+id/driverName"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderDetailsRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/totalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/totalDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3000"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/totalTv"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/deliveryTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Cost"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/deliveryCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/deliveryTv"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/priceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grand Total"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/deliveryGrandTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3150"
+            android:textColor="@color/black"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/priceTv"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

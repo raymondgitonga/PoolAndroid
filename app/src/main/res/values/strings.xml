@@ -141,5 +141,6 @@
     <string name="_01_january_1990">1 January 1990</string>
     <string name="delivered">Delivered</string>
     <string name="inprogress">In Progress</string>
+    <string name="delivery_fee_150">Delivery fee: 150</string>
 
 </resources>

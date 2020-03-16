@@ -29,11 +29,7 @@ class VendorAdapter(private val vendorModel: List<Vendor>) : RecyclerView.Adapte
             vendorModel[position].img_url,
             getProgressDrawable(holder.vendorImage.context)
         )
-
-
         holder.vendor = listOf(vendor)
-
-
     }
 
     override fun getItemCount(): Int {

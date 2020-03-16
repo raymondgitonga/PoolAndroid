@@ -1,17 +1,19 @@
 package com.tosh.poolandroid.view.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.tosh.poolandroid.R
 import com.tosh.poolandroid.model.Order
 import com.tosh.poolandroid.util.getAddress
+import com.tosh.poolandroid.view.fragment.OrderDetailsFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,12 +48,24 @@ class OrderAdapter(private val orderModel: List<Order>, private val context: Con
             holder.completedLl.visibility = VISIBLE
         }
 
+        holder.itemView.setOnClickListener {
+            val fragmentOrderDetails = OrderDetailsFragment()
+            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            val bundle = Bundle()
+            bundle.putInt("ORDER_ID",order.orderNumber)
+            fragmentOrderDetails.arguments = bundle
+            fragmentTransaction.replace(R.id.details_fragment, fragmentOrderDetails)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+
+
+        }
+
     }
 
     class OrderView(itemView: View, var order: List<Order>) : RecyclerView.ViewHolder(itemView) {
-        val driverImg = itemView.findViewById<ImageView>(R.id.driverImg)
-        val driverName = itemView.findViewById<TextView>(R.id.driverName)
-        val driverPlate = itemView.findViewById<TextView>(R.id.driverPlate)
         val deliveryLocation = itemView.findViewById<TextView>(R.id.deliveryLocation)
         val deliveryPrice = itemView.findViewById<TextView>(R.id.deliveryPrice)
         val deliverDate = itemView.findViewById<TextView>(R.id.deliverDate)

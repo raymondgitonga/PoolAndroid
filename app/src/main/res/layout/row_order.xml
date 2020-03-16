@@ -1,181 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:card_view="http://schemas.android.com/tools"
-    card_view:cardBackgroundColor="#F7FAF4"
+    android:layout_margin="8dp"
     android:background="#F7FAF4"
     app:cardCornerRadius="12dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="16dp"
     app:cardElevation="16dp"
-    android:layout_margin="4dp">
+    card_view:cardBackgroundColor="#F7FAF4"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="16dp">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <RelativeLayout
-        android:id="@+id/driverDetailsRl"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/driverImg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/profile_picture"
-            android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp">
 
-        <TextView
-            android:id="@+id/driverName"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/location" />
+
+            <TextView
+                android:id="@+id/deliveryLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_marginStart="12dp"
+                android:text="Kasarani Police Station"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tosh Gitonga"
-            android:textSize="12sp"
-            android:layout_below="@+id/driverImg"
-            android:layout_centerInParent="true"/>
+            android:layout_margin="4dp">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/driverPlate"
+            <TextView
+                android:id="@+id/deliveryPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="440 KES"
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+
+
+        <FrameLayout
+            android:id="@+id/layoutDate"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/round_white"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_date" />
+
+            <TextView
+                android:id="@+id/deliverDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/_01_january_1990"
+                android:textColor="@color/black"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/completed"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="KCW 000f"
-            android:textSize="12sp"
-            android:layout_below="@+id/driverName"
-            android:layout_centerInParent="true"/>
+            android:background="@color/colorPrimaryLight"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDate">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:text="@string/delivered"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/location"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverDetailsRl" />
-
-    <TextView
-        android:id="@+id/deliveryLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Kasarani Police Station"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/driverDetailsRl" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Price"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/deliveryPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:text="440 KES"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <FrameLayout
-        android:id="@+id/layoutDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/round_white"
-        android:padding="5dp"
-        android:layout_margin="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_date" />
-
-        <TextView
-            android:id="@+id/deliverDate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/inProgress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/_01_january_1990"
-            android:textColor="#606060" />
-    </FrameLayout>
+            android:layout_marginTop="4dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDate">
 
-    <LinearLayout
-        android:id="@+id/completed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutDate"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:text="@string/inprogress"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delivered"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:layout_margin="4dp"
-            android:layout_gravity="center"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/inProgress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutDate"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/inprogress"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_margin="4dp"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
