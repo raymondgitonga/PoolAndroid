@@ -16,10 +16,9 @@ import com.tosh.poolandroid.view.adapter.OrderAdapter
 import com.tosh.poolandroid.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_orders.*
 
-class OrdersFragment() : Fragment() {
+class OrdersFragment : Fragment() {
 
     private var mainViewModel: MainViewModel? = null
-    private var userId: Int? = null
     private var ordersRv: RecyclerView? = null
     private var orderAdapter: OrderAdapter? = null
 
@@ -62,28 +61,4 @@ class OrdersFragment() : Fragment() {
         })
 
     }
-
-//    private fun openDetailsFragment(){
-//        var orderNumber: Int? = null
-//        orderAdapter?.setOnItemClickListener(object : OrderAdapter.OnItemClickListener{
-//            override fun onItemClick(orderModel: List<Order>) {
-//                val fragmentOrderDetails = OrderDetailsFragment()
-//                val fragmentManager = activity!!.supportFragmentManager
-//                val fragmentTransaction = fragmentManager.beginTransaction()
-//
-//                orderModel.forEach {
-//                    orderNumber = it.orderNumber
-//                }
-//
-//                val bundle = Bundle()
-//                bundle.putInt("ORDER_ID",orderNumber!!)
-//                Log.e("NOOOOO--->", " $orderNumber")
-//                fragmentOrderDetails.arguments = bundle
-//                fragmentTransaction.replace(R.id.details_fragment, fragmentOrderDetails)
-//                fragmentTransaction.addToBackStack(null)
-//                fragmentTransaction.commit()
-//            }
-//
-//        })
-//    }
 }
