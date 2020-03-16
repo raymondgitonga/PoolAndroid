@@ -46,6 +46,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/orderReceipts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,6 +78,8 @@
             android:layout_toEndOf="@+id/totalTv"/>
 
     </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -121,6 +131,13 @@
 
     </RelativeLayout>
 
+    </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/orderDetailsProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
