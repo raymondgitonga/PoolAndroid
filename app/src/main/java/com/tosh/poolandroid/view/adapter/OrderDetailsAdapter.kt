@@ -20,7 +20,6 @@ class OrderDetailsAdapter(private val orderModel: List<Order>, private val conte
     override fun getItemCount(): Int = orderModel.size
 
     override fun onBindViewHolder(holder: OrderDetailsView, position: Int) {
-        val order = orderModel[position]
         val cart = orderModel[position].cartItems
 
         cart.forEach {
