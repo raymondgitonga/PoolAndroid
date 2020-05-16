@@ -81,7 +81,9 @@ class PlacesFragment : BaseDialogFragment() {
 
                 btnPlaces.setOnClickListener {
                     addLocationPreferences(context!!, latitiude, longitude)
-                    place.name?.let { placeName -> newLocation.invoke(placeName) }
+                    place.name?.let {
+                            placeName -> newLocation.invoke(placeName)
+                    }
                     arrLatLon?.let{ latlon -> newLatLon.invoke(latlon)}
                     dismiss()
                 }

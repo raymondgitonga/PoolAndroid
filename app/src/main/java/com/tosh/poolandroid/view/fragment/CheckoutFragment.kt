@@ -101,7 +101,7 @@ class CheckoutFragment : BaseFragment() {
             for (i in userEntities.indices) {
                 val mpesaRequest = MpesaRequest(
                     amount = amount,
-                    phone = "254$newPhone",
+                    phone = newPhone,
                     timestamp = date
                 )
                 makeMpesaRequest(mpesaRequest)
@@ -125,11 +125,11 @@ class CheckoutFragment : BaseFragment() {
             if (it == "Success") {
                 progressCheckout.visibility = GONE
                 Toasty.success(context!!, "Order Successfull", Toast.LENGTH_SHORT).show()
+                postCart()
             } else {
                 progressCheckout.visibility = GONE
                 Toasty.error(context!!, "Payment not successful, check account", Toast.LENGTH_SHORT)
                     .show()
-                postCart()
             }
         })
     }
